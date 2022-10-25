@@ -1,5 +1,7 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.meals;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +22,8 @@ public class MealController {
     }
 
     @PostMapping
-    public Meal addMeal(@RequestBody Meal newMeal) {
-        return mealService.addMeal(newMeal);
+    public ResponseEntity<Meal> addMeal(@RequestBody Meal newMeal) {
+        return new ResponseEntity<Meal>(mealService.addMeal(newMeal), HttpStatus.CREATED);
     }
 }
 
