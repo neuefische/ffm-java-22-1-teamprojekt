@@ -6,14 +6,15 @@ import java.util.List;
 
 @Component
 public class EmployeeRepo {
-    List<EmployeeCard> employeeList = new ArrayList<>(List.of(
-            new EmployeeCard("1","Marc"),
-            new EmployeeCard("2","Chris"),
-            new EmployeeCard("3","Dennis")
-    ));
+    List<Employee> employeeList = new ArrayList<>();
 
-    public List<EmployeeCard> getAll() {
+    public List<Employee> getAll() {
         return employeeList;
+    }
+
+    public Employee addEmployee(Employee saveEmployee) {
+        employeeList.add(saveEmployee);
+        return saveEmployee;
     }
 }
 
