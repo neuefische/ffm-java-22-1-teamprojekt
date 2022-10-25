@@ -1,6 +1,4 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.employee;
-
-import de.neuefische.ffmjava221.teamprojekt.backend.meals.Meal;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
@@ -17,6 +15,7 @@ class EmployeeServiceTest {
     EmployeeService employeeService = new EmployeeService(employeeRepo, employeeUtils);
 
     @Test
+    @DirtiesContext
     void getAllEmployeesTEST() {
         //given
         List<Employee> testEmployees = new ArrayList<>();
@@ -28,6 +27,7 @@ class EmployeeServiceTest {
     }
 
     @Test
+    @DirtiesContext
     void addEmployeeTEST() {
         //given
         String id = "123";
