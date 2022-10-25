@@ -10,7 +10,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -28,7 +27,7 @@ public class PlacementIntegrationTest {
 
     @Test
     @DirtiesContext
-    public void getAllPlacements() throws Exception {
+    public void getAllPlacementsWithEmptyList() throws Exception {
         String content = mvc.perform(MockMvcRequestBuilders.get("/api/placements"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();

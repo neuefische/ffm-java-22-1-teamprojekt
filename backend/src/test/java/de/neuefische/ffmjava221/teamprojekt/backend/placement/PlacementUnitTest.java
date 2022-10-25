@@ -24,7 +24,6 @@ class PlacementUnitTest {
         List<Placement> result = testService.getAllPlacements();
 
         assertTrue(result.isEmpty());
-        // assertEquals(0,result.size());
     }
 
     @Test
