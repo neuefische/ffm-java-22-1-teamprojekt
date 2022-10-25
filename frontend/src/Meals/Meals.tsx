@@ -25,9 +25,13 @@ export default function Meals() {
     return (
         <section>
             <h1>Meals</h1>
-            {
-                //Liste...
-            }
+            <ul>
+                {
+                    meals.map(meal => {
+                        return <li>{meal.name}</li>
+                    })
+                }
+            </ul>
             <form>
                 <input/>
                 <button></button>
