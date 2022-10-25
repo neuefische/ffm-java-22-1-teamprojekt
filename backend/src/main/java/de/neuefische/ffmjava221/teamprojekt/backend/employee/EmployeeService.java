@@ -8,9 +8,12 @@ import java.util.List;
 public class EmployeeService {
 
     private final EmployeeRepo employeeRepo;
+    private final EmployeeUtils employeeUtils;
 
-    public EmployeeService(EmployeeRepo employeeRepo) {
+    public EmployeeService(EmployeeRepo employeeRepo,
+                           EmployeeUtils employeeUtils) {
         this.employeeRepo = employeeRepo;
+        this.employeeUtils= employeeUtils;
     }
 
     public List<Employee> getAllEmployees() {
@@ -18,7 +21,7 @@ public class EmployeeService {
     }
 
     public Employee addEmployee(Employee employee) {
-        String id = EmployeeUtils.generateUUID();
+        String id = employeeUtils.generateUUID();
         Employee saveEmployee = employee.withID(id);
         return employeeRepo.addEmployee(saveEmployee);
     }
