@@ -5,7 +5,7 @@ import EmployeeOverview from "./employee/EmployeeOverview";
 
 export default function App() {
     return <>
-       <h1>Willkommen bei HackDonald's - Ich liebe es!</h1>
+        <h1>Willkommen bei HackDonald's - Ich liebe es!</h1>
         <Meals/>
         <EmployeeOverview />
     </>
