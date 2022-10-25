@@ -18,6 +18,6 @@ public class EmployeeController {
 
     @GetMapping
     List<EmployeeCard> getAllEmployees() {
-        return employeeService.getAll();
+        return employeeService.getAllEmployees();
     }
 }
