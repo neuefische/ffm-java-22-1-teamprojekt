@@ -1,5 +1,6 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.employee;
 
+import de.neuefische.ffmjava221.teamprojekt.backend.meals.Meal;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
@@ -7,14 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class EmployeeServiceTest {
-    EmployeeService employeeService = mock(EmployeeService.class);
+
     EmployeeUtils employeeUtils = mock(EmployeeUtils.class);
     EmployeeRepo employeeRepo = mock(EmployeeRepo.class);
-
+    EmployeeService employeeService = new EmployeeService(employeeRepo, employeeUtils);
 
     @Test
     void getAllEmployeesTEST() {
@@ -22,7 +22,6 @@ class EmployeeServiceTest {
         List<Employee> testEmployees = new ArrayList<>();
         //when
         List<Employee> actual = employeeService.getAllEmployees();
-
         //then
         List<Employee> expected = testEmployees;
         assertEquals(expected, actual);
@@ -30,34 +29,15 @@ class EmployeeServiceTest {
 
     @Test
     void addEmployeeTEST() {
-        String id = EmployeeUtils.generateUUID();
-        System.out.println("UUID: " + id);
-
         //given
-        Employee employee = new Employee(id, "Hasi");
-        employeeService.addEmployee(employee);
-        System.out.println("Employee :" + employee);
-
-//        when(employeeUtils.generateUUID()).thenReturn(id);
-        Employee actual = employeeService.getAllEmployees().get(0);
-
-        //String actual = employeeService.toString();
-//        Employee actual = employee;
-
+        String id = "123";
+        Employee employeeWithId = new Employee(id, "Hasi");
+        Employee employeeWithoutId = new Employee(null, "Hasi");
+        //when
+        when(employeeUtils.generateUUID()).thenReturn(id);
+        when(employeeRepo.addEmployee(employeeWithId)).thenReturn(employeeWithId);
+        Employee actual = employeeService.addEmployee(employeeWithoutId);
         //then
-        Employee expected = employee;
-        assertEquals(expected, actual);
+        assertEquals(employeeWithId, actual);
     }
-
-    @Test
-    @DirtiesContext
-    void addEmployee2Test(){
-        //EmployeeService employeeService1 = new EmployeeService()
-        //GIVEN
-        //when(employeeUtils.)
-        //WHEN
-        //THEN
-    }
-
-    
 }
