@@ -16,10 +16,10 @@ export default function App() {
         <EmployeeOverview/>
         <PlacementPage/>
         <HashRouter>
-            <Routes>
-                <Route path="/GuestProfile" element={<GuestProfile/>}></Route>
-                <Route path="/RegisterForm" element={<RegisterForm/>}></Route>
-            </Routes>
+        <Routes>
+            <Route path="/GuestProfile" element={<GuestProfile/>}></Route>
+            <Route path="/RegisterForm" element={<RegisterForm />}></Route>
+        </Routes>
             <Navigation/>
         </HashRouter>
     </>

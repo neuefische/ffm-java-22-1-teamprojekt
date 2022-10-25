@@ -1,15 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import axios from "axios";
-import {GuestModel} from "./GuestModel";
 
-
-//type RegisterFormProps = {
-//    guests: GuestModel
-//}
-
-function RegisterForm() {
-
-    //const [guestList, setGuests] = useState<GuestModel[]>([])
+export default function RegisterForm() {
 
     const postForm = () => {
         axios.post("/api/guests", {
@@ -77,5 +69,3 @@ function RegisterForm() {
     );
 }
 
-
-export default RegisterForm;
