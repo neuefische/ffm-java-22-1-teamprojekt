@@ -1,8 +1,6 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.employee;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +15,12 @@ public class EmployeeController {
     }
 
     @GetMapping
-    List<EmployeeCard> getAllEmployees() {
+    List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
+    }
+
+    @PostMapping
+    Employee addEmployee(@RequestBody Employee employee) {
+        return employeeService.addEmployee(employee);
     }
 }
