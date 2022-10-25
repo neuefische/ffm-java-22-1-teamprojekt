@@ -4,13 +4,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class MealService {
 
     private final MealRepository mealRepository;
+    private final ServiceUtils serviceUtils;
 
-    public MealService(MealRepository mealRepository) {
+    public MealService(MealRepository mealRepository, ServiceUtils serviceUtils) {
         this.mealRepository = mealRepository;
+        this.serviceUtils = serviceUtils;
     }
 
     public List<Meal> getAllMeals(){
@@ -18,4 +21,8 @@ public class MealService {
     }
 
 
+    public Meal addMeal(Meal newMeal) {
+        String id = serviceUtils.generateUUID();
+        return mealRepository.addMeal(newMeal.withId(id));
+    }
 }
