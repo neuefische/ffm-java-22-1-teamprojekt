@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import {MealModel} from "./MealModel";
 import axios from "axios";
 
@@ -7,7 +7,8 @@ import axios from "axios";
 
 export default function Meals() {
 
-    const[meals, setMeals] = useState<MealModel[]>([]);
+    const[meals, setMeals] = useState<MealModel[]>([])
+    const[mealName, setMealName] = useState<string>("")
 
     const fetchAllMeals = () => {
         axios.get("/api/meals")
@@ -16,9 +17,20 @@ export default function Meals() {
             .then(data => setMeals(data))
     }
 
-
     useEffect(fetchAllMeals, [])
 
+    const handleNewMealName = (event: ChangeEvent<HTMLInputElement>) => {
+        setMealName(event.target.value)
+    }
+
+    const handleAddMealSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        axios.post("/api/meals", {
+            name: mealName
+            })
+            .catch((error) => console.log("POST Error: " + error))
+        setMealName("")
+    }
 
     return (
         <section>
@@ -30,9 +42,9 @@ export default function Meals() {
                     })
                 }
             </ul>
-            <form>
-                <input/>
-                <button>Add Meal</button>
+            <form onSubmit={handleAddMealSubmit}>
+                <input value={mealName} onChange={handleNewMealName}/>
+                <button type={"submit"}>Add Meal</button>
             </form>
         </section>
     );
