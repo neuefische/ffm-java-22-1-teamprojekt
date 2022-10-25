@@ -17,9 +17,7 @@ export default function Meals() {
     }
 
 
-    useEffect(() => {
-        fetchAllMeals()
-    }, [])
+    useEffect(fetchAllMeals, [])
 
 
     return (
@@ -34,7 +32,7 @@ export default function Meals() {
             </ul>
             <form>
                 <input/>
-                <button></button>
+                <button>Add Meal</button>
             </form>
         </section>
     );
