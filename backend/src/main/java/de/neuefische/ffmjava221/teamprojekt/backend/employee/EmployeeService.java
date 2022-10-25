@@ -13,7 +13,8 @@ public class EmployeeService {
         this.employeeRepo = employeeRepo;
     }
 
-    public List<EmployeeCard> getAll() {
+
+    public List<EmployeeCard> getAllEmployees() {
         return employeeRepo.getAll();
     }
 }

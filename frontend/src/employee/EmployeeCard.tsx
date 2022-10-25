@@ -6,8 +6,7 @@ type employeeProps = {
 }
 
 export default function EmployeeCard(props: employeeProps) {
-    return (<>
+    return <>
         <li>Name: {props.employee.name} ID: {props.employee.id}</li>
     </>
-    );
 }

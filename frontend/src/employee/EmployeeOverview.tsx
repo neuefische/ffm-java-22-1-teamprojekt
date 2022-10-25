@@ -22,10 +22,8 @@ export default function EmployeeOverview() {
         return <EmployeeCard employee={employee} />
     })
 
-    return (
-        <>
+    return <>
         <h1>Employees</h1>
         {employeeList}
     </>
-    )
 }
