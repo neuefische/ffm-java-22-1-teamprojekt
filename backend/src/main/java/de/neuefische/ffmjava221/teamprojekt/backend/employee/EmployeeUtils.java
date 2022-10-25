@@ -7,13 +7,8 @@ import java.util.UUID;
 @Component
 public class EmployeeUtils {
 
-    public String generateUUID() {
+    static String generateUUID() {
         UUID randomID = UUID.randomUUID();
         return randomID.toString();
     }
-//    public String test(){
-//        //UUID randomID = UUID.randomUUID();
-//        //return randomID.toString();
-//        return "123";
-//    }
 }

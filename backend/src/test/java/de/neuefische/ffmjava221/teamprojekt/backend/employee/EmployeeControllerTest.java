@@ -34,9 +34,28 @@ class EmployeeControllerTest {
                 .andExpect(content().json("[]"));
     }
 
+//    @DirtiesContext
+//    @Test
+//    void postEmployeeTEST() throws Exception{
+//        //GIVEN
+//        String expected = objectMapper.writeValueAsString(List.of(
+//                new EmployeeCard(EmployeeUtils.generateUUID().toString(), "horst")
+//        ));
+//
+//        MockMvcRequestBuilders.post("/api/employees"){
+//
+//        };
+//
+//        //WHEN
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/employees/"))
+//                //THEN
+//                .andExpect(status().isOk())
+//                .andExpect(content().json(expected));
+//    }
+
     @DirtiesContext
     @Test
-    void addEmployeeReturnsEmployeeWithID() throws Exception {
+    void addEmployeeReturnsEmplyeeWithID() throws Exception {
         //given
         String content = mockMvc.perform(MockMvcRequestBuilders.post("/api/employees")
 
