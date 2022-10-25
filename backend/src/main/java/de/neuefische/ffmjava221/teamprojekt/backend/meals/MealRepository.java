@@ -15,4 +15,9 @@ public class MealRepository {
     public  List<Meal> getAllMeals(){
         return meals;
     }
+
+    public Meal addMeal(Meal newMeal) {
+        meals.add(newMeal);
+        return newMeal;
+    }
 }

@@ -1,6 +1,6 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.meals;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
