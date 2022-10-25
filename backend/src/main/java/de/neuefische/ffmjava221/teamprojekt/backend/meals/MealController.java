@@ -25,5 +25,10 @@ public class MealController {
     public ResponseEntity<Meal> addMeal(@RequestBody Meal newMeal) {
         return new ResponseEntity<Meal>(mealService.addMeal(newMeal), HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Meal> updateMeal(@PathVariable String id, @RequestBody Meal meal){
+        return new ResponseEntity<Meal>(mealService.updateMeal(id, meal), HttpStatus.CREATED);
+    }
 }
 

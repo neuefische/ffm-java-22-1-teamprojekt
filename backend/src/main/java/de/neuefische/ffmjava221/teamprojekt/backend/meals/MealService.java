@@ -25,4 +25,8 @@ public class MealService {
         String id = serviceUtils.generateUUID();
         return mealRepository.addMeal(newMeal.withId(id));
     }
+
+    public Meal updateMeal(String id, Meal meal) {
+        return meal;
+    }
 }
