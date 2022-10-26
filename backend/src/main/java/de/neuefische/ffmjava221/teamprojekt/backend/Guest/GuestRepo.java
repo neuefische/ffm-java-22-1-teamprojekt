@@ -9,6 +9,10 @@ public class GuestRepo {
 
     private List<Guest> guests = new ArrayList<>();
 
+    public GuestRepo(List<Guest> guests) {
+    }
+
+
     public Guest addGuestData(Guest guest) {
         guests.add(guest);
         return guest;
