@@ -18,8 +18,8 @@ public class PlacementService {
         return placementRepo.getAllPlacement();
     }
 
-    public Placement addNewPlacement(NewPlacementData newData) {
-        return placementRepo.addNewPlacement(newData);
+    public Placement addNewPlacement(NewPlacementData requestPlacement) {
+        return placementRepo.addNewPlacement(requestPlacement);
     }
 
 }
