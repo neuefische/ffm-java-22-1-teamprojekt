@@ -21,33 +21,18 @@ export default function Meals() {
 
     useEffect(fetchAllMeals, [])
 
-    const handleNewMealName = (event: ChangeEvent<HTMLInputElement>) => {
-        setMealName(event.target.value)
-    }
 
-    const handleAddMealSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        axios.post("/api/meals", {
-            name: mealName
-            })
-            .catch((error) => console.log("POST Error: " + error))
-        setMealName("")
-    }
 
     return (
         <section>
             <h1>Meals</h1>
-            <ul>
-                {
-                    meals.map(meal => {
-                        return <li>{meal.name}</li>
-                    })
-                }
-            </ul>
-            <form onSubmit={handleAddMealSubmit}>
-                <input value={mealName} onChange={handleNewMealName}/>
-                <button type={"submit"}>Add Meal</button>
-            </form>
+            <HashRouter>
+                <Routes>
+                    <Route path={"/"} element={<MealBoard fetchAllMeals={fetchAllMeals} meals={meals}/>}/>
+                    <Route path={"/:id"} element={<MealPage fetchAllMeals={fetchAllMeals} meals={meals}/>}/>
+                </Routes>
+            </HashRouter>
+
         </section>
     );
 }
