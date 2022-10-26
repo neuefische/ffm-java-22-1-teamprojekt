@@ -45,4 +45,56 @@ class MealServiceTest {
         // THEN
         assertEquals(expected, actual);
     }
+
+    @Test
+    void updateMealWithIndexMinus1ReturnsNewMeal() {
+        // GIVEN
+        Meal newMeal = new Meal("1","Wurst");
+        when(mealRepository.addMeal(newMeal)).thenReturn(newMeal);
+
+        // WHEN
+        Meal actual = mealService.updateMeal(-1, newMeal);
+
+        // THEN
+        assertEquals(newMeal, actual);
+    }
+
+    @Test
+    void updateMealWithIndex0ReturnsNewMeal() {
+        // GIVEN
+        Meal newMeal = new Meal("1","Wurst");
+        when(mealRepository.updateMeal(0,newMeal)).thenReturn(newMeal);
+
+        // WHEN
+        Meal actual = mealService.updateMeal(0, newMeal);
+
+        // THEN
+        assertEquals(newMeal, actual);
+    }
+
+    @Test
+    void getIndexOfIdReturnsMinus1() {
+        // GIVEN
+        List<Meal> meals = new ArrayList<>();
+        String id = "123";
+        when(mealRepository.getAllMeals()).thenReturn(meals);
+        // WHEN
+        int actual = mealService.getIndexOfId(id);
+        int expected = -1;
+        // THEN
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getIndexOfIdReturns0() {
+        // GIVEN
+        List<Meal> meals = new ArrayList<>(List.of(new Meal("1","Wurst")));
+        String id = "1";
+        when(mealRepository.getAllMeals()).thenReturn(meals);
+        // WHEN
+        int actual = mealService.getIndexOfId(id);
+        int expected = 0;
+        // THEN
+        assertEquals(expected, actual);
+    }
 }

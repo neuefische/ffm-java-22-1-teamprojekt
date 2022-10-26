@@ -22,13 +22,18 @@ public class MealController {
     }
 
     @PostMapping
-    public ResponseEntity<Meal> addMeal(@RequestBody Meal newMeal) {
-        return new ResponseEntity<Meal>(mealService.addMeal(newMeal), HttpStatus.CREATED);
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Meal addMeal(@RequestBody Meal newMeal) {
+        return mealService.addMeal(newMeal);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Meal> updateMeal(@PathVariable String id, @RequestBody Meal meal){
-        return new ResponseEntity<Meal>(mealService.updateMeal(id, meal), HttpStatus.CREATED);
+
+        int index = mealService.getIndexOfId(id);
+        Meal newMeal = mealService.updateMeal(index, meal);
+        boolean mealExists = (index>=0);
+        return mealExists ? new ResponseEntity<>(newMeal,HttpStatus.OK) : new ResponseEntity<>(newMeal,HttpStatus.CREATED);
     }
 }
 
