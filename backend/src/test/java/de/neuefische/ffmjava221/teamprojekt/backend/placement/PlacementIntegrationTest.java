@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PlacementIntegrationTest {
+class PlacementIntegrationTest {
 
     @Autowired
     private MockMvc mvc;
@@ -27,7 +27,7 @@ public class PlacementIntegrationTest {
 
     @Test
     @DirtiesContext
-    public void getAllPlacementsWithEmptyList() throws Exception {
+    void getAllPlacementsWithEmptyList() throws Exception {
         String content = mvc.perform(MockMvcRequestBuilders.get("/api/placements"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
