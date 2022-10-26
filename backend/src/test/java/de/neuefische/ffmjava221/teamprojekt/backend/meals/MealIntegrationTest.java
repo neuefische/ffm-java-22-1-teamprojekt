@@ -106,4 +106,18 @@ class MealIntegrationTest {
                         }
                         """));
     }
+
+    @Test
+    @DirtiesContext
+    void updateMealWithNotMatchingIdAndExpect400() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/meals/2")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "id": "1",
+                                    "name": "Banane"
+                                }
+                                """))
+                .andExpect(status().is(400));
+    }
 }
