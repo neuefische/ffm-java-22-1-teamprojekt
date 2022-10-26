@@ -29,4 +29,15 @@ public class MealService {
     public Meal updateMeal(String id, Meal meal) {
         return meal;
     }
+
+    public int getIndexOfId(String id) {
+        List<Meal> meals = mealRepository.getAllMeals();
+        for(Meal meal: meals) {
+            if(meal.id().equals(id)){
+                return meals.indexOf(meal);
+            }
+        }
+        return -1;
+    }
+
 }
