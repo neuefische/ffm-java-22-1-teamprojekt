@@ -29,11 +29,12 @@ public class MealController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Meal> updateMeal(@PathVariable String id, @RequestBody Meal meal){
-
-        int index = mealService.getIndexOfId(id);
-        Meal newMeal = mealService.updateMeal(index, meal);
-        boolean mealExists = (index>=0);
-        return mealExists ? new ResponseEntity<>(newMeal,HttpStatus.OK) : new ResponseEntity<>(newMeal,HttpStatus.CREATED);
+        if (meal.id().equals(id)) {
+            int index = mealService.getIndexOfId(id);
+                    Meal newMeal = mealService.updateMeal(index, meal);
+                    boolean mealExists = (index>=0);
+                    return mealExists ? new ResponseEntity<>(newMeal,HttpStatus.OK) : new ResponseEntity<>(newMeal,HttpStatus.CREATED);
+        } return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
 
