@@ -1,6 +1,5 @@
-package de.neuefische.ffmjava221.teamprojekt.backend;
+package de.neuefische.ffmjava221.teamprojekt.backend.guest;
 
-import de.neuefische.ffmjava221.teamprojekt.backend.Guest.*;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
