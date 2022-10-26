@@ -1,66 +1,65 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import axios from "axios";
 
 export default function RegisterForm() {
 
     const postForm = () => {
         axios.post("/api/guests", {
-            // JSON.stringify({firstName,lastName, birthday, email, password, confirmPassword}),
-            firstName:firstName,
-            lastName:lastName,
-            birthday:birthday,
-            email:email,
-            password:password,
-            confirmPassword:confirmPassword,
+            firstName,
+            lastName,
+            email,
+            password,
+            confirmPassword,
         })
-            .then((response) => response.data)
             .catch((error) => {
                 console.log("Error =>" + error)
             })
     }
 
-    const [firstName, setFirstName] = useState<string>("");
-    const [lastName, setLastName] = useState<string>("");
-    const [birthday, setBirthday] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [confirmPassword, setConfirmPassword] = useState<string>("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const handleFormSubmit = (event: ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
         postForm();
-        alert("Successful registration. Please proceed with login.")
     }
 
     return (
         <form onSubmit={handleFormSubmit}>
-            <label>First name:</label>
+            <label htmlFor="firstName">First name:</label>
             <input type='text'
+                   id="firstName"
                    value={firstName}
                    onChange={(e) => setFirstName(e.target.value)}
                    placeholder={"John"}/>
-            <label>Last name:</label>
+
+            <label htmlFor={"lastName"}>Last name:</label>
             <input type='text'
+                   id="lastName"
                    value={lastName}
                    onChange={(e) => setLastName(e.target.value)}
                    placeholder="Doe"/>
-            <label>Birthday:</label>
+
+            <label htmlFor={"email"}>E-Mail:</label>
             <input type='text'
-                   value={birthday}
-                   onChange={(e) => setBirthday(e.target.value)}
-                   placeholder="01.01.1999"/>
-            <label>E-Mail:</label>
-            <input type='text'
+                   id="email"
                    value={email}
                    onChange={(e) => setEmail(e.target.value)}
                    placeholder="abc@gmail.com"/>
-            <label>Password:</label>
+
+            <label htmlFor={"password"}>Password:</label>
             <input type='text'
+                   id="password"
                    value={password}
                    onChange={(e) => setPassword(e.target.value)}
                    placeholder="Bello123"/>
-            <label>ConfirmPassword:</label>
+
+            <label htmlFor={"confirmPassword"}>ConfirmPassword:</label>
             <input type='text'
+                   id="confirmPassword"
                    value={confirmPassword}
                    onChange={(e) => setConfirmPassword(e.target.value)}
                    placeholder="Bello123"/>

@@ -1,5 +1,4 @@
-package de.neuefische.ffmjava221.teamprojekt.backend.Guest;
-
+package de.neuefische.ffmjava221.teamprojekt.backend.guest;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 

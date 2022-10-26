@@ -1,5 +1,4 @@
-package de.neuefische.ffmjava221.teamprojekt.backend.Guest;
-
+package de.neuefische.ffmjava221.teamprojekt.backend.guest;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +7,6 @@ import java.util.List;
 public class GuestRepo {
 
     private List<Guest> guests = new ArrayList<>();
-
-    public GuestRepo(List<Guest> guests) {
-    }
 
     public Guest addGuestData(Guest guest) {
         guests.add(guest);

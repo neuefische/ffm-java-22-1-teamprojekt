@@ -1,4 +1,4 @@
-package de.neuefische.ffmjava221.teamprojekt.backend.Guest;
+package de.neuefische.ffmjava221.teamprojekt.backend.guest;
 
 import org.springframework.stereotype.Service;
 

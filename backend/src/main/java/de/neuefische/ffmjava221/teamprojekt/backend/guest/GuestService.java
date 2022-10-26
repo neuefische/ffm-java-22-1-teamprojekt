@@ -1,10 +1,9 @@
-package de.neuefische.ffmjava221.teamprojekt.backend.Guest;
+package de.neuefische.ffmjava221.teamprojekt.backend.guest;
 
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class GuestService {
