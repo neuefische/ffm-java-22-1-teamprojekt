@@ -9,4 +9,5 @@ public record Meal(String id, String name) {
     public Meal withId(String id) {
         return new Meal(id, this.name);
     }
+
 }
