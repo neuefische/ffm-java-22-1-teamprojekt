@@ -25,7 +25,7 @@ function MealPage(props: MealPageProps) {
     return (
         <section>
             <div>
-                <NavLink to={"/"}>Back</NavLink>
+                <NavLink onClick={props.fetchAllMeals} to={"/"}>Back</NavLink>
                 <h3>{mealToDisplay!.name}</h3>
                 <p>ID: {id}</p>
             </div>
