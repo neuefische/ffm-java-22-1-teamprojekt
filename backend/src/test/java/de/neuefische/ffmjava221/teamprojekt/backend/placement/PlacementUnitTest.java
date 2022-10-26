@@ -18,7 +18,7 @@ class PlacementUnitTest {
     private final PlacementService testService = new PlacementService(testRepo);
 
     @Test
-    public void getAllPlacementsAtBeginning() {
+    void getAllPlacementsAtBeginning() {
         when(testRepo.getAllPlacement()).thenReturn(new ArrayList<>());
 
         List<Placement> result = testService.getAllPlacements();
@@ -27,7 +27,7 @@ class PlacementUnitTest {
     }
 
     @Test
-    public void getAllPlacementsWithExistPlacements() {
+    void getAllPlacementsWithExistPlacements() {
         List<Placement> placements = new ArrayList<>(List.of(
                 new Placement(UUID.randomUUID().toString(), 1),
                 new Placement(UUID.randomUUID().toString(), 2),
