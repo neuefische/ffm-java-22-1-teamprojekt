@@ -14,9 +14,11 @@ public class PlacementRepo {
         return new ArrayList<>(placementMap.values());
     }
 
+
     public Placement addNewPlacement(NewPlacementData newPlacementData) {
         String newUuid = UUID.randomUUID().toString();
         Placement newPlacement = new Placement(newUuid, newPlacementData.getPlacementNr(), newPlacementData.getTotalSeats());
+
         placementMap.put(newPlacement.id(), newPlacement);
         return newPlacement;
     }
