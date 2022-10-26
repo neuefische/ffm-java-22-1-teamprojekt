@@ -13,7 +13,6 @@ class EmployeeServiceTest {
     EmployeeUtils employeeUtils = mock(EmployeeUtils.class);
     EmployeeRepo employeeRepo = mock(EmployeeRepo.class);
     EmployeeService employeeService = new EmployeeService(employeeRepo, employeeUtils);
-
     @Test
     @DirtiesContext
     void getAllEmployeesTEST() {

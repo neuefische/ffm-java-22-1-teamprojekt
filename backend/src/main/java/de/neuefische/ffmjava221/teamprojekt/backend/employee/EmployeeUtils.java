@@ -11,9 +11,4 @@ public class EmployeeUtils {
         UUID randomID = UUID.randomUUID();
         return randomID.toString();
     }
-//    public String test(){
-//        //UUID randomID = UUID.randomUUID();
-//        //return randomID.toString();
-//        return "123";
-//    }
 }
