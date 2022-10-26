@@ -6,5 +6,4 @@ import lombok.Data;
 public class NewPlacementData {
     private int placementNr;
     private int totalSeats;
-
 }
