@@ -10,19 +10,20 @@ import java.util.UUID;
 public class GuestService {
 
     private final GuestRepo guestRepo;
+    private ServiceUtils serviceUtils;
 
-    public GuestService(GuestRepo guestRepo) {
+    public GuestService(GuestRepo guestRepo, ServiceUtils serviceUtils) {
         this.guestRepo = guestRepo;
+        this.serviceUtils = serviceUtils;
     }
 
     public Guest addGuestData(NewGuest newGuest) {
-        String uuid = UUID.randomUUID().toString();
-//        System.out.println(uuid);
-        Guest guest = new Guest(uuid, newGuest.firstName(), newGuest.lastName(), newGuest.email(), newGuest.password(), newGuest.confirmPassword());
-        return guestRepo.addGuestData(guest);
+        String uuid = this.serviceUtils.generateUUID();
+        Guest guest = new Guest(newGuest.firstName(), newGuest.lastName(), newGuest.email(), newGuest.password(), newGuest.confirmPassword(), uuid);
+        return this.guestRepo.addGuestData(guest);
     }
 
     public List<Guest> getGuestList() {
-        return guestRepo.getGuestList();
+        return this.guestRepo.getGuestList();
     }
 }
