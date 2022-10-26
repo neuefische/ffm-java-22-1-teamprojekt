@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import axios from "axios"
 import EmployeeCard from "./EmployeeCard";
 import {EmployeeModel} from "./EmployeeModel";
@@ -6,6 +6,7 @@ import {EmployeeModel} from "./EmployeeModel";
 export default function EmployeeOverview() {
 
     const [employees, setEmployees] = useState<EmployeeModel[]>([])
+    const [newEmployee, setNewEmployee] = useState<string>("")
 
     useEffect(() => {
         getAllEmployees()
@@ -19,11 +20,27 @@ export default function EmployeeOverview() {
             .catch((error) => console.log(error))
 
     const employeeList = employees.map(employee => {
-        return <EmployeeCard employee={employee} />
+        return <EmployeeCard key={employee.id} employee={employee} />
     })
+
+    const postNewEmployee = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        axios.post('/api/employees', {name: newEmployee})
+            .catch((e) => console.log("POST ERROR: " + e))
+            .then(getAllEmployees)
+        setNewEmployee("")
+}
+
+    function handleStateEmployee(event: ChangeEvent<HTMLInputElement>) {
+        setNewEmployee(event.target.value)
+    }
 
     return <>
         <h1>Employees</h1>
-        {employeeList}
+        <ul>{employeeList}</ul>
+        <form onSubmit={postNewEmployee}>
+            <input type="text" value={newEmployee} onChange={handleStateEmployee} />
+            <button type="submit">Add Employee</button>
+        </form>
     </>
 }
