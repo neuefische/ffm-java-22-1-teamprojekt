@@ -23,4 +23,6 @@ public class EmployeeController {
     Employee addEmployee(@RequestBody NewEmployee newEmployee) {
         return employeeService.addEmployee(newEmployee);
     }
+
+    @DeleteMapping
 }
