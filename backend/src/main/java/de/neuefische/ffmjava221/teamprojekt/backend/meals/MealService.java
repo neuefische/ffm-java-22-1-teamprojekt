@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
+
 @Service
 public class MealService {
 
@@ -26,8 +27,12 @@ public class MealService {
         return mealRepository.addMeal(newMeal.withId(id));
     }
 
-    public Meal updateMeal(String id, Meal meal) {
-        return meal;
+    public Meal updateMeal(int index, Meal newMeal) {
+        if(index < 0) {
+            return mealRepository.addMeal(newMeal);
+        } else {
+            return mealRepository.updateMeal(index, newMeal);
+        }
     }
 
     public int getIndexOfId(String id) {

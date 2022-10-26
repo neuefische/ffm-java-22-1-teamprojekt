@@ -20,4 +20,9 @@ public class MealRepository {
         meals.add(newMeal);
         return newMeal;
     }
+
+    public Meal updateMeal(int index, Meal meal) {
+       meals.set(index, meal);
+       return meal;
+    }
 }
