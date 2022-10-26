@@ -3,6 +3,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @Component
 public class EmployeeRepo {
@@ -16,7 +18,14 @@ public class EmployeeRepo {
         employeeList.add(saveEmployee);
         return saveEmployee;
     }
+
+    public String deleteEmployee(String id) {
+        for (Employee employeeToDelete : employeeList){
+            if (Objects.equals(employeeToDelete.id(), id)) {
+                employeeList.remove(employeeToDelete);
+                return employeeToDelete.name() + " erfolgreich gelöscht";
+            }
+        }
+        throw new NoSuchElementException("Employee konnte nicht gelöscht werden");
+    }
 }
-
-
-

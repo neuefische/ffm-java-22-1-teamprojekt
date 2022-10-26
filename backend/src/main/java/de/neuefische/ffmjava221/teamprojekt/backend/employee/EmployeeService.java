@@ -25,4 +25,8 @@ public class EmployeeService {
         Employee saveEmployee = newEmployee.withId(id);
         return employeeRepo.addEmployee(saveEmployee);
     }
+
+    public String deleteEmployee(String id) {
+        return employeeRepo.deleteEmployee(id);
+    }
 }

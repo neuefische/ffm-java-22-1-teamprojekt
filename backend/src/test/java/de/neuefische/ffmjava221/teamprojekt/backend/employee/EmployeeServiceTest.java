@@ -21,8 +21,7 @@ class EmployeeServiceTest {
         //when
         List<Employee> actual = employeeService.getAllEmployees();
         //then
-        List<Employee> expected = testEmployees;
-        assertEquals(expected, actual);
+        assertEquals(testEmployees, actual);
     }
 
     @Test
@@ -38,5 +37,17 @@ class EmployeeServiceTest {
         Employee actual = employeeService.addEmployee(employeeWithoutId);
         //then
         assertEquals(employeeWithId, actual);
+    }
+
+    @Test
+    @DirtiesContext
+    void deleteEmployeeTEST() {
+        //given
+        String testToDeleteString = "UUIDFromController";
+        //when
+        String actual = employeeService.deleteEmployee(testToDeleteString);
+        //then
+        String expected = null;
+        assertEquals(expected, actual);
     }
 }
