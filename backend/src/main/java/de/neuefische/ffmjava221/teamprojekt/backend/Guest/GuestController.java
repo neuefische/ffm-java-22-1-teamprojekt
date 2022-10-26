@@ -2,6 +2,7 @@ package de.neuefische.ffmjava221.teamprojekt.backend.Guest;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,7 +16,7 @@ public class GuestController {
     }
 
     @PostMapping
-    Guest postGuest(@RequestBody Guest guest) {
+    Guest addGuest(@RequestBody @Valid NewGuest guest) {
         return guestService.addGuestData(guest);
     }
 
