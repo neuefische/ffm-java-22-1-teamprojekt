@@ -20,9 +20,9 @@ public class EmployeeService {
         return employeeRepo.getAll();
     }
 
-    public Employee addEmployee(Employee employee) {
+    public Employee addEmployee(NewEmployee newEmployee) {
         String id = employeeUtils.generateUUID();
-        Employee saveEmployee = employee.withID(id);
+        Employee saveEmployee = newEmployee.withID(id);
         return employeeRepo.addEmployee(saveEmployee);
     }
 }
