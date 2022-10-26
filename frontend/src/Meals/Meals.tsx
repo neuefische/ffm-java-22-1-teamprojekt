@@ -1,6 +1,9 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {MealModel} from "./MealModel";
 import axios from "axios";
+import {HashRouter, Routes, Route} from 'react-router-dom';
+import MealPage from "./MealPage";
+import MealBoard from "./MealBoard";
 
 
 
@@ -8,7 +11,6 @@ import axios from "axios";
 export default function Meals() {
 
     const[meals, setMeals] = useState<MealModel[]>([])
-    const[mealName, setMealName] = useState<string>("")
 
     const fetchAllMeals = () => {
         axios.get("/api/meals")
