@@ -6,15 +6,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class  PlacementService {
- 
-    private final PlacementRepo placementRepo ;
+public class PlacementService {
+
+    private final PlacementRepo placementRepo;
 
     public PlacementService(PlacementRepo placementRepo) {
         this.placementRepo = placementRepo;
     }
 
-    public List<Placement> getAllPlacements(){
-               return placementRepo.getAllPlacement();
+    public List<Placement> getAllPlacements() {
+        return placementRepo.getAllPlacement();
     }
+
+    public Placement addNewPlacement(NewPlacementData newData) {
+        return placementRepo.addNewPlacement(newData);
+    }
+
 }
