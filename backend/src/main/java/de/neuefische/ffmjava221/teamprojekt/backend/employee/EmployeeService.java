@@ -22,7 +22,7 @@ public class EmployeeService {
 
     public Employee addEmployee(NewEmployee newEmployee) {
         String id = employeeUtils.generateUUID();
-        Employee saveEmployee = newEmployee.withID(id);
+        Employee saveEmployee = newEmployee.withId(id);
         return employeeRepo.addEmployee(saveEmployee);
     }
 }
