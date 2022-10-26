@@ -31,7 +31,7 @@ class EmployeeServiceTest {
         //given
         String id = "123";
         Employee employeeWithId = new Employee(id, "Hasi");
-        Employee employeeWithoutId = new Employee(null, "Hasi");
+        NewEmployee employeeWithoutId = new NewEmployee("Hasi");
         //when
         when(employeeUtils.generateUUID()).thenReturn(id);
         when(employeeRepo.addEmployee(employeeWithId)).thenReturn(employeeWithId);
