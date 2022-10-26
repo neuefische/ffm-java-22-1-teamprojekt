@@ -9,7 +9,8 @@ type PlacementProps = {
 function Placement(props: PlacementProps) {
     return (
         <li>
-            <h2>Tisch Nr: {props.singlePlacement.placementNr}</h2>
+            <h3>Table-Nr: {props.singlePlacement.placementNr}</h3>
+            <p>Total Seats: {props.singlePlacement.totalSeats}</p>
         </li>
     );
 }

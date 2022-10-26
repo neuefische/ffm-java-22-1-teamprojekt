@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import PlacementModel from "./PlacementModel";
 import Placement from "./Placement";
+import AddPlacementForm from "./AddPlacementForm";
 
 
 function PlacementPage() {
@@ -22,12 +23,16 @@ function PlacementPage() {
         fetchPlacementData();
     }, [])
 
+
     return (
         <div>
             <h1>Tables:</h1>
+            <AddPlacementForm fetchAll={fetchPlacementData}/>
             <ul>
-                {placementsData?.map((singlePlacement => <Placement key={singlePlacement.id}
-                                                                    singlePlacement={singlePlacement}/>))}
+                {placementsData
+                    ?.sort((a, b) => a.placementNr > b.placementNr ? 1 : -1)
+                    .map((singlePlacement =>
+                        <Placement key={singlePlacement.id} singlePlacement={singlePlacement}/>))}
             </ul>
         </div>
     );
