@@ -32,7 +32,6 @@ export default function Meals() {
                     <Route path={"/:id"} element={<MealPage fetchAllMeals={fetchAllMeals} meals={meals}/>}/>
                 </Routes>
             </HashRouter>
-
         </section>
     );
 }
