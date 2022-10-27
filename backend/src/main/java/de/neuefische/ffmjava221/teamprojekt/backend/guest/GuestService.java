@@ -13,7 +13,6 @@ public class GuestService {
     private GuestUtils guestUtils;
 
 
-
     public GuestService(GuestRepo guestRepo, GuestUtils guestUtils) {
         this.guestRepo = guestRepo;
         this.guestUtils = guestUtils;
@@ -29,15 +28,15 @@ public class GuestService {
         return this.guestRepo.getGuestList();
     }
 
-    public Guest updateGuestById (String id, Guest guest) {
+    public Guest updateGuestById(String id, Guest guest) {
 
         List<Guest> guests = guestRepo.getGuestList();
-        for (Guest person: guests) {
+        for (Guest person : guests) {
             if (person.id().equals(id)) {
                 guestRepo.setGuest(guests.indexOf(person), guest);
                 return guest;
             }
         }
         throw new NoSuchElementException("No guest was found with this id");
-}
+    }
 }
