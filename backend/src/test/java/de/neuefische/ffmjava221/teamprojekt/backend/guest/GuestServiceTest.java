@@ -66,8 +66,6 @@ public class GuestServiceTest {
         Guest updatedGuest = new Guest("Robert", "Lang", "fsagfg@gmail.com", "hallo", "hallo", "2");
         guests.add(guest);
 
-        when(guestId.generateUUID()).thenReturn("2");
-
         //WHEN
 
         when(guestRepo.getGuestList()).thenReturn(guests);
@@ -75,7 +73,6 @@ public class GuestServiceTest {
 
         //THEN
 
-        verify(guestId);
         assertEquals(updatedGuest, actual);
     }
 }

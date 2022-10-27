@@ -21,4 +21,3 @@ public class GuestRepo {
         guests.set(index, guest);
     }
 }
-
