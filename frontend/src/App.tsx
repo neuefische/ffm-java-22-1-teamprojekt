@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import Meals from "./Meals/Meals";
 import EmployeeOverview from "./Employee/EmployeeOverview";
@@ -5,6 +6,7 @@ import PlacementPage from "./Placement/PlacementPage";
 import {HashRouter, Route, Routes} from "react-router-dom";
 import RegisterForm from "./Guest/RegisterForm";
 import Navigation from "./NavBar/Navigation";
+import WeatherWidget from "./Weather/WeatherWidget";
 import GuestPage from "./Guest/GuestPage";
 
 
@@ -23,5 +25,6 @@ export default function App() {
                 <Route path="/RegisterForm" element={<RegisterForm/>}/>
             </Routes>
         </HashRouter>
+        <WeatherWidget/>
     </>
 }
