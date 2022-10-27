@@ -12,7 +12,7 @@ public class MealRepository {
     List<Meal> meals = new ArrayList<>();
 
 
-    public  List<Meal> getAllMeals(){
+    public List<Meal> getAllMeals() {
         return meals;
     }
 
@@ -22,8 +22,11 @@ public class MealRepository {
     }
 
     public Meal updateMeal(int index, Meal meal) {
-       meals.set(index, meal);
-       return meal;
+        meals.set(index, meal);
+        return meal;
     }
 
+    public Meal deleteMeal(int index) {
+        return meals.remove(index);
+    }
 }
