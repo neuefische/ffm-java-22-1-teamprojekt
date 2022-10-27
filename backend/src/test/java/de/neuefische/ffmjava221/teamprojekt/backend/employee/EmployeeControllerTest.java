@@ -86,4 +86,51 @@ class EmployeeControllerTest {
                     }
                     """.replace("<id>", employee.id())));
     }
+
+    @DirtiesContext
+    @Test
+    void updateEmployeeWithBeforePostEmployeeAndChangedNameRabbitToHoppel() throws Exception {
+        //given
+        String content = mockMvc.perform(MockMvcRequestBuilders.post("/api/employees")
+
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                        {
+                                            "name": "Rabbit"
+                                        }
+                                        """))
+                .andExpect(status().isCreated())
+                .andReturn().getResponse().getContentAsString();
+        Employee employee = objectMapper.readValue(content, Employee.class);
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/employees/"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    [{
+                        "id": "<id>",
+                        "name": "Rabbit"
+                    }]
+                    """.replace("<id>", employee.id())));
+
+     mockMvc.perform(MockMvcRequestBuilders.put("/api/employees/" + employee.id())
+
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("""
+                                        {
+                                            "id": "<id>",
+                                            "name": "Hoppel"
+                                        }
+                                        """.replace("<id>", employee.id())))
+            .andExpect(status().isCreated())
+            .andReturn().getResponse().getContentAsString();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/employees/"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    [{
+                        "id": "<id>",
+                        "name": "Hoppel"
+                    }]
+                    """.replace("<id>", employee.id())));
+    }
 }
