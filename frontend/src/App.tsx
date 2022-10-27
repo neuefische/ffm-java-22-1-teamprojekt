@@ -7,6 +7,7 @@ import GuestProfile from "./Guest/GuestProfile";
 import {HashRouter, Route, Routes} from "react-router-dom";
 import RegisterForm from "./Guest/RegisterForm";
 import Navigation from "./NavBar/Navigation";
+import WeatherWidget from "./Weather/WeatherWidget";
 
 export default function App() {
 
@@ -22,5 +23,6 @@ export default function App() {
         </Routes>
             <Navigation/>
         </HashRouter>
+        <WeatherWidget/>
     </>
 }
