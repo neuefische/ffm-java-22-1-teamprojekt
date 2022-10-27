@@ -17,7 +17,7 @@ public class PlacementRepo {
 
     public Placement addNewPlacement(NewPlacementData newPlacementData) {
         String newUuid = UUID.randomUUID().toString();
-        Placement newPlacement = new Placement(newUuid, newPlacementData.getPlacementNr(), newPlacementData.getTotalSeats());
+        Placement newPlacement = new Placement(newUuid, newPlacementData.placementNr(), newPlacementData.totalSeats());
 
         placementMap.put(newPlacement.id(), newPlacement);
         return newPlacement;
