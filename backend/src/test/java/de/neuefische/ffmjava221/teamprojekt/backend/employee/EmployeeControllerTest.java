@@ -45,7 +45,7 @@ class EmployeeControllerTest {
                                             "name": "Hasi"
                                         }
                                         """))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
 
         Employee employee = objectMapper.readValue(content, Employee.class);
@@ -73,7 +73,7 @@ class EmployeeControllerTest {
                                             "name": "Hasi"
                                         }
                                         """))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
         Employee employee = objectMapper.readValue(content, Employee.class);
         //then
