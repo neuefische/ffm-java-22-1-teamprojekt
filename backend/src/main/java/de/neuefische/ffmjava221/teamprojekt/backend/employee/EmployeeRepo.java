@@ -26,4 +26,13 @@ public class EmployeeRepo {
             }
         throw new NoSuchElementException("NoSuchEmployeeFound");
     }
+
+    public Employee updateEmployee(Employee employee) {
+        for (Employee employeeToUpdate : employeeList)
+            if (Objects.equals(employeeToUpdate.id(), employee.id())) {
+                employeeList.remove(employeeToUpdate);
+                employeeList.add(employee);
+            }
+        return employee;
+    }
 }
