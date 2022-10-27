@@ -24,6 +24,9 @@ class PlacementIntegrationTest {
     private MockMvc mvc;
 
     @Autowired
+    private  PlacementService testService;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     @Test
@@ -49,7 +52,8 @@ class PlacementIntegrationTest {
                 }
                 """;
 
-        String content = mvc.perform(MockMvcRequestBuilders.post("/api/placements").contentType(MediaType.APPLICATION_JSON_VALUE)
+        String content = mvc.perform(MockMvcRequestBuilders.post("/api/placements")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(requestPlacement))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -61,5 +65,49 @@ class PlacementIntegrationTest {
         assertEquals(8, newPlacement.totalSeats());
     }
 
+    @Test
+    @DirtiesContext
+    void updatingNewPlacementServiceWithNotExistPlacement() throws Exception {
+        String notExistPlacement = """
+                {
+                "id":"543l543k5435",
+                "placementNr":5,
+                "totalSeats":8
+                }
+                """;
+
+        String content = mvc.perform(MockMvcRequestBuilders.put("/api/placements/543l543k5435")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(notExistPlacement))
+                .andExpect(status().isBadRequest())
+                .andReturn().getResponse().getContentAsString();
+
+//        assertEquals("Placement not Exist!", content);
+
+    }
+
+    @Test
+    @DirtiesContext
+    void updatingNewPlacementServiceWithPlacement() throws Exception{
+        NewPlacementData newPlacementData =new NewPlacementData(4,5);
+        Placement  newPlacement = testService.addNewPlacement(newPlacementData);
+
+        String jsonNewData = """
+                {
+                "totalSeats":50
+                }
+                """;
+
+        String content = mvc.perform(MockMvcRequestBuilders.put("/api/placements/"+newPlacement.id())
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(jsonNewData))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        Placement responsePlacement = objectMapper.readValue(content, Placement.class);
+
+        assertEquals(50,responsePlacement.totalSeats());
+        assertEquals(newPlacement.id(),responsePlacement.id());
+    }
 
 }
