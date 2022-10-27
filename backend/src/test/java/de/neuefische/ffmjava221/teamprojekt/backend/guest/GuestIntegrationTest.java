@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -60,4 +59,11 @@ class GuestIntegrationTest {
                                            """.replace("<id>",guest.id())));
     }
 
+    @DirtiesContext
+    @Test
+    void getAllGuestsAndExpectEmptyList() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.get("/api/guests"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("[]"));
+    }
 }
