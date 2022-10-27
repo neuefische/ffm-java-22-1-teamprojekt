@@ -20,12 +20,11 @@ public class EmployeeRepo {
     }
 
     public String deleteEmployee(String id) {
-        for (Employee employeeToDelete : employeeList){
+        for (Employee employeeToDelete : employeeList)
             if (Objects.equals(employeeToDelete.id(), id)) {
                 employeeList.remove(employeeToDelete);
                 return employeeToDelete.name() + " erfolgreich gelöscht";
             }
-        }
         throw new NoSuchElementException("Employee konnte nicht gelöscht werden");
     }
 }
