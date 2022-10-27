@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -77,12 +76,18 @@ class GuestIntegrationTest {
         String body = mvc.perform(MockMvcRequestBuilders.post("/api/guests")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"firstName": "test",
-                                 "lastName": "test",
-                                 "email": "test@gmail.com",
-                                 "password": "test",
-                                 "confirmPassword": "test",
-                                 "id" :  "id"}
+                            {"firstName": "test",
+                            "lastName": "test",
+                            "email": "test@gmail.com",
+                            "password": "test",
+                            "confirmPassword": "test",
+                            "id" :  "<id>"},
+                            {"firstName": "Armin",
+                            "lastName": "test",
+                            "email": "test@gmail.com",
+                            "password": "test",
+                            "confirmPassword": "test",
+                            "id" :  "id"}
                                 """))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -98,7 +103,13 @@ class GuestIntegrationTest {
                                  "email": "test@gmail.com",
                                  "password": "test",
                                  "confirmPassword": "test",
-                                 "id" :  "<id>"}
+                                 "id" :  "<id>"},
+                                 {"firstName": "Armin",
+                                 "lastName": "test",
+                                 "email": "test@gmail.com",
+                                 "password": "test",
+                                 "confirmPassword": "test",
+                                 "id" :  "id"}
                                 """.replace("<id>", guest.id()))))
                 // THEN
                 .andExpect(status().isOk())
@@ -108,8 +119,63 @@ class GuestIntegrationTest {
                                          "email": "test@gmail.com",
                                          "password": "test",
                                          "confirmPassword": "test",
-                                         "id" :  "<id>"}
+                                         "id" :  "<id>"},
+                                         {"firstName": "Armin",
+                                         "lastName": "test",
+                                         "email": "test@gmail.com",
+                                         "password": "test",
+                                         "confirmPassword": "test",
+                                         "id" :  "id"}
                         """.replace("<id>", guest.id())));
     }
+
+    @Test
+    @DirtiesContext
+    void putRequestUpdateGuestDataWithBadRequest() throws Exception {
+         mvc.perform(MockMvcRequestBuilders.put("/api/guests/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                            {"firstName": "test",
+                            "lastName": "test",
+                            "email": "test@gmail.com",
+                            "password": "test",
+                            "confirmPassword": "test",
+                            "id" :  "<id>"}
+                                """))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DirtiesContext
+    void putRequestUpdateGuestMethodNotAllowed() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.put("/api/guests/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                            {"firstName": "test",
+                            "lastName": "test",
+                            "email": "test@gmail.com",
+                            "password": "test",
+                            "confirmPassword": "test",
+                            "id" :  "<id>"}
+                                """))
+                .andExpect(status().isMethodNotAllowed());
+    }
+    @Test
+    @DirtiesContext
+    void putRequestUpdateGuestNotFound() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.put("/api")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                            {"firstName": "test",
+                            "lastName": "test",
+                            "email": "test@gmail.com",
+                            "password": "test",
+                            "confirmPassword": "test",
+                            "id" :  "<id>"}
+                                """))
+                .andExpect(status().isNotFound());
+    }
 }
+
+
 

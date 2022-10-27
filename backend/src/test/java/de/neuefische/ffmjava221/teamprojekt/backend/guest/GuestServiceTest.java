@@ -52,4 +52,30 @@ public class GuestServiceTest {
         verify(guestUtils).generateUUID();
         assertEquals(expected, actual);
     }
+    @Test
+    void updateGuestById() {
+
+        //GIVEN
+
+        GuestUtils guestId = mock(GuestUtils.class);
+        GuestRepo guestRepo = mock(GuestRepo.class);
+        GuestService guestService = new GuestService(guestRepo, guestId);
+
+        List<Guest> guests = new ArrayList<>();
+        Guest guest = new Guest("Steven", "Lang", "fsagfg@gmail.com", "hallo", "hallo","2" );
+        Guest updatedGuest = new Guest("Robert", "Lang", "fsagfg@gmail.com", "hallo", "hallo", "2");
+        guests.add(guest);
+
+        when(guestId.generateUUID()).thenReturn("2");
+
+        //WHEN
+
+        when(guestRepo.getGuestList()).thenReturn(guests);
+        Guest actual = guestService.updateGuestById("2", updatedGuest);
+
+        //THEN
+
+        verify(guestId);
+        assertEquals(updatedGuest, actual);
+    }
 }
