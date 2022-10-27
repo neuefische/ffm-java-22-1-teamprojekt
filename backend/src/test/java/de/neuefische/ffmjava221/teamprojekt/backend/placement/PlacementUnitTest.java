@@ -45,9 +45,7 @@ class PlacementUnitTest {
     @Test
     void addNewPlacement() {
         // GIVEN
-        NewPlacementData newData = new NewPlacementData();
-        newData.setPlacementNr(5);
-        newData.setTotalSeats(2);
+        NewPlacementData newData = new NewPlacementData(5, 2);
         Placement newPlacement = new Placement("234jh32h432434", 5, 2);
         when(testRepo.addNewPlacement(newData)).thenReturn(newPlacement);
 
