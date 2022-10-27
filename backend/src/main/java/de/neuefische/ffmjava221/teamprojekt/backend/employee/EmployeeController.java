@@ -33,6 +33,7 @@ public class EmployeeController {
     }
 
     @PutMapping(path = {"{id}", "{id}"})
+    @ResponseStatus(code = HttpStatus.CREATED)
     Employee update(@PathVariable String id, @RequestBody Employee employee) {
         if (!employee.id().equals(id)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The id in the url does not match the request body's id");
