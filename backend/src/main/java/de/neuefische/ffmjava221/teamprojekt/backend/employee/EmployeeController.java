@@ -1,5 +1,6 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.employee;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,12 +21,13 @@ public class EmployeeController {
     }
 
     @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
     Employee addEmployee(@RequestBody NewEmployee newEmployee) {
         return employeeService.addEmployee(newEmployee);
     }
 
     @DeleteMapping("{id}")
-    public String deleteEmployee(@PathVariable String id){
+    public Employee deleteEmployee(@PathVariable String id){
         return employeeService.deleteEmployee(id);
     }
 }

@@ -75,23 +75,15 @@ class EmployeeControllerTest {
                                         """))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        System.out.println("Content: " + content);
         Employee employee = objectMapper.readValue(content, Employee.class);
-        System.out.println("employee: " + employee);
-        //when
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/employees"))
-                //then
-                .andExpect(status().isOk())
-                .andExpect(content().json("""
-                    [{
-                        "id": "<id>",
-                        "name": "Hasi"
-                    }]
-                    """.replace("<id>", employee.id())));
-
         //then
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/employees/" + employee.id()))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Hasi erfolgreich gelöscht"));
+                .andExpect(content().json("""
+                    {
+                        "id": "<id>",
+                        "name": "Hasi"
+                    }
+                    """.replace("<id>", employee.id())));
     }
 }

@@ -18,12 +18,12 @@ public class EmployeeRepo {
         return saveEmployee;
     }
 
-    public String deleteEmployee(String id) {
+    public Employee deleteEmployee(String id) {
         for (Employee employeeToDelete : employeeList)
             if (Objects.equals(employeeToDelete.id(), id)) {
                 employeeList.remove(employeeToDelete);
-                return employeeToDelete.name() + " erfolgreich gelöscht";
+                return employeeToDelete;
             }
-        throw new NoSuchElementException("Employee konnte nicht gelöscht werden");
+        throw new NoSuchElementException("NoSuchEmployeeFound");
     }
 }

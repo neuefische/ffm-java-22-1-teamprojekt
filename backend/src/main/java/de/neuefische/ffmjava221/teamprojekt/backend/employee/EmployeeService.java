@@ -26,7 +26,7 @@ public class EmployeeService {
         return employeeRepo.addEmployee(saveEmployee);
     }
 
-    public String deleteEmployee(String id) {
+    public Employee deleteEmployee(String id) {
         return employeeRepo.deleteEmployee(id);
     }
 }

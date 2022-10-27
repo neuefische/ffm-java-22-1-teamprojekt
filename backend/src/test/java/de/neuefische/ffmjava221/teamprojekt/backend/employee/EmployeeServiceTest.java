@@ -1,6 +1,5 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.employee;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.annotation.DirtiesContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +13,7 @@ class EmployeeServiceTest {
     EmployeeService employeeService = new EmployeeService(employeeRepo, employeeUtils);
 
     @Test
-    @DirtiesContext
-    void getAllEmployeesTEST() {
+    void getAllEmployeesTest() {
         //given
         List<Employee> testEmployees = new ArrayList<>();
         //when
@@ -25,8 +23,7 @@ class EmployeeServiceTest {
     }
 
     @Test
-    @DirtiesContext
-    void addEmployeeTEST() {
+    void addEmployeeTest() {
         //given
         String id = "123";
         Employee employeeWithId = new Employee(id, "Hasi");
@@ -40,14 +37,14 @@ class EmployeeServiceTest {
     }
 
     @Test
-    @DirtiesContext
-    void deleteEmployeeTEST() {
+    void deleteEmployeeTest() {
         //given
         String testToDeleteString = "UUIDFromController";
+        Employee testEmployee = new Employee(testToDeleteString, "Hasi");
         //when
-        String actual = employeeService.deleteEmployee(testToDeleteString);
+        when(employeeRepo.deleteEmployee(testToDeleteString)).thenReturn(testEmployee);
+        Employee actual = employeeService.deleteEmployee(testToDeleteString);
         //then
-        String expected = null;
-        assertEquals(expected, actual);
+        assertEquals(testEmployee, actual);
     }
 }

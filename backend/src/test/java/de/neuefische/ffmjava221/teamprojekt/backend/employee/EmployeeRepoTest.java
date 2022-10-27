@@ -14,7 +14,7 @@ class EmployeeRepoTest {
         Exception exception = assertThrows(NoSuchElementException.class, () -> {
             employeeRepo.deleteEmployee(null);
         });
-        String expectedMessage = "Employee konnte nicht gelöscht werden";
+        String expectedMessage = "NoSuchEmployeeFound";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }

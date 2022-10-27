@@ -18,12 +18,12 @@ export default function EmployeeOverview() {
             .then((answer) => {
                 setEmployees((answer.data))
             })
-            .catch((error) => console.log(error))
+            .catch((e) => console.log("GET ERROR: " + e))
 
     function deleteEmployee(id: string) {
-        console.log("id: " + id)
         axios.delete(baseUrl + id)
             .then(getAllEmployees)
+            .catch((e) => console.log("DELETE ERROR: " + e))
     }
 
     const employeeList = employees.map(employee => {
