@@ -45,8 +45,7 @@ public class MealService {
         return -1;
     }
 
-    public Meal deleteMeal(String id){
-        int index = getIndexOfId(id);
+    public Meal deleteMeal(int index){
         return mealRepository.deleteMeal(index);
     }
 }
