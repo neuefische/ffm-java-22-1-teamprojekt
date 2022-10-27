@@ -29,7 +29,6 @@ public class GuestService {
     }
 
     public Guest updateGuestById(String id, Guest guest) {
-
         List<Guest> guests = guestRepo.getGuestList();
         for (Guest person : guests) {
             if (person.id().equals(id)) {
