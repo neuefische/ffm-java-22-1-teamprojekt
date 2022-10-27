@@ -97,4 +97,17 @@ class MealServiceTest {
         // THEN
         assertEquals(expected, actual);
     }
+    @Test
+    void deleteMeal() {
+        // GIVEN
+        Meal mealtoDelete = new Meal("1","Wurst");
+
+        when(mealRepository.getAllMeals()).thenReturn(new ArrayList<>(List.of(mealtoDelete)));
+        when(mealRepository.deleteMeal(0)).thenReturn(mealtoDelete);
+        // WHEN
+        Meal actual = mealService.deleteMeal("1");
+        Meal expected = mealtoDelete;
+        // THEN
+        assertEquals(expected, actual);
+    }
 }
