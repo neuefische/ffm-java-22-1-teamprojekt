@@ -22,5 +22,11 @@ public class PlacementController {
     public Placement addNewPlacement(@RequestBody NewPlacementData requestPlacement) {
         return placementService.addNewPlacement(requestPlacement);
     }
+
+
+    @PutMapping("{placementId}")
+    public Placement updatePlacement(@PathVariable String placementId, @RequestBody Placement newData) {
+        return placementService.updatePlacement(placementId, newData);
+    }
 }
 
