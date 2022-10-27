@@ -1,9 +1,7 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.employee;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Component
@@ -25,6 +23,6 @@ public class EmployeeRepo {
                 employeeList.remove(employeeToDelete);
                 return employeeToDelete.name() + " erfolgreich gelöscht";
             }
-        throw new NoSuchElementException("Employee konnte nicht gelöscht werden");
+        return "Employee konnte nicht gelöscht werden";
     }
 }
