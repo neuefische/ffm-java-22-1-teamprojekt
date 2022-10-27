@@ -4,12 +4,15 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class GuestService {
 
     private final GuestRepo guestRepo;
     private GuestUtils guestUtils;
+
+
 
     public GuestService(GuestRepo guestRepo, GuestUtils guestUtils) {
         this.guestRepo = guestRepo;
@@ -25,4 +28,16 @@ public class GuestService {
     public List<Guest> getGuestList() {
         return this.guestRepo.getGuestList();
     }
+
+    public Guest updateGuestById (String id, Guest guest) {
+
+        List<Guest> guests = guestRepo.getGuestList();
+        for (Guest person: guests) {
+            if (person.id().equals(id)) {
+                guestRepo.setGuest(guests.indexOf(person), guest);
+                return guest;
+            }
+        }
+        throw new NoSuchElementException("No guest was found with this id");
+}
 }

@@ -16,5 +16,9 @@ public class GuestRepo {
     public List<Guest> getGuestList() {
         return this.guests;
     }
+
+    public void setGuest(int index,Guest guest) {
+        guests.set(index, guest);
+    }
 }
 
