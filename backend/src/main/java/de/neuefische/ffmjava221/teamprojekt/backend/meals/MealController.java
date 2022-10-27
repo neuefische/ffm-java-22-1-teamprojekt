@@ -37,8 +37,11 @@ public class MealController {
         } return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
     @DeleteMapping("/{id}")
-    public Meal deleteMeal (@PathVariable String id){
-        return mealService.deleteMeal(id);
+    public ResponseEntity<Meal> deleteMeal (@PathVariable String id){
+        int index = mealService.getIndexOfId(id);
+        if(index >= 0) {
+            return new ResponseEntity<>(mealService.deleteMeal(index),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
-

@@ -102,10 +102,9 @@ class MealServiceTest {
         // GIVEN
         Meal mealtoDelete = new Meal("1","Wurst");
 
-        when(mealRepository.getAllMeals()).thenReturn(new ArrayList<>(List.of(mealtoDelete)));
         when(mealRepository.deleteMeal(0)).thenReturn(mealtoDelete);
         // WHEN
-        Meal actual = mealService.deleteMeal("1");
+        Meal actual = mealService.deleteMeal(0);
         Meal expected = mealtoDelete;
         // THEN
         assertEquals(expected, actual);
