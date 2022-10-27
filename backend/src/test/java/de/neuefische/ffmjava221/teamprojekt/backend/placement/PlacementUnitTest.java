@@ -61,8 +61,12 @@ class PlacementUnitTest {
         });
         String expectedMessage = "Placement not Exist!";
         //When
+
+
         String actualMessage = exception.getMessage();
         //Then
+
+
         assertTrue(actualMessage.contains(expectedMessage));
 
     }
