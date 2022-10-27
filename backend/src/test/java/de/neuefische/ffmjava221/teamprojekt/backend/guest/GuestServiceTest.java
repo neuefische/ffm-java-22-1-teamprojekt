@@ -33,15 +33,15 @@ public class GuestServiceTest {
         //GIVEN
 
         GuestRepo guestRepo = mock(GuestRepo.class);
-        ServiceUtils serviceUtils = mock(ServiceUtils.class);
-        GuestService guestService = new GuestService(guestRepo, serviceUtils);
+        GuestUtils guestUtils = mock(GuestUtils.class);
+        GuestService guestService = new GuestService(guestRepo, guestUtils);
 
         NewGuest newGuest = new NewGuest("Steven", "Lang", "fggfl@gmail.de", "TestPost", "TestPost");
         Guest testGuest = newGuest.withId("2");
 
         Guest expected = testGuest;
         when(guestRepo.addGuestData(testGuest)).thenReturn(testGuest);
-        when(serviceUtils.generateUUID()).thenReturn("2");
+        when(guestUtils.generateUUID()).thenReturn("2");
 
         //WHEN
 
@@ -49,7 +49,7 @@ public class GuestServiceTest {
 
         //THEN
 
-        verify(serviceUtils).generateUUID();
+        verify(guestUtils).generateUUID();
         assertEquals(expected, actual);
     }
 }

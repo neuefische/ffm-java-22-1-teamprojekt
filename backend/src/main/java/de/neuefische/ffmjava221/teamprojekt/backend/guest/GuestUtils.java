@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 @Service
-public class ServiceUtils {
+public class GuestUtils {
     public String generateUUID() {
         return UUID.randomUUID().toString();
     }
