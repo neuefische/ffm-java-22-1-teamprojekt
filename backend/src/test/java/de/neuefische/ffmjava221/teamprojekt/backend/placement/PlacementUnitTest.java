@@ -61,15 +61,30 @@ class PlacementUnitTest {
         });
         String expectedMessage = "Placement not Exist!";
         //When
-
-
         String actualMessage = exception.getMessage();
         //Then
-
-
         assertTrue(actualMessage.contains(expectedMessage));
 
+    }
 
+    @Test
+    void updatingNewPlacementServiceWithExist() {
+        //GIVEN
+        List<Placement> allPlacements = new ArrayList<>(List.of(
+                new Placement("123", 4, 2),
+                new Placement("435435", 8, 5),
+                new Placement("gf5646546", 2, 4),
+                new Placement("gjfas43566", 1, 5),
+                new Placement("123gsgs5435", 3, 2)
+        ));
+
+        when(testRepo.getAllPlacement()).thenReturn(allPlacements);
+
+        Placement updatedData = new Placement("123", 4, 8);
+         //WHEN
+        Placement placementAfterUpdate = testService.updatePlacement("123", updatedData);
+        // THEN
+        assertEquals(8, placementAfterUpdate.totalSeats());
     }
 }
 
