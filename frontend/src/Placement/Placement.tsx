@@ -12,7 +12,7 @@ function Placement(props: PlacementProps) {
     const [newValue, setNewValue] = useState<number>(0)
     const [editMode, setEditMode] = useState<boolean>(false)
 
-    
+
 
     const updatePlacement = () => {
         axios
