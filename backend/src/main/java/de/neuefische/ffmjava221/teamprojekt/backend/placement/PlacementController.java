@@ -1,5 +1,7 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.placement;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +27,15 @@ public class PlacementController {
 
 
     @PutMapping("{placementId}")
-    public Placement updatePlacement(@PathVariable String placementId, @RequestBody Placement newData) {
-        return placementService.updatePlacement(placementId, newData);
+    public ResponseEntity<Placement> updatePlacement(@PathVariable String placementId, @RequestBody Placement newData) {
+        try {
+           Placement updatedPlacement =placementService.updatePlacement(placementId, newData);
+          return ResponseEntity.status(HttpStatus.OK)
+                  .body(updatedPlacement);
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(null);
+        }
     }
 }
 
