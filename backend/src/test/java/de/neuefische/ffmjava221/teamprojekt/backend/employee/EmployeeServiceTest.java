@@ -47,4 +47,16 @@ class EmployeeServiceTest {
         //then
         assertEquals(testEmployee, actual);
     }
+
+    @Test
+    void updateEmployeeRabbitToHoppelTest() {
+        //given
+        Employee testEmployee = new Employee("123", "Rabbit");
+        Employee updatedEmployee = new Employee("123", "Hoppel");
+        //when
+        when(employeeRepo.updateEmployee(testEmployee)).thenReturn(updatedEmployee);
+        Employee actual = employeeService.updateEmployee(testEmployee);
+        //then
+        assertEquals(updatedEmployee, actual);
+    }
 }
