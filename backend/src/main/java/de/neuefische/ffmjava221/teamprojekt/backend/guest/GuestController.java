@@ -28,5 +28,4 @@ public class GuestController {
     public Guest updateGuestById(@PathVariable String id, @RequestBody Guest guest) {
         return guestService.updateGuestById(id, guest);
     }
-
 }
