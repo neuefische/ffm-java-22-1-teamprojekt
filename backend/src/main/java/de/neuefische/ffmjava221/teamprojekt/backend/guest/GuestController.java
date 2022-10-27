@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/guests")
@@ -28,6 +29,13 @@ public class GuestController {
 
     @PutMapping("{id}")
     public Guest updateGuestById(@PathVariable String id, @RequestBody Guest guest) {
-        return guestService.updateGuestById(id, guest);
+        try {
+            if (guest.id().equals(id)) {
+                return guestService.updateGuestById(id, guest);
+            }
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 }
