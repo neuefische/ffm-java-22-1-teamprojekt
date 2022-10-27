@@ -65,4 +65,5 @@ class GuestIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
     }
+
 }

@@ -23,4 +23,10 @@ public class GuestController {
     List<Guest> getGuestList() {
         return guestService.getGuestList();
     }
+
+    @PutMapping("{id}")
+    public Guest updateGuestById(@PathVariable String id, @RequestBody Guest guest) {
+        return guestService.updateGuestById(id, guest);
+    }
+
 }
