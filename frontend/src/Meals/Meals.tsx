@@ -21,8 +21,6 @@ export default function Meals() {
 
     useEffect(fetchAllMeals, [])
 
-
-
     return (
         <section>
             <h1>Meals</h1>
