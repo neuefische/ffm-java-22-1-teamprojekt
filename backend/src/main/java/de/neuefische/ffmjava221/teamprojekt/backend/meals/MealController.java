@@ -36,5 +36,9 @@ public class MealController {
                     return mealExists ? new ResponseEntity<>(newMeal,HttpStatus.OK) : new ResponseEntity<>(newMeal,HttpStatus.CREATED);
         } return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+    @DeleteMapping("/{id}")
+    public Meal deleteMeal (@PathVariable String id){
+        return mealService.deleteMeal(id);
+    }
 }
 
