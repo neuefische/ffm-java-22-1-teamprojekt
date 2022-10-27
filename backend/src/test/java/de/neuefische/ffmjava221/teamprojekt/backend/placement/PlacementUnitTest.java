@@ -50,5 +50,26 @@ class PlacementUnitTest {
         // THEN
         assertFalse(result.id().isEmpty());
     }
+
+    @Test
+    void updatingNewPlacementServiceWithNotExistPlacement() {
+        // Given
+        Placement placementToTest = new Placement("123", 4, 5);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            testService.updatePlacement("123", placementToTest);
+        });
+        String expectedMessage = "Placement not Exist!";
+        //When
+
+
+        String actualMessage = exception.getMessage();
+        //Then
+
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+
+    }
 }
 
