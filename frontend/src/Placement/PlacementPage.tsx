@@ -32,7 +32,7 @@ function PlacementPage() {
                 {placementsData
                     ?.sort((a, b) => a.placementNr > b.placementNr ? 1 : -1)
                     .map((singlePlacement =>
-                        <Placement key={singlePlacement.id} singlePlacement={singlePlacement}/>))}
+                        <Placement key={singlePlacement.id} fetchAll={fetchPlacementData} singlePlacement={singlePlacement}/>))}
             </ul>
         </div>
     );
