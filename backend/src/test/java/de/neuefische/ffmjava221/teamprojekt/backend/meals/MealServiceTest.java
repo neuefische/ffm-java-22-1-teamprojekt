@@ -31,7 +31,7 @@ class MealServiceTest {
     void addMealWithoutIdAndReturnMealWithId() {
         // GIVEN
         String uuid = "123";
-        Meal newMeal = new Meal(null,"Wurst");
+        NewMeal newMeal = new NewMeal("Wurst");
         Meal newMealWithId = new Meal(uuid,"Wurst");
 
         when(serviceUtils.generateUUID()).thenReturn(uuid);
