@@ -23,7 +23,7 @@ public class MealController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Meal addMeal(@RequestBody Meal newMeal) {
+    public Meal addMeal(@RequestBody NewMeal newMeal) {
         return mealService.addMeal(newMeal);
     }
 
