@@ -2,6 +2,7 @@ package de.neuefische.ffmjava221.teamprojekt.backend.employee;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -30,4 +31,13 @@ public class EmployeeController {
     public Employee deleteEmployee(@PathVariable String id){
         return employeeService.deleteEmployee(id);
     }
+
+    @PutMapping(path = {"{id}", "{id}"})
+    Employee update(@PathVariable String id, @RequestBody Employee employee) {
+        if (!employee.id().equals(id)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The id in the url does not match the request body's id");
+        }
+        return employeeService.updateEmployee(employee);
+    }
+
 }
