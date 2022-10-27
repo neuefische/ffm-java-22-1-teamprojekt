@@ -22,9 +22,9 @@ public class MealService {
     }
 
 
-    public Meal addMeal(Meal newMeal) {
+    public Meal addMeal(NewMeal newMeal) {
         String id = serviceUtils.generateUUID();
-        return mealRepository.addMeal(newMeal.withId(id));
+        return mealRepository.addMeal(new Meal(id, newMeal.name()));
     }
 
     public Meal updateMeal(int index, Meal newMeal) {
