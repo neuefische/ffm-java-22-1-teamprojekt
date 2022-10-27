@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 class PlacementUnitTest {
@@ -46,14 +45,10 @@ class PlacementUnitTest {
     void addNewPlacement() {
         // GIVEN
         NewPlacementData newData = new NewPlacementData(5, 2);
-        Placement newPlacement = new Placement("234jh32h432434", 5, 2);
-        when(testRepo.addNewPlacement(newData)).thenReturn(newPlacement);
-
         // WHEN
         Placement result = testService.addNewPlacement(newData);
-
         // THEN
-        assertEquals(newPlacement, result);
+        assertFalse(result.id().isEmpty());
     }
 }
 
