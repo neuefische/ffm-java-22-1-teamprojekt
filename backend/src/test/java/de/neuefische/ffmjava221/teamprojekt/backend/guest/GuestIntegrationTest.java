@@ -38,7 +38,6 @@ class GuestIntegrationTest {
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        // Convert string into Guest type
         Guest guest = objectMapper.readValue(body, Guest.class);
 
         // WHEN
