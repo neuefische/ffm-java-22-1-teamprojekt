@@ -144,4 +144,11 @@ class MealIntegrationTest {
                     }
                     """.replace("<id>",meal.id())));
     }
+
+    @Test
+    @DirtiesContext
+    void deleteMealWithWrongIdReturns400() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/meals/123"))
+                .andExpect(status().is(400));
+    }
 }
