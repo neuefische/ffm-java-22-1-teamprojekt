@@ -19,4 +19,8 @@ public class PlacementRepo {
         placementMap.put(newPlacement.id(), newPlacement);
         return newPlacement;
     }
+    public void updatePlacement(Placement placementToDelete,Placement updatedPlacement){
+        placementMap.remove(placementToDelete.id());
+        placementMap.put(updatedPlacement.id(), updatedPlacement);
+    }
 }
