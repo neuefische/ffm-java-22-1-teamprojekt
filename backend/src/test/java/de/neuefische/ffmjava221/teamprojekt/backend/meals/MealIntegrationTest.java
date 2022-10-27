@@ -120,4 +120,28 @@ class MealIntegrationTest {
                                 """))
                 .andExpect(status().is(400));
     }
+    @Test
+    @DirtiesContext
+    void deleteMealSuccesfullAndReturnMealToDelete() throws Exception {
+        String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/meals")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "name": "Wurst"
+                                }
+                                """))
+                .andExpect(status().is(201))
+                .andReturn().getResponse().getContentAsString();
+
+        Meal meal = objectMapper.readValue(body, Meal.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/meals/"+meal.id()))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    {
+                        "id": "<id>",
+                        "name": "Wurst"
+                    }
+                    """.replace("<id>",meal.id())));
+    }
 }
