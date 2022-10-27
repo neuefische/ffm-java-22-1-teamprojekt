@@ -25,7 +25,7 @@ export default function EmployeeOverview() {
         axios.delete(baseUrl + id)
             .then(getAllEmployees)
     }
-    
+
     const employeeList = employees.map(employee => {
         return <EmployeeCard key={employee.id} employee={employee} deleteEmployee={deleteEmployee} />
     })
