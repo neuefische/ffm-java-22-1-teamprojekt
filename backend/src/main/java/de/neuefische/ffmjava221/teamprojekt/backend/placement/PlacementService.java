@@ -33,22 +33,30 @@ public class PlacementService {
 
     }
 
-    public Placement updatePlacement(String placementId,Placement newData) {
-
+    public Placement checkIfExist(String placementId) {
         List<Placement> allPlacement = placementRepo.getAllPlacement();
         Optional<Placement> placementToFind = allPlacement.stream()
                 .filter(placement -> placement.id().equals(placementId))
                 .findFirst();
 
-        if(placementToFind.isEmpty()){
+        if (placementToFind.isEmpty()) {
             throw new IllegalArgumentException("Placement not Exist!");
         }
 
-        Placement  existPlacement =placementToFind.get();
-        Placement updatedPlacement =new Placement(existPlacement.id(),existPlacement.placementNr(),newData.totalSeats());
+        return placementToFind.get();
+    }
 
-        placementRepo.updatePlacement(existPlacement,updatedPlacement);
+    public Placement updatePlacement(String placementId, Placement newData) {
+        Placement existPlacement = checkIfExist(placementId);
+        Placement updatedPlacement = new Placement(existPlacement.id(), existPlacement.placementNr(), newData.totalSeats());
+
+        placementRepo.updatePlacement(existPlacement, updatedPlacement);
         return updatedPlacement;
     }
 
+    public void deletePlacement(String placementId) {
+        Placement existPlacement = checkIfExist(placementId);
+
+        placementRepo.deletePlacement(existPlacement);
+    }
 }
