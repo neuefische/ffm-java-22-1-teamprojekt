@@ -1,4 +1,4 @@
-import {GuestModel} from "./GuestModel";
+import {GuestModel} from "../GuestModel/GuestModel";
 import {ChangeEvent, useState} from "react";
 import axios from "axios";
 
@@ -22,7 +22,7 @@ export default function GuestModal(props: ModalProps){
         setEmail(event.target.value)
     }
 
-    function updateTask() {
+    function updateGuest() {
         axios.put("/api/guest/" + props.guest.id, {
             id:props.guest.id,
             firstName,
@@ -38,7 +38,13 @@ export default function GuestModal(props: ModalProps){
     return (
         <div>
             <label>FirstName</label>
-            <input type="text" />
+            <input type="text" value={firstName} onChange={handleNewFirstName}/>
+            <label>LastName</label>
+            <input type="text" value={lastName} onChange={handleNewLastName}/>
+            <label>FirstName</label>
+            <input type="text" value={email} onChange={handleNewEmail}/>
+            <button onClick={updateGuest}>Update</button>
+            <button onClick={props.closeModal}>Cancel</button>
         </div>
     )
 }

@@ -25,12 +25,11 @@ export default function RegisterForm() {
     const handleFormSubmit = (event: ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
         postForm();
-        setFirstName("")
-        setLastName("")
-        setEmail("")
-        setPassword("")
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
         setConfirmPassword("")
-
     }
 
     return (
