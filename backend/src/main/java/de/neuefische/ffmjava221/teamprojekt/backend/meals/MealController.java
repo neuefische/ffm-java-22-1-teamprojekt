@@ -29,19 +29,21 @@ public class MealController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Meal> updateMeal(@PathVariable String id, @RequestBody Meal meal){
+    public ResponseEntity<Meal> updateMeal(@PathVariable String id, @Valid @RequestBody Meal meal) {
         if (meal.id().equals(id)) {
             int index = mealService.getIndexOfId(id);
-                    Meal newMeal = mealService.updateMeal(index, meal);
-                    boolean mealExists = (index>=0);
-                    return mealExists ? new ResponseEntity<>(newMeal,HttpStatus.OK) : new ResponseEntity<>(newMeal,HttpStatus.CREATED);
-        } return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            Meal newMeal = mealService.updateMeal(index, meal);
+            boolean mealExists = (index >= 0);
+            return mealExists ? new ResponseEntity<>(newMeal, HttpStatus.OK) : new ResponseEntity<>(newMeal, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Meal> deleteMeal (@PathVariable String id){
+    public ResponseEntity<Meal> deleteMeal(@PathVariable String id) {
         int index = mealService.getIndexOfId(id);
-        if(index >= 0) {
-            return new ResponseEntity<>(mealService.deleteMeal(index),HttpStatus.OK);
+        if (index >= 0) {
+            return new ResponseEntity<>(mealService.deleteMeal(index), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
