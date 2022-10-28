@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/api/placements")
@@ -16,19 +17,19 @@ public class PlacementController {
         this.placementService = placementService;
     }
 
-    @GetMapping()
+    @GetMapping() // http.get  "api/placements"
     public List<Placement> getAllPlacement() {
         return placementService.getAllPlacements();
     }
 
-    @PostMapping()
-    public Placement addNewPlacement(@RequestBody NewPlacementData requestPlacement) {
+    @PostMapping() // http.post  "api/placements"
+    public Placement addNewPlacement(@Valid @RequestBody  NewPlacementData requestPlacement) {
         return placementService.addNewPlacement(requestPlacement);
     }
 
 
-    @PutMapping("{placementId}")
-    public ResponseEntity<Placement> updatePlacement(@PathVariable String placementId, @RequestBody Placement newData) {
+    @PutMapping("{placementId}")// htttp.delete   "api/placements"/5435435j35b23ojb5235l3n2"
+    public ResponseEntity<Placement> updatePlacement(@PathVariable String placementId, @RequestBody @Valid Placement newData) {
         try {
            Placement updatedPlacement =placementService.updatePlacement(placementId, newData);
           return ResponseEntity.status(HttpStatus.OK)
@@ -37,5 +38,15 @@ public class PlacementController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID is not found!");
         }
     }
+// http.delete  "api/placements"/{id}"
+//    @DeleteMapping("{placementId}")
+//    public Placement deletePlacement(@PathVariable String placementId) {
+//
+//    }
+
+
+
+
+
 }
 
