@@ -4,28 +4,28 @@ import {WeatherModel} from "./WeatherModel";
 
 
 export default function WeatherWidget() {
-    axios.defaults.headers.get['Content-Type'] = 'application/json;charset=utf-8';
-    axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
-    // const apiUrl: string = "https://app-prod-ws.warnwetter.de/v30/stationOverviewExtended?stationIds=10637"
-
-    const apiUrl2: string = "https://api.brightsky.dev/current_weather?wmo_station_id=10637"
 
     const [weather, setWeather] = useState<WeatherModel>()
 
-    const getWeather = () => {
-        axios.get(apiUrl2, {})
+    const fetchWeather = () => {
+        axios.get("/api/weather/today")
             .then(response => response.data)
             .catch(error => console.log(error))
-            //.then(data => setWeather(data))
-            .then(data => console.log(data))
+            .then(data => setWeather(data))
+
     }
 
     useEffect(() => {
         fetchWeather()
     }, [])
 
-    return (
 
-        <div>{}</div>
+    return (
+        <div>
+            {weather !== undefined && <>
+                <h3>Wetter heute:</h3>
+                <p>Temperatur: {weather.temperature}°C, {weather.condition}</p>
+            </>}
+        </div>
     );
 }
