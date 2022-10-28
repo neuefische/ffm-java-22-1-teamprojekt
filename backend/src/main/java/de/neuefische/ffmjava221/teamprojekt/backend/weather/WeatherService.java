@@ -1,5 +1,6 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.weather;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -7,12 +8,15 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class WeatherService {
-    private final WebClient webClient = WebClient.create();
+    private final WebClient webClient;
+
+    public WeatherService(@Value("${baseUrl}") String baseUrl) {
+        this.webClient = WebClient.create(baseUrl);
+    }
 
     public WeatherData fetchWeather() throws ResponseStatusException {
         WeatherResponseElement weatherResponse = webClient
                 .get()
-                .uri("https://api.brightsky.dev/current_weather?wmo_station_id=10637")
                 .retrieve()
                 .toEntity(WeatherResponseElement.class)
                 .blockOptional().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
