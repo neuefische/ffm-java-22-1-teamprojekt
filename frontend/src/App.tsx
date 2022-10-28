@@ -15,12 +15,13 @@ export default function App() {
         <Meals/>
         <EmployeeOverview/>
         <PlacementPage/>
+        <h1>Guests:</h1>
         <HashRouter>
-        <Routes>
-            <Route path="/GuestProfile" element={<GuestProfile/>}></Route>
-            <Route path="/RegisterForm" element={<RegisterForm />}></Route>
-        </Routes>
             <Navigation/>
+            <Routes>
+                <Route path="/GuestProfile" element={<GuestProfile/>}></Route>
+                <Route path="/RegisterForm" element={<RegisterForm/>}></Route>
+            </Routes>
         </HashRouter>
     </>
 }

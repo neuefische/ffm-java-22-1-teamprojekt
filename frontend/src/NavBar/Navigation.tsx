@@ -5,10 +5,12 @@ function Navigation() {
     return (
         <nav>
             <NavLink to="/GuestProfile">
-                <button>HomePage</button>
+                <button>GuestList</button>
             </NavLink>
             <NavLink to="/RegisterForm">
                 <button>Registration</button>
+                <button>Login</button>
+                <button>without registration</button>
             </NavLink>
         </nav>
     );
