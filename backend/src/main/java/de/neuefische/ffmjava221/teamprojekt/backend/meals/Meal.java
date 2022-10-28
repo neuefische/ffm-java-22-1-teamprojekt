@@ -1,3 +1,7 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.meals;
 
-public record Meal(String id, String name) {}
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+public record Meal(String id, @NotBlank @Size(min = 3) String name) {
+}
