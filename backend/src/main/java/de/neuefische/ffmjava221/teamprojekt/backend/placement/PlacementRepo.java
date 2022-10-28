@@ -23,4 +23,8 @@ public class PlacementRepo {
         placementMap.remove(placementToDelete.id());
         placementMap.put(updatedPlacement.id(), updatedPlacement);
     }
+
+    public void deletePlacement(Placement existPlacement) {
+        placementMap.remove(existPlacement.id());
+    }
 }

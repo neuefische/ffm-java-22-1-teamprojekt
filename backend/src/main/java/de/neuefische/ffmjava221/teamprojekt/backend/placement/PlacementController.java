@@ -17,36 +17,35 @@ public class PlacementController {
         this.placementService = placementService;
     }
 
-    @GetMapping() // http.get  "api/placements"
+    @GetMapping()
     public List<Placement> getAllPlacement() {
         return placementService.getAllPlacements();
     }
 
-    @PostMapping() // http.post  "api/placements"
-    public Placement addNewPlacement(@Valid @RequestBody  NewPlacementData requestPlacement) {
+    @PostMapping()
+    public Placement addNewPlacement(@Valid @RequestBody NewPlacementData requestPlacement) {
         return placementService.addNewPlacement(requestPlacement);
     }
 
 
-    @PutMapping("{placementId}")// htttp.delete   "api/placements"/5435435j35b23ojb5235l3n2"
+    @PutMapping("{placementId}")
     public ResponseEntity<Placement> updatePlacement(@PathVariable String placementId, @RequestBody @Valid Placement newData) {
         try {
-           Placement updatedPlacement =placementService.updatePlacement(placementId, newData);
-          return ResponseEntity.status(HttpStatus.OK)
-                  .body(updatedPlacement);
-        }catch (IllegalArgumentException e){
+            Placement updatedPlacement = placementService.updatePlacement(placementId, newData);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(updatedPlacement);
+        } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID is not found!");
         }
     }
-// http.delete  "api/placements"/{id}"
-//    @DeleteMapping("{placementId}")
-//    public Placement deletePlacement(@PathVariable String placementId) {
-//
-//    }
 
-
-
-
-
+    @DeleteMapping("{placementId}")
+    public void deletePlacement(@PathVariable String placementId) {
+        try {
+            placementService.deletePlacement(placementId);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID is not found!");
+        }
+    }
 }
 
