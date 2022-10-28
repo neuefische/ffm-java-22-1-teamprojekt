@@ -8,10 +8,12 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class WeatherServiceTest {
 
@@ -54,5 +56,26 @@ class WeatherServiceTest {
         //then
         assertEquals(expected, actual);
         assertEquals("GET", recordedRequest.getMethod());
+    }
+
+    @Test
+    void fetchWeatherReturnsError() throws Exception {
+        //given
+        // mocked response from Mockserver has to be WeatherResponseElement, because the API-server initially returns this type
+        WeatherResponseElement mockWeather = new WeatherResponseElement(new WeatherData("dry", 21.7));
+        mockWebServer.enqueue(new MockResponse()
+                .addHeader("Content-Type", "application/json")
+        );
+        //when
+        try {
+            weatherService.fetchWeather();
+            fail();
+        } catch (ResponseStatusException e) {
+            RecordedRequest recordedRequest = mockWebServer.takeRequest();
+            //then
+            assertEquals("GET", recordedRequest.getMethod());
+            assertEquals("404 NOT_FOUND \"Response is empty/null\"", e.getMessage());
+        }
+
     }
 }
