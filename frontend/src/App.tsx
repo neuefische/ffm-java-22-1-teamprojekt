@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Meals from "./Meals/Meals";
-import EmployeeOverview from "./Employee/EmployeeOverview";
+import EmployeeOverview from "./Employeee/EmployeeOverview";
 import PlacementPage from "./Placement/PlacementPage";
 import GuestProfile from "./Guest/GuestProfile";
 import {HashRouter, Route, Routes} from "react-router-dom";
