@@ -15,6 +15,8 @@ function AddPlacementForm(props:AddPlacementFormProps) {
         axios.post("api/placements", newPlacement)
             .then(()=>{
                 props.fetchAll();
+                setTableNumber("")
+                setTotalSeats("")
             })
             .catch((error)=>{
                 console.log(error)
@@ -22,11 +24,12 @@ function AddPlacementForm(props:AddPlacementFormProps) {
 
     }
 
-// ToDo : Sort placements? - backend duplicate Nr!!.
+
     const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
         console.log('[Submit Form] => ', 'Table number: ' + tableNumber, ' Total seats: ' + totalSeats)
         postNewPlacement({placementNr: parseInt(tableNumber), totalSeats: parseInt(totalSeats)})
+
     }
 
     const handleTableNumberChange = (evt: ChangeEvent<HTMLInputElement>) => {
