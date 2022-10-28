@@ -42,7 +42,6 @@ public class PlacementService {
         if (placementToFind.isEmpty()) {
             throw new IllegalArgumentException("Placement not Exist!");
         }
-
         return placementToFind.get();
     }
 
@@ -54,9 +53,9 @@ public class PlacementService {
         return updatedPlacement;
     }
 
-    public void deletePlacement(String placementId) {
+    public boolean deletePlacement(String placementId) {
         Placement existPlacement = checkIfExist(placementId);
-
         placementRepo.deletePlacement(existPlacement);
+        return true;
     }
 }
