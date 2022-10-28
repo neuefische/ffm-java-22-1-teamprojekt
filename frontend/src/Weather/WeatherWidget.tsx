@@ -10,7 +10,6 @@ export default function WeatherWidget() {
 
     const apiUrl2: string = "https://api.brightsky.dev/current_weather?wmo_station_id=10637"
 
-
     const [weather, setWeather] = useState<WeatherModel>()
 
     const getWeather = () => {
