@@ -18,7 +18,6 @@ export default function App() {
         <HashRouter>
             <Navigation/>
             <Routes>
-
                 <Route path="/GuestProfile" element={<GuestPage/>}/>
                 <Route path="/RegisterForm" element={<RegisterForm/>}/>
             </Routes>
