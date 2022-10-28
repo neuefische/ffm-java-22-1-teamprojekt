@@ -28,9 +28,17 @@ export default function EmployeeOverview() {
             .catch((e) => console.log("DELETE ERROR: " + e))
     }
 
-    const openModal = () => {
+    const openModal = (id: string) => {
         setIsOpenModal(true)
+     employeeList.find((currentEmployee: EmployeeModel) => currentEmployee.id === id);
     }
+
+    /*
+    filteredList = originalList.stream()
+      .filter(employee -> nameFilter.contains(employee.getName()))
+      .collect(Collectors.toList());
+    * */
+
 
     const closeModal = () => {
         setIsOpenModal(false)
@@ -69,6 +77,10 @@ export default function EmployeeOverview() {
             <input type="text" value={newEmployee} onChange={handleStateEmployee} />
             <button type="submit">Add Employee</button>
         </form>
-        {isOpenModal && <EmployeeModal closeModal={closeModal} />}
+        {isOpenModal && <EmployeeModal
+            closeModal={closeModal}
+            employee={employee}
+            deleteEmployee={deleteEmployee}
+            getAllEmployees={getAllEmployees}/>}
     </>
 }
