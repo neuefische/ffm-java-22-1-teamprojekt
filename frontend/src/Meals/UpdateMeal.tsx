@@ -15,7 +15,7 @@ function UpdateMeal(props: UpdateMealProps) {
 
     const handleEditMealSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        axios.put("/api/meals/"+props.meal.id, {
+        axios.put("/api/meals/" + props.meal.id, {
             "id": props.meal.id,
             "name": newMealName
         })
@@ -31,7 +31,7 @@ function UpdateMeal(props: UpdateMealProps) {
 
     return (
         <form onSubmit={handleEditMealSubmit}>
-            <input value={newMealName} onChange={handleNewMealName}/>
+            <input required value={newMealName} onChange={handleNewMealName}/>
             <button type={"submit"}>Update Meal</button>
         </form>
     );

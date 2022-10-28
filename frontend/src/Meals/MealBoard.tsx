@@ -9,7 +9,7 @@ type MealBoardProps = {
 }
 
 export default function MealBoard(props: MealBoardProps) {
-    const[mealName, setMealName] = useState<string>("")
+    const [mealName, setMealName] = useState<string>("")
 
     const handleNewMealName = (event: ChangeEvent<HTMLInputElement>) => {
         setMealName(event.target.value)
@@ -19,7 +19,7 @@ export default function MealBoard(props: MealBoardProps) {
         event.preventDefault()
         axios.post("/api/meals", {
             name: mealName
-            })
+        })
             .catch((error) => console.log("POST Error: " + error))
             .then(props.fetchAllMeals)
         setMealName("")
@@ -27,22 +27,22 @@ export default function MealBoard(props: MealBoardProps) {
 
 
     return (<>
-        <ul>
-            {
-                props.meals.map(meal => {
-                    return (
-                        <li key={meal.id}>
-                            <Link to={"/" + meal.id}>{meal.name}</Link>
-                        </li>
-                    )
-                })
-            }
-        </ul>
-        <form onSubmit={handleAddMealSubmit}>
-            <input value={mealName} onChange={handleNewMealName}/>
-            <button type={"submit"}>Add Meal</button>
-        </form>
+            <ul>
+                {
+                    props.meals.map(meal => {
+                        return (
+                            <li key={meal.id}>
+                                <Link to={"/" + meal.id}>{meal.name}</Link>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+            <form onSubmit={handleAddMealSubmit}>
+                <input required value={mealName} onChange={handleNewMealName}/>
+                <button type={"submit"}>Add Meal</button>
+            </form>
         </>
-)
-    ;
+    )
+        ;
 }
