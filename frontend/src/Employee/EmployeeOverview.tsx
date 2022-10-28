@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import axios from "axios"
-import EmployeeCard from "./EmployeeCard";
 import {EmployeeModel} from "./EmployeeModel";
+import EmployeeCard from "./EmployeeCard";
 import EmployeeModal from "./EmployeeModal";
 
 export default function EmployeeOverview() {
@@ -9,6 +9,8 @@ export default function EmployeeOverview() {
     const [employees, setEmployees] = useState<EmployeeModel[]>([])
     const [newEmployee, setNewEmployee] = useState<string>("")
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+    const [currentEmployeeId, setCurrentEmployeeId] = useState<string>("")
+
     const baseUrl='/api/employees/'
 
     useEffect(() => {
@@ -28,17 +30,10 @@ export default function EmployeeOverview() {
             .catch((e) => console.log("DELETE ERROR: " + e))
     }
 
-    const openModal = (id: string) => {
+    const openUpdateEmployeeModalWithId = (id: string) => {
         setIsOpenModal(true)
-     employeeList.find((currentEmployee: EmployeeModel) => currentEmployee.id === id);
+        setCurrentEmployeeId(id);
     }
-
-    /*
-    filteredList = originalList.stream()
-      .filter(employee -> nameFilter.contains(employee.getName()))
-      .collect(Collectors.toList());
-    * */
-
 
     const closeModal = () => {
         setIsOpenModal(false)
@@ -46,7 +41,7 @@ export default function EmployeeOverview() {
 
     const employeeList = employees.map(employee => {
         return <EmployeeCard key={employee.id}
-                             visibleModal={openModal}
+                             openUpdateEmployeeModal={openUpdateEmployeeModalWithId}
                              employee={employee}
                              deleteEmployee={deleteEmployee}
                              getAllEmployees={getAllEmployees}/>
@@ -64,12 +59,6 @@ export default function EmployeeOverview() {
         setNewEmployee(event.target.value)
     }
 
-    // const [updatedEmployee, setUpdatedEmployee] = useState<EmployeeModel>()
-    //
-    // const toUpdateEmployee = employees.map(employee => {
-    //     return setUpdatedEmployee(employee);
-    // })
-
     return <>
         <h1>Employees</h1>
         <ul>{employeeList}</ul>
@@ -79,8 +68,8 @@ export default function EmployeeOverview() {
         </form>
         {isOpenModal && <EmployeeModal
             closeModal={closeModal}
-            employee={employee}
+            id={currentEmployeeId}
             deleteEmployee={deleteEmployee}
-            getAllEmployees={getAllEmployees}/>}
+            getAllEmployees={getAllEmployees} />}
     </>
 }
