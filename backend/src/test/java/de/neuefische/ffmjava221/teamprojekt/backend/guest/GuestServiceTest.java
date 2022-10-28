@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -11,6 +13,7 @@ public class GuestServiceTest {
 
     @Test
     public void getGuestList() {
+
         //GIVEN
 
         GuestRepo guestRepo = mock(GuestRepo.class);
@@ -80,6 +83,9 @@ public class GuestServiceTest {
 
     @Test
     void updateGuestByInvalidId() {
+
+        //GIVEN
+
         GuestUtils guestId = mock(GuestUtils.class);
         GuestRepo guestRepo = mock(GuestRepo.class);
         GuestService guestService = new GuestService(guestRepo, guestId);
@@ -87,12 +93,13 @@ public class GuestServiceTest {
         Guest guest1 = new Guest("Steven", "Lang", "fsagfg@gmail.com", "hallo", "hallo", "2");
         Guest updatedGuest = new Guest("Robert", "Lang", "fsagfg@gmail.com", "hallo", "hallo", "4");
         guests.add(guest1);
+
+        //WHEN
+
         try {
-            if (guests.contains(guest1.id())) {
-                guestService.updateGuestById(guest1.id(), updatedGuest);
-            }
+            guestService.updateGuestById(guest1.id(), updatedGuest);
         } catch (NoSuchElementException e) {
-            fail();
+            System.out.println(e.getMessage());
         }
     }
 }

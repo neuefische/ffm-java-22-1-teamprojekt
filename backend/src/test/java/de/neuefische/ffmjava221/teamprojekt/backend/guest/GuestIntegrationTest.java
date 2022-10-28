@@ -163,7 +163,7 @@ class GuestIntegrationTest {
     @Test
     @DirtiesContext
     void putRequestUpdateGuestNotFound() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.put("/api")
+        mvc.perform(MockMvcRequestBuilders.put("/api/guests/1337")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                             {"firstName": "test",
@@ -171,7 +171,7 @@ class GuestIntegrationTest {
                             "email": "test@gmail.com",
                             "password": "test",
                             "confirmPassword": "test",
-                            "id" :  "<id>"}
+                            "id" :  "1337"}
                                 """))
                 .andExpect(status().isNotFound());
     }
