@@ -43,7 +43,7 @@ class WeatherServiceTest {
     void fetchWeatherReturnsWeatherData() throws Exception {
         //given
         // mocked response from Mockserver has to be WeatherResponseElement, because the API-server initially returns this type
-        WeatherResponseElement mockWeather = new WeatherResponseElement(new WeatherData("dry", 21.7));
+        WeatherForecastResponse mockWeather = new WeatherForecastResponse(new WeatherData("dry", 21.7));
         mockWebServer.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(mockWeather))
                 .addHeader("Content-Type", "application/json")
@@ -62,7 +62,7 @@ class WeatherServiceTest {
     void fetchWeatherReturnsError() throws Exception {
         //given
         // mocked response from Mockserver has to be WeatherResponseElement, because the API-server initially returns this type
-        WeatherResponseElement mockWeather = new WeatherResponseElement(new WeatherData("dry", 21.7));
+        WeatherForecastResponse mockWeather = new WeatherForecastResponse(new WeatherData("dry", 21.7));
         mockWebServer.enqueue(new MockResponse()
                 .addHeader("Content-Type", "application/json")
         );
