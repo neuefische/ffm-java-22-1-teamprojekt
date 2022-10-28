@@ -1,21 +1,24 @@
 import React, {useState, useEffect} from "react";
-import {GuestModel} from "./GuestModel";
+import {GuestModel} from "./GuestModel/GuestModel";
 import axios from "axios";
 import GuestCard from "./GuestCard";
 import {NavLink} from "react-router-dom";
 
-export default function GuestProfile() {
+type GuestProfileProps = {
+    guestList: GuestModel[];
+    fetchAllGuests: () => void
+}
+
+export default function GuestProfile(props: GuestProfileProps) {
 
     const [guestList,setGuestList] = useState<GuestModel[]>([]);
-    const [editModal, setEditModal] = useState(false)
 
-    useEffect(() => {
-        fetchAllGuests()
-    }, [])
-
-    const fetchAllGuests = () => {
+        const fetchAllGuests = () => {
         axios.get("/api/guests")
-            .then((response) => response.data)
+            .then(response => {
+                props.fetchAllGuests()
+                return response.data
+            })
             .catch((error) => {
                 console.log('[Error von GET]: =>' + error)
             })
@@ -24,27 +27,15 @@ export default function GuestProfile() {
             })
     }
 
-    const handleEdit = () => {
-        setEditModal(!editModal)
-    }
+    useEffect(() => {
+        fetchAllGuests()
+    }, [])
 
     const guestListOnBoard = guestList.map(guest => {
         return <>
             <GuestCard key={guest.id} guest={guest}/>
-            <button onClick={handleEdit}>edit</button>
         </>
     })
-
-    const handlePut = () => {
-        axios.put("/api/guests/", {
-                firstName,
-                lastName,
-                email
-        })
-        .then(response => fetchAllGuests() {
-        })
-        .catch(error => console.log(error))
-    }
 
     return (
         <div>

@@ -1,12 +1,11 @@
-import React from 'react';
 import './App.css';
 import Meals from "./Meals/Meals";
 import EmployeeOverview from "./Employee/EmployeeOverview";
 import PlacementPage from "./Placement/PlacementPage";
-import GuestProfile from "./Guest/GuestProfile";
 import {HashRouter, Route, Routes} from "react-router-dom";
 import RegisterForm from "./Guest/RegisterForm";
 import Navigation from "./NavBar/Navigation";
+import GuestPage from "./Guest/GuestPage";
 
 export default function App() {
 
@@ -19,9 +18,11 @@ export default function App() {
         <HashRouter>
             <Navigation/>
             <Routes>
-                <Route path="/GuestProfile" element={<GuestProfile/>}></Route>
-                <Route path="/RegisterForm" element={<RegisterForm/>}></Route>
+
+                <Route path="/GuestProfile" element={<GuestPage/>}/>
+                <Route path="/RegisterForm" element={<RegisterForm/>}/>
             </Routes>
         </HashRouter>
     </>
 }
+ç
