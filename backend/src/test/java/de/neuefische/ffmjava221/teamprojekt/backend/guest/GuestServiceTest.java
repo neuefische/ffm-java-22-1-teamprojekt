@@ -1,6 +1,7 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.guest;
 
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,8 +53,9 @@ public class GuestServiceTest {
         verify(guestUtils).generateUUID();
         assertEquals(expected, actual);
     }
+
     @Test
-    void updateGuestById() {
+    void updateGuestByValidId() {
 
         //GIVEN
 
@@ -62,7 +64,7 @@ public class GuestServiceTest {
         GuestService guestService = new GuestService(guestRepo, guestId);
 
         List<Guest> guests = new ArrayList<>();
-        Guest guest = new Guest("Steven", "Lang", "fsagfg@gmail.com", "hallo", "hallo","2" );
+        Guest guest = new Guest("Steven", "Lang", "fsagfg@gmail.com", "hallo", "hallo", "2");
         Guest updatedGuest = new Guest("Robert", "Lang", "fsagfg@gmail.com", "hallo", "hallo", "2");
         guests.add(guest);
 
@@ -75,4 +77,23 @@ public class GuestServiceTest {
 
         assertEquals(updatedGuest, actual);
     }
+
+    @Test
+    void updateGuestByInvalidId() {
+        GuestUtils guestId = mock(GuestUtils.class);
+        GuestRepo guestRepo = mock(GuestRepo.class);
+        GuestService guestService = new GuestService(guestRepo, guestId);
+        List<Guest> guests = new ArrayList<>();
+        Guest guest1 = new Guest("Steven", "Lang", "fsagfg@gmail.com", "hallo", "hallo", "2");
+        Guest updatedGuest = new Guest("Robert", "Lang", "fsagfg@gmail.com", "hallo", "hallo", "4");
+        guests.add(guest1);
+        try {
+            if (guests.contains(guest1.id())) {
+                guestService.updateGuestById(guest1.id(), updatedGuest);
+            }
+        } catch (NoSuchElementException e) {
+            fail();
+        }
+    }
 }
+

@@ -12,7 +12,6 @@ public class GuestService {
     private final GuestRepo guestRepo;
     private GuestUtils guestUtils;
 
-
     public GuestService(GuestRepo guestRepo, GuestUtils guestUtils) {
         this.guestRepo = guestRepo;
         this.guestUtils = guestUtils;
