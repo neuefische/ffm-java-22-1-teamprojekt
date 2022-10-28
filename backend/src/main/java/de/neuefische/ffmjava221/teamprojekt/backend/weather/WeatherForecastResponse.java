@@ -1,6 +1,7 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.weather;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
-public record WeatherResponseElement(@NotNull WeatherData weather) {
+public record WeatherForecastResponse(@NotNull List<WeatherData> weather) {
 }
