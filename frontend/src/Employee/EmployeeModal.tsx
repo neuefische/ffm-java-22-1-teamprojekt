@@ -1,27 +1,26 @@
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import axios from "axios";
-import {EmployeeModel} from "./EmployeeModel";
 
 type updateEmployeeProps = {
     closeModal: () => void
-    employee: EmployeeModel,
+    id: string,
     deleteEmployee: (id: string) => void,
     getAllEmployees: () => void
 }
 
 export default function EmployeeModal(props:updateEmployeeProps){
 
-    const [newEmployeeName, setEmployeeName] = useState<string>(props.employee.name)
+    const [newEmployeeName, setEmployeeName] = useState<string>()
 
     const handleUpdateEmployeeSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        axios.put("/api/employees/"+props.employee.id, {
-            "id": props.employee.id,
+        axios.put("/api/employees/" + props.id, {
+            "id": props.id,
             "name": newEmployeeName
         })
             .catch((e) => console.log("PUT Error: " + e))
             .then(props.getAllEmployees)
-        setEmployeeName("")
+            .then(props.closeModal)
     }
 
     const handleNewEmployeeName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -30,15 +29,11 @@ export default function EmployeeModal(props:updateEmployeeProps){
 
     return (
         <div>
-            <form>
-                <input type="text"></input>
-            <button type="button">Update</button>
-            </form>
-            <button onClick={props.closeModal}>Close</button>
             <form onSubmit={handleUpdateEmployeeSubmit}>
-                <input value={newEmployeeName} onChange={handleNewEmployeeName}/>
+                <input type={"text"} value={newEmployeeName} onChange={handleNewEmployeeName}/>
                 <button type={"submit"}>Update</button>
             </form>
+            <button onClick={props.closeModal}>Close</button>
         </div>
     );
 }

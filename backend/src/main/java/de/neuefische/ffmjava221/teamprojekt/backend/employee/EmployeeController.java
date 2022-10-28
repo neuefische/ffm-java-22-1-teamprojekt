@@ -32,7 +32,7 @@ public class EmployeeController {
         return employeeService.deleteEmployee(id);
     }
 
-    @PutMapping(path = {"{id}", "{id}"})
+    @PutMapping(path = {"{id}"})
     @ResponseStatus(code = HttpStatus.CREATED)
     Employee update(@PathVariable String id, @RequestBody Employee employee) {
         if (!employee.id().equals(id)) {
@@ -40,5 +40,4 @@ public class EmployeeController {
         }
         return employeeService.updateEmployee(employee);
     }
-
 }
