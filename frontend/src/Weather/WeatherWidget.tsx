@@ -22,7 +22,7 @@ export default function WeatherWidget() {
     }
 
     useEffect(() => {
-        getWeather()
+        fetchWeather()
     }, [])
 
     return (
