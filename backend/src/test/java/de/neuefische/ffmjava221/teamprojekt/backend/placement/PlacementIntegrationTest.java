@@ -106,4 +106,23 @@ class PlacementIntegrationTest {
         assertEquals(newPlacement.id(), responsePlacement.id());
     }
 
+    @Test
+    @DirtiesContext
+    void deletePlacementWithNotExistId () throws Exception{
+         mvc.perform(MockMvcRequestBuilders.delete("/api/placements/342876"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @DirtiesContext
+    void deletePlacementWithExistId () throws  Exception{
+        NewPlacementData newPlacementData1 = new NewPlacementData(3,8);
+        Placement savedPlacement =testService.addNewPlacement(newPlacementData1);
+
+        String id = savedPlacement.id();
+
+        mvc.perform(MockMvcRequestBuilders.delete("/api/placements/"+id))
+                .andExpect(status().isOk());
+    }
+
 }
