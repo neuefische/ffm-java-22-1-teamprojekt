@@ -3,6 +3,7 @@ package de.neuefische.ffmjava221.teamprojekt.backend.placement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -33,8 +34,7 @@ public class PlacementController {
           return ResponseEntity.status(HttpStatus.OK)
                   .body(updatedPlacement);
         }catch (IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(null);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID is not found!");
         }
     }
 }

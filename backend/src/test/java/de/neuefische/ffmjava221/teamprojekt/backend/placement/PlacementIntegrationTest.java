@@ -24,7 +24,7 @@ class PlacementIntegrationTest {
     private MockMvc mvc;
 
     @Autowired
-    private  PlacementService testService;
+    private PlacementService testService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -76,21 +76,17 @@ class PlacementIntegrationTest {
                 }
                 """;
 
-        String content = mvc.perform(MockMvcRequestBuilders.put("/api/placements/543l543k5435")
+        mvc.perform(MockMvcRequestBuilders.put("/api/placements/543l543k5435")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(notExistPlacement))
-                .andExpect(status().isBadRequest())
-                .andReturn().getResponse().getContentAsString();
-
-//        assertEquals("Placement not Exist!", content);
-
+                .andExpect(status().isNotFound());
     }
 
     @Test
     @DirtiesContext
-    void updatingNewPlacementServiceWithPlacement() throws Exception{
-        NewPlacementData newPlacementData =new NewPlacementData(4,5);
-        Placement  newPlacement = testService.addNewPlacement(newPlacementData);
+    void updatingNewPlacementServiceWithPlacement() throws Exception {
+        NewPlacementData newPlacementData = new NewPlacementData(4, 5);
+        Placement newPlacement = testService.addNewPlacement(newPlacementData);
 
         String jsonNewData = """
                 {
@@ -98,7 +94,7 @@ class PlacementIntegrationTest {
                 }
                 """;
 
-        String content = mvc.perform(MockMvcRequestBuilders.put("/api/placements/"+newPlacement.id())
+        String content = mvc.perform(MockMvcRequestBuilders.put("/api/placements/" + newPlacement.id())
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(jsonNewData))
                 .andExpect(status().isOk())
@@ -106,8 +102,8 @@ class PlacementIntegrationTest {
 
         Placement responsePlacement = objectMapper.readValue(content, Placement.class);
 
-        assertEquals(50,responsePlacement.totalSeats());
-        assertEquals(newPlacement.id(),responsePlacement.id());
+        assertEquals(50, responsePlacement.totalSeats());
+        assertEquals(newPlacement.id(), responsePlacement.id());
     }
 
 }
