@@ -27,7 +27,7 @@ export default function GuestCard(props: GuestCardProps) {
         <p> Firstname: {props.guest.firstName}</p>
         <p> Lastname: {props.guest.lastName}</p>
         <p> email: {props.guest.email}</p>
-            <button onClick={handleEdit}>open modal</button>
+            <button onClick={handleEdit}>Edit Guest</button>
 
         </div>
             </section>
