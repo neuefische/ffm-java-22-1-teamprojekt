@@ -25,6 +25,7 @@ class GuestIntegrationTest {
     @DirtiesContext
     @Test
     void addGuest() throws Exception {
+
         // GIVEN
 
         String body = mvc.perform(MockMvcRequestBuilders.post("/api/guests")
@@ -33,8 +34,8 @@ class GuestIntegrationTest {
                                 {"firstName": "test",
                                  "lastName": "test",
                                  "email": "test@gmail.com",
-                                 "password": "test",
-                                 "confirmPassword": "test"}
+                                 "password": "SuperSecret344$$",
+                                 "confirmPassword": "SuperSecret344$$"}
                                 """))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -53,10 +54,25 @@ class GuestIntegrationTest {
                                 [{"firstName": "test",
                                  "lastName": "test",
                                  "email": "test@gmail.com",
-                                 "password": "test",
-                                 "confirmPassword": "test",
+                                 "password": "SuperSecret344$$",
+                                 "confirmPassword": "SuperSecret344$$",
                                  "id" : "<id>"}]
                                 """.replace("<id>", guest.id())));
+    }
+
+    @Test
+    @DirtiesContext
+    void addGuestFalsePassword() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.post("/api/guests")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"firstName": "test",
+                                 "lastName": "test",
+                                 "email": "test@gmail.com",
+                                 "password": "password",
+                                 "confirmPassword": "password"}
+                                """))
+                .andExpect(status().isBadRequest());
     }
 
     @DirtiesContext
@@ -71,23 +87,21 @@ class GuestIntegrationTest {
     @Test
     @DirtiesContext
     void putRequestUpdateGuestData() throws Exception {
-
         // GIVEN
-
         String body = mvc.perform(MockMvcRequestBuilders.post("/api/guests")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {"firstName": "test",
                                 "lastName": "test",
                                 "email": "test@gmail.com",
-                                "password": "test",
-                                "confirmPassword": "test",
+                                "password": "SuperSecret344$$",
+                                "confirmPassword": "SuperSecret344$$",
                                 "id" :  "<id>"},
                                 {"firstName": "Armin",
                                 "lastName": "test",
                                 "email": "test@gmail.com",
-                                "password": "test",
-                                "confirmPassword": "test",
+                                "password": "SuperSecret344$$",
+                                "confirmPassword": "SuperSecret344$$",
                                 "id" :  "id"}
                                     """))
                 .andExpect(status().isOk())
@@ -102,14 +116,14 @@ class GuestIntegrationTest {
                                  {"firstName": "Simon",
                                  "lastName": "test",
                                  "email": "test@gmail.com",
-                                 "password": "test",
-                                 "confirmPassword": "test",
+                                 "password": "SuperSecret344$$",
+                                 "confirmPassword": "SuperSecret344$$",
                                  "id" :  "<id>"},
                                  {"firstName": "Armin",
                                  "lastName": "test",
                                  "email": "test@gmail.com",
-                                 "password": "test",
-                                 "confirmPassword": "test",
+                                 "password": "SuperSecret344$$",
+                                 "confirmPassword": "SuperSecret344$$",
                                  "id" :  "id"}
                                 """.replace("<id>", guest.id()))))
                 // THEN
@@ -118,14 +132,14 @@ class GuestIntegrationTest {
                                          {"firstName": "Simon",
                                          "lastName": "test",
                                          "email": "test@gmail.com",
-                                         "password": "test",
-                                         "confirmPassword": "test",
+                                         "password": "SuperSecret344$$",
+                                         "confirmPassword": "SuperSecret344$$",
                                          "id" :  "<id>"},
                                          {"firstName": "Armin",
                                          "lastName": "test",
                                          "email": "test@gmail.com",
-                                         "password": "test",
-                                         "confirmPassword": "test",
+                                         "password": "SuperSecret344$$",
+                                         "confirmPassword": "SuperSecret344$$",
                                          "id" :  "id"}
                         """.replace("<id>", guest.id())));
     }
@@ -139,8 +153,8 @@ class GuestIntegrationTest {
                                 {"firstName": "test",
                                 "lastName": "test",
                                 "email": "test@gmail.com",
-                                "password": "test",
-                                "confirmPassword": "test",
+                                "password": "SuperSecret344$$",
+                                "confirmPassword": "SuperSecret344$$",
                                 "id" :  "<id>"}
                                     """))
                 .andExpect(status().isBadRequest());
@@ -155,8 +169,8 @@ class GuestIntegrationTest {
                                 {"firstName": "test",
                                 "lastName": "test",
                                 "email": "test@gmail.com",
-                                "password": "test",
-                                "confirmPassword": "test",
+                                "password": "SuperSecret344$$",
+                                "confirmPassword": "SuperSecret344$$",
                                 "id" :  "<id>"}
                                     """))
                 .andExpect(status().isMethodNotAllowed());
@@ -171,8 +185,8 @@ class GuestIntegrationTest {
                                 {"firstName": "test",
                                 "lastName": "test",
                                 "email": "test@gmail.com",
-                                "password": "test",
-                                "confirmPassword": "test",
+                                "password": "SuperSecret344$$",
+                                "confirmPassword": "SuperSecret344$$",
                                 "id" :  "1337"}
                                     """))
                 .andExpect(status().isNotFound());
@@ -188,8 +202,8 @@ class GuestIntegrationTest {
                                 {"firstName": "test",
                                  "lastName": "test",
                                  "email": "test@gmail.com",
-                                "password": "test",
-                                 "confirmPassword": "test"}
+                                "password": "SuperSecret344$$",
+                                 "confirmPassword": "SuperSecret344$$"}
                                 """))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();

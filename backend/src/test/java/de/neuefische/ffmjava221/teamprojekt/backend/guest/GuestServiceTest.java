@@ -18,7 +18,7 @@ public class GuestServiceTest {
 
         GuestRepo guestRepo = mock(GuestRepo.class);
         List<Guest> guests = new ArrayList<>();
-        Guest guest = new Guest("Steven", "Lang", "fsagfg@gmail.com", "hallo", "hallo", "123");
+        Guest guest = new Guest("Steven", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "SuperSecret344$$", "123");
         guests.add(guest);
 
         //WHEN
@@ -40,7 +40,7 @@ public class GuestServiceTest {
         GuestUtils guestUtils = mock(GuestUtils.class);
         GuestService guestService = new GuestService(guestRepo, guestUtils);
 
-        NewGuest newGuest = new NewGuest("Steven", "Lang", "fggfl@gmail.de", "TestPost", "TestPost");
+        NewGuest newGuest = new NewGuest("Steven", "Lang", "fggfl@gmail.de", "SuperSecret344$$", "SuperSecret344$$");
         Guest testGuest = newGuest.withId("2");
 
         Guest expected = testGuest;
@@ -67,8 +67,8 @@ public class GuestServiceTest {
         GuestService guestService = new GuestService(guestRepo, guestId);
 
         List<Guest> guests = new ArrayList<>();
-        Guest guest = new Guest("Steven", "Lang", "fsagfg@gmail.com", "hallo", "hallo", "2");
-        Guest updatedGuest = new Guest("Robert", "Lang", "fsagfg@gmail.com", "hallo", "hallo", "2");
+        Guest guest = new Guest("Steven", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "SuperSecret344$$", "2");
+        Guest updatedGuest = new Guest("Robert", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "SuperSecret344$$", "2");
         guests.add(guest);
 
         //WHEN
@@ -92,8 +92,8 @@ public class GuestServiceTest {
         GuestRepo guestRepo = mock(GuestRepo.class);
         GuestService guestService = new GuestService(guestRepo, guestId);
         List<Guest> guests = new ArrayList<>();
-        Guest guest1 = new Guest("Steven", "Lang", "fsagfg@gmail.com", "hallo", "hallo", "2");
-        Guest updatedGuest = new Guest("Robert", "Lang", "fsagfg@gmail.com", "hallo", "hallo", "4");
+        Guest guest1 = new Guest("Steven", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "SuperSecret344$$", "2");
+        Guest updatedGuest = new Guest("Robert", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "SuperSecret344$$", "4");
         guests.add(guest1);
 
         //WHEN
@@ -113,7 +113,7 @@ public class GuestServiceTest {
         GuestUtils guestId = mock(GuestUtils.class);
         GuestRepo guestRepo = mock(GuestRepo.class);
         GuestService guestService = new GuestService(guestRepo, guestId);
-        NewGuest guest1 = new NewGuest("Steven", "Lang", "fsagfg@gmail.com", "hallo", "hallo");
+        NewGuest guest1 = new NewGuest("Steven", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "SuperSecret344$$");
 
         //WHEN
 
