@@ -24,8 +24,6 @@ public class WeatherController {
         int currentHour = Integer.parseInt(java.time.LocalTime.now().toString().split(":")[0]);
         try {
             return weatherService.fetchWeather(currentDate, currentHour);
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (NullPointerException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (WebClientResponseException e) {
