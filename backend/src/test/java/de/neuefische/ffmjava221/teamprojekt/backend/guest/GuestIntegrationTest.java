@@ -196,7 +196,10 @@ class GuestIntegrationTest {
 
         Guest guest = objectMapper.readValue(body, Guest.class);
 
-        mvc.perform(MockMvcRequestBuilders.delete("/api/guests/"+guest.id())).andExpect(status().isOk());
+        mvc
+                .perform(MockMvcRequestBuilders.delete("/api/guests/" + guest.id()))
+                .andExpect(status().isOk())
+                .andExpect(content().json(body));
     }
 
     @Test
