@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import java.util.Objects;
 
@@ -17,7 +16,7 @@ public class WeatherService {
         this.webClient = WebClient.create(baseUrl);
     }
 
-    public WeatherData fetchWeather(String date, int hour) throws IllegalArgumentException, NullPointerException, WebClientResponseException {
+    public WeatherData fetchWeather(String date, int hour) throws IllegalArgumentException, WeatherResponseIsNullException {
         if (hour < 0 || hour > 24) {
             throw new IllegalArgumentException("Hour must be between 0 and 24");
         }
