@@ -28,8 +28,12 @@ public class WeatherService {
                         .toEntity(WeatherForecastResponse.class)
                         .block())
                         .getBody();
+        if(weatherResponse != null) {
+            return weatherResponse.weather().get(hour);
+        } else {
+            throw new NullPointerException("Weather Response is null");
+        }
 
-        return weatherResponse.weather().get(hour);
     }
 }
 

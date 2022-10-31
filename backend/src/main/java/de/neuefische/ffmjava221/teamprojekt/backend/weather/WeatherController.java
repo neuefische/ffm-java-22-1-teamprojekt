@@ -42,9 +42,7 @@ public class WeatherController {
         } catch (NullPointerException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (WebClientResponseException e) {
-            System.out.println("Test");
             throw new ResponseStatusException(e.getStatusCode(), e.getMessage());
-
         }
     }
 }
