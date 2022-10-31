@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
-
 @RestController
 @RequestMapping("/api/weather")
 public class WeatherController {
@@ -15,20 +13,6 @@ public class WeatherController {
 
     public WeatherController(WeatherService weatherService) {
         this.weatherService = weatherService;
-    }
-
-    @GetMapping("/today")
-    @ExceptionHandler({IllegalArgumentException.class, NullPointerException.class, WebClientResponseException.class})
-    public WeatherData getWeatherToday() {
-        String currentDate = LocalDate.now().toString();
-        int currentHour = Integer.parseInt(java.time.LocalTime.now().toString().split(":")[0]);
-        try {
-            return weatherService.fetchWeather(currentDate, currentHour);
-        } catch (NullPointerException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } catch (WebClientResponseException e) {
-            throw new ResponseStatusException(e.getStatusCode(), e.getMessage());
-        }
     }
 
     @GetMapping("/{date}")

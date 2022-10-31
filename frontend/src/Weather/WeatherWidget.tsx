@@ -10,14 +10,7 @@ export default function WeatherWidget() {
     const [weather, setWeather] = useState<WeatherModel>()
     const [date, setDate] = useState<Date>(new Date())
 
-    const fetchCurrentWeather = () => {
-        axios.get("/api/weather/today")
-            .then(response => response.data)
-            .catch(error => console.log(error))
-            .then(data => setWeather(data))
-    }
-
-    const fetchWeatherForecast = () => {
+    const fetchWeather = () => {
         const urlDate = getDate(date)
         const hour = getTime(date)
         axios.get("/api/weather/"+urlDate+"?hour="+hour)
@@ -27,7 +20,7 @@ export default function WeatherWidget() {
     }
 
     useEffect(() => {
-        fetchCurrentWeather()
+        fetchWeather()
     }, [])
 
     function getDate(date: Date) {
@@ -40,11 +33,10 @@ export default function WeatherWidget() {
 
     const handleChangeDate = (date: Date) => {
         setDate(date)
-        console.log(date)
     }
 
     const handleDateSelect = () => {
-        fetchWeatherForecast()
+        fetchWeather()
     }
 
     return (
