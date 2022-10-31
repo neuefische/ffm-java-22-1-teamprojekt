@@ -1,7 +1,11 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.guest;
+
 import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Repository
 public class GuestRepo {
@@ -17,7 +21,7 @@ public class GuestRepo {
         return this.guests;
     }
 
-    public void setGuest(int index,Guest guest) {
+    public void setGuest(int index, Guest guest) {
         guests.set(index, guest);
     }
 
@@ -28,8 +32,7 @@ public class GuestRepo {
         if (guestToFind.isEmpty()) {
             throw new NoSuchElementException("Element with this Id not found");
         }
-
         guests.remove(guestToFind.get());
-     
+
     }
 }

@@ -43,9 +43,8 @@ public class GuestController {
     void deleteGuestById(@PathVariable String id) {
         try {
             guestService.deleteGuestById(id);
-        } catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
-
     }
 }
