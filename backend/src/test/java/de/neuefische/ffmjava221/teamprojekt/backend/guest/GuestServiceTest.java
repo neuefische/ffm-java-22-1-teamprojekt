@@ -76,6 +76,8 @@ public class GuestServiceTest {
         when(guestRepo.getGuestList()).thenReturn(guests);
         Guest actual = guestService.updateGuestById("2", updatedGuest);
 
+        //
+
         //THEN
 
         assertEquals(updatedGuest, actual);
@@ -101,6 +103,45 @@ public class GuestServiceTest {
         } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Test
+    void checkConfirmPassword() {
+
+        //GIVEN
+
+        GuestUtils guestId = mock(GuestUtils.class);
+        GuestRepo guestRepo = mock(GuestRepo.class);
+        GuestService guestService = new GuestService(guestRepo, guestId);
+        NewGuest guest1 = new NewGuest("Steven", "Lang", "fsagfg@gmail.com", "hallo", "hallo");
+
+        //WHEN
+
+        boolean actual = guestService.checkConfirmPassword(guest1);
+
+        //THEN
+
+        assertEquals(true, actual);
+
+    }
+
+    @Test
+    void checkConfirmPasswordFalse() {
+
+        //GIVEN
+
+        GuestUtils guestId = mock(GuestUtils.class);
+        GuestRepo guestRepo = mock(GuestRepo.class);
+        GuestService guestService = new GuestService(guestRepo, guestId);
+        NewGuest guest1 = new NewGuest("Steven", "Lang", "fsagfg@gmail.com", "hallo123", "hallo");
+
+        //WHEN
+
+        boolean actual = guestService.checkConfirmPassword(guest1);
+
+        //THEN
+
+        assertEquals(false, actual);
     }
 }
 

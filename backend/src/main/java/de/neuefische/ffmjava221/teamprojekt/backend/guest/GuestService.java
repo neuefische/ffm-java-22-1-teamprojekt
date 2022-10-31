@@ -30,6 +30,7 @@ public class GuestService {
 
     public Guest updateGuestById(String id, Guest guest) {
         List<Guest> guests = guestRepo.getGuestList();
+        // when(mockRepo.getGuestList()).thenReturn(guests)
         for (Guest person : guests) {
             if (person.id().equals(id)) {
                 guestRepo.setGuest(guests.indexOf(person), guest);
@@ -53,5 +54,9 @@ public class GuestService {
         Guest guest = guestToFind.get();
         guestRepo.deleteGuestById(guest);
         return guest;
+    }
+
+    public boolean checkConfirmPassword(NewGuest guest){
+        return  guest.confirmPassword().equals(guest.password());
     }
 }
