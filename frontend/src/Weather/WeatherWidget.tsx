@@ -52,7 +52,8 @@ export default function WeatherWidget() {
             {weather !== undefined ?
                 <>
                     <h3>Wetter:</h3>
-                    <p>Temperatur: {weather.temperature}°C, {weather.condition}</p>
+                    <p>Temperatur: {weather.temperature}°C, Niederschlag: {weather.condition}</p>
+                    <p>Sonnenschein: {weather.sunshine}%, Wolken: {weather.cloud_cover}%, Windgeschwindigkeit: {weather.wind_speed}m/s</p>
                 </> :
                 <>
                     <p>keine Wetterdaten verfügbar</p>
