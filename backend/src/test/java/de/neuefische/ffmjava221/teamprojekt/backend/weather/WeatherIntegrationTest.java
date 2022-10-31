@@ -20,9 +20,6 @@ class WeatherIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Test
     void fetchWeatherTodaySuccessful() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/today"))
@@ -46,6 +43,11 @@ class WeatherIntegrationTest {
     @Test
     void fetchWeatherWrongDateReturnsError() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/abc?hour=1"))
+                .andExpect(status().isBadRequest());
+    }
+    @Test
+    void fetchWeatherWrongHourReturnsError() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/2022-10-31?hour=25"))
                 .andExpect(status().isBadRequest());
     }
 }

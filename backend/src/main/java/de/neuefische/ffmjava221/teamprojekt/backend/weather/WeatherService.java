@@ -33,7 +33,6 @@ public class WeatherService {
         } else {
             throw new NullPointerException("Weather Response is null");
         }
-
     }
 }
 
