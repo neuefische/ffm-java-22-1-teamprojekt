@@ -8,9 +8,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -59,10 +59,9 @@ class WeatherServiceTest {
     }
 
     @Test
-    void fetchWeatherReturnsError() throws Exception {
+    void fetchWeatherDateNullReturnsError() throws Exception {
         //given
         // mocked response from Mockserver has to be WeatherResponseElement, because the API-server initially returns this type
-        WeatherForecastResponse mockWeather = new WeatherForecastResponse(new WeatherData("dry", 21.7));
         mockWebServer.enqueue(new MockResponse()
                 .addHeader("Content-Type", "application/json")
         );
@@ -70,12 +69,23 @@ class WeatherServiceTest {
         try {
             weatherService.fetchWeather();
             fail();
-        } catch (ResponseStatusException e) {
+        } catch (NullPointerException e) {
             RecordedRequest recordedRequest = mockWebServer.takeRequest();
             //then
             assertEquals("GET", recordedRequest.getMethod());
-            assertEquals("404 NOT_FOUND \"Response is empty/null\"", e.getMessage());
+            assertEquals("Response is empty/null", e.getMessage());
         }
-
+    }
+    @Test
+    void fetchWeatherHour25ReturnsError() throws Exception {
+        //given
+        //when
+        try {
+            weatherService.fetchWeather("2022-11-01",25);
+            fail();
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("Hour must be between 0 and 24", e.getMessage());
+        }
     }
 }
