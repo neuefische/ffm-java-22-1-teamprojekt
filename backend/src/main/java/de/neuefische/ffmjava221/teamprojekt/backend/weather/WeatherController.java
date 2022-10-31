@@ -18,6 +18,7 @@ public class WeatherController {
     }
 
     @GetMapping("/today")
+    @ExceptionHandler({IllegalArgumentException.class, NullPointerException.class, WebClientResponseException.class})
     public WeatherData getWeatherToday() {
         String currentDate = LocalDate.now().toString();
         int currentHour = Integer.parseInt(java.time.LocalTime.now().toString().split(":")[0]);
