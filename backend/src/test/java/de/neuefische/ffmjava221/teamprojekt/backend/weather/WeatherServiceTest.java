@@ -90,4 +90,16 @@ class WeatherServiceTest {
             assertEquals("Hour must be between 0 and 24", e.getMessage());
         }
     }
+    @Test
+    void fetchWeatherHourMinus5ReturnsError() {
+        //given
+        //when
+        try {
+            weatherService.fetchWeather("2022-11-01",-5);
+            fail();
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("Hour must be between 0 and 24", e.getMessage());
+        }
+    }
 }
