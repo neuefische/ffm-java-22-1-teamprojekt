@@ -19,15 +19,6 @@ class WeatherIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    void fetchWeatherTodaySuccessful() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/today"))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.temperature", Matchers.isA(Double.class)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.temperature").isNotEmpty())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.condition").isNotEmpty())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.condition", Matchers.isA(String.class)));
-    }
 
     @Test
     void fetchWeatherForecastSuccessful() throws Exception {
