@@ -12,7 +12,6 @@ export default function WeatherWidget() {
             .then(response => response.data)
             .catch(error => console.log(error))
             .then(data => setWeather(data))
-
     }
 
     useEffect(() => {
