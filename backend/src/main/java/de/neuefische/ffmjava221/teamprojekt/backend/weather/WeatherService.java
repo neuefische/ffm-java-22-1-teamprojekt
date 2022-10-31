@@ -14,40 +14,22 @@ public class WeatherService {
         this.webClient = WebClient.create(baseUrl);
     }
 
-//    public WeatherData fetchWeatherToday() throws ResponseStatusException {
-//        WeatherTodayResponseElement weatherResponse = webClient
-//                .get()
-//                .retrieve()
-//                .toEntity(WeatherTodayResponseElement.class)
-//                .blockOptional().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-//                        "Fetch failed while waiting for Response"))
-//                .getBody();
-//
-//        if (weatherResponse != null) {
-//            return weatherResponse.weather();
-//        } else {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Response is empty/null");
-//        }
-//    }
-
-    public WeatherData fetchWeatherForecast(String date, int hour) {
+    public WeatherData fetchWeather(String date, int hour) throws IllegalArgumentException, NullPointerException, WebClientResponseException {
         if (hour < 0 || hour > 24) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Hour must be between 0 and 24");
+            throw new IllegalArgumentException("Hour must be between 0 and 24");
         }
-
         WeatherForecastResponse weatherResponse = webClient
                 .get()
-                .uri("https://api.brightsky.dev/weather?wmo_station_id=10637&date=" + date)
+                .uri("?wmo_station_id=10637&date="+date)
                 .retrieve()
                 .toEntity(WeatherForecastResponse.class)
-                .blockOptional().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Fetch failed while waiting for Response"))
+                .block()//Optional().orElseThrow(() -> new NullPointerException("Fetch failed while waiting for Response"))
                 .getBody();
 
         if (weatherResponse != null) {
             return weatherResponse.weather().get(hour);
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Response is empty/null");
+            throw new NullPointerException("Response is empty/null");
         }
     }
 }

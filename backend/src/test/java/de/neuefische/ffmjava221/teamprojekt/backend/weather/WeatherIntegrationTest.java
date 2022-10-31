@@ -24,7 +24,7 @@ class WeatherIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void fetchWeatherSuccessful() throws Exception {
+    void fetchWeatherTodaySuccessful() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/today"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.temperature", Matchers.isA(Double.class)))
