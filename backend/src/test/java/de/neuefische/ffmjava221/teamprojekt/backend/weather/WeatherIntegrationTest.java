@@ -1,6 +1,5 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.weather;
 
-
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
