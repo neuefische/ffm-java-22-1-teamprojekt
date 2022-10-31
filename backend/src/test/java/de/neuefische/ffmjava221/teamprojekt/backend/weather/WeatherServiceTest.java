@@ -67,7 +67,7 @@ class WeatherServiceTest {
         );
         //when
         try {
-            weatherService.fetchWeather();
+            weatherService.fetchWeather(null,0);
             fail();
         } catch (NullPointerException e) {
             RecordedRequest recordedRequest = mockWebServer.takeRequest();
