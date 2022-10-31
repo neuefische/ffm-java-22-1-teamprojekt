@@ -24,7 +24,7 @@ public class WeatherController {
         int currentHour = Integer.parseInt(java.time.LocalTime.now().toString().split(":")[0]);
         try {
             return weatherService.fetchWeather(currentDate, currentHour);
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (NullPointerException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -37,12 +37,14 @@ public class WeatherController {
     public WeatherData getWeather(@PathVariable String date, @RequestParam int hour) {
         try {
             return weatherService.fetchWeather(date, hour);
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (NullPointerException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (WebClientResponseException e) {
+            System.out.println("Test");
             throw new ResponseStatusException(e.getStatusCode(), e.getMessage());
+
         }
     }
 }
