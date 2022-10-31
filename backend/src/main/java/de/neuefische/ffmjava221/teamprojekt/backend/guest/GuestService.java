@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class GuestService {
@@ -38,7 +39,19 @@ public class GuestService {
         throw new NoSuchElementException("No guest was found with this id");
     }
 
-    public void deleteGuestById(String id) {
-        guestRepo.deleteGuestById(id);
+    public Guest deleteGuestById(String id) {
+        Optional<Guest> guestToFind = guestRepo
+                .getGuestList()
+                .stream()
+                .filter(guest -> guest.id().equals(id))
+                .findFirst();
+
+        if (guestToFind.isEmpty()) {
+            throw new NoSuchElementException("Element with this Id not found");
+        }
+
+        Guest guest = guestToFind.get();
+        guestRepo.deleteGuestById(guest);
+        return guest;
     }
 }
