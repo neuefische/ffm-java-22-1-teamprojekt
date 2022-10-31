@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -76,19 +77,19 @@ class GuestIntegrationTest {
         String body = mvc.perform(MockMvcRequestBuilders.post("/api/guests")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                            {"firstName": "test",
-                            "lastName": "test",
-                            "email": "test@gmail.com",
-                            "password": "test",
-                            "confirmPassword": "test",
-                            "id" :  "<id>"},
-                            {"firstName": "Armin",
-                            "lastName": "test",
-                            "email": "test@gmail.com",
-                            "password": "test",
-                            "confirmPassword": "test",
-                            "id" :  "id"}
-                                """))
+                                {"firstName": "test",
+                                "lastName": "test",
+                                "email": "test@gmail.com",
+                                "password": "test",
+                                "confirmPassword": "test",
+                                "id" :  "<id>"},
+                                {"firstName": "Armin",
+                                "lastName": "test",
+                                "email": "test@gmail.com",
+                                "password": "test",
+                                "confirmPassword": "test",
+                                "id" :  "id"}
+                                    """))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
@@ -132,16 +133,16 @@ class GuestIntegrationTest {
     @Test
     @DirtiesContext
     void putRequestUpdateGuestDataWithBadRequest() throws Exception {
-         mvc.perform(MockMvcRequestBuilders.put("/api/guests/1")
+        mvc.perform(MockMvcRequestBuilders.put("/api/guests/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                            {"firstName": "test",
-                            "lastName": "test",
-                            "email": "test@gmail.com",
-                            "password": "test",
-                            "confirmPassword": "test",
-                            "id" :  "<id>"}
-                                """))
+                                {"firstName": "test",
+                                "lastName": "test",
+                                "email": "test@gmail.com",
+                                "password": "test",
+                                "confirmPassword": "test",
+                                "id" :  "<id>"}
+                                    """))
                 .andExpect(status().isBadRequest());
     }
 
@@ -151,29 +152,58 @@ class GuestIntegrationTest {
         mvc.perform(MockMvcRequestBuilders.put("/api/guests/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                            {"firstName": "test",
-                            "lastName": "test",
-                            "email": "test@gmail.com",
-                            "password": "test",
-                            "confirmPassword": "test",
-                            "id" :  "<id>"}
-                                """))
+                                {"firstName": "test",
+                                "lastName": "test",
+                                "email": "test@gmail.com",
+                                "password": "test",
+                                "confirmPassword": "test",
+                                "id" :  "<id>"}
+                                    """))
                 .andExpect(status().isMethodNotAllowed());
     }
+
     @Test
     @DirtiesContext
     void putRequestUpdateGuestNotFound() throws Exception {
         mvc.perform(MockMvcRequestBuilders.put("/api/guests/1337")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                            {"firstName": "test",
-                            "lastName": "test",
-                            "email": "test@gmail.com",
-                            "password": "test",
-                            "confirmPassword": "test",
-                            "id" :  "1337"}
-                                """))
+                                {"firstName": "test",
+                                "lastName": "test",
+                                "email": "test@gmail.com",
+                                "password": "test",
+                                "confirmPassword": "test",
+                                "id" :  "1337"}
+                                    """))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @DirtiesContext
+    void deleteGuestByIdIsSuccessful() throws Exception {
+
+        String body = mvc.perform(MockMvcRequestBuilders.post("/api/guests")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"firstName": "test",
+                                 "lastName": "test",
+                                 "email": "test@gmail.com",
+                                 "password": "test",
+                                 "confirmPassword": "test"}
+                                """))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        Guest guest = objectMapper.readValue(body, Guest.class);
+
+        mvc.perform(MockMvcRequestBuilders.delete("/api/guests/"+guest.id())).andExpect(status().isOk());
+    }
+
+    @Test
+    @DirtiesContext
+    void deleteGuestByIdNotFound() throws Exception {
+        
+        mvc.perform(MockMvcRequestBuilders.delete("/api/guests/954ujfew90ru30rfi033")).andExpect(status().isNotFound());
     }
 }
 
