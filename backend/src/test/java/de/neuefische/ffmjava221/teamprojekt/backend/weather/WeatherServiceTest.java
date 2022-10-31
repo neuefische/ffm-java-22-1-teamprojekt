@@ -75,7 +75,7 @@ class WeatherServiceTest {
             RecordedRequest recordedRequest = mockWebServer.takeRequest();
             //then
             assertEquals("GET", recordedRequest.getMethod());
-            assertEquals("Cannot invoke \"de.neuefische.ffmjava221.teamprojekt.backend.weather.WeatherForecastResponse.weather()\" because \"weatherResponse\" is null", e.getMessage());
+            assertEquals("Weather Response is null", e.getMessage());
         }
     }
     @Test
