@@ -25,14 +25,14 @@ export default function GuestCard(props: GuestCardProps) {
         axios.delete("/api/guests/" + props.guest.id)
             .then((response) => response.status)
             .catch((error) => {
-                console.log('[Error von GET]: =>' + error)
                 if (error.status === 404) setMessageStatus('Error: Delete not successful!!')
             })
             .then((status) => {
                 if (status === 200) {
                     setMessageStatus('Guest ' + props.guest.firstName+" "+props.guest.lastName + ' successfully deleted.');
                 }
-            }).then(() => setTimeout(() => props.fetchAllGuests(), 2000))
+            })
+            .then(() => setTimeout(() => props.fetchAllGuests(), 2000))
     }
 
     // GuestCard

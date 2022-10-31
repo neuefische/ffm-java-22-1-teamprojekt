@@ -4,8 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+
 
 @Repository
 public class GuestRepo {
@@ -25,14 +24,8 @@ public class GuestRepo {
         guests.set(index, guest);
     }
 
-    public void deleteGuestById(String id) {
-
-        Optional<Guest>  guestToFind = guests.stream().filter(guest -> guest.id().equals(id)).findFirst();
-
-        if (guestToFind.isEmpty()) {
-            throw new NoSuchElementException("Element with this Id not found");
-        }
-        guests.remove(guestToFind.get());
-
+    public Guest deleteGuestById(Guest guest) {
+        guests.remove(guest);
+        return guest;
     }
 }
