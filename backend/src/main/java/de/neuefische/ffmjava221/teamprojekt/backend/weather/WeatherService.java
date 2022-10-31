@@ -26,14 +26,10 @@ public class WeatherService {
                         .uri("?wmo_station_id=10637&date=" + date)
                         .retrieve()
                         .toEntity(WeatherForecastResponse.class)
-                        .block())//Optional().orElseThrow(() -> new NullPointerException("Fetch failed while waiting for Response"))
+                        .block())
                         .getBody();
 
-        if (weatherResponse != null) {
-            return weatherResponse.weather().get(hour);
-        } else {
-            throw new NullPointerException("Response is empty/null");
-        }
+        return weatherResponse.weather().get(hour);
     }
 }
 
