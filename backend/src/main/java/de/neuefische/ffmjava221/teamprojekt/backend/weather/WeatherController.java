@@ -21,7 +21,7 @@ public class WeatherController {
             return weatherService.fetchWeather(date, hour);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        } catch (NullPointerException e) {
+        } catch (WeatherResponseIsNullException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (WebClientResponseException e) {
             throw new ResponseStatusException(e.getStatusCode(), e.getMessage());
