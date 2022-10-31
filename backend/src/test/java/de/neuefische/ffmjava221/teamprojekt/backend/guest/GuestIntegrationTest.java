@@ -75,6 +75,21 @@ class GuestIntegrationTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    @DirtiesContext
+    void addGuestNotEqualPasswords() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.post("/api/guests")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"firstName": "test",
+                                 "lastName": "test",
+                                 "email": "test@gmail.com",
+                                 "password": "SuperSecret344$$",
+                                 "confirmPassword": "SuperSecret345$$"}
+                                """))
+                .andExpect(status().isBadRequest());
+    }
+
     @DirtiesContext
     @Test
     void getAllGuestsAndExpectEmptyList() throws Exception {
@@ -97,7 +112,7 @@ class GuestIntegrationTest {
                                 "password": "SuperSecret344$$",
                                 "confirmPassword": "SuperSecret344$$",
                                 "id" :  "<id>"}
-                               
+                                                               
                                     """))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -197,7 +212,7 @@ class GuestIntegrationTest {
                                 {"firstName": "test",
                                  "lastName": "test",
                                  "email": "test@gmail.com",
-                                "password": "SuperSecret344$$",
+                                 "password": "SuperSecret344$$",
                                  "confirmPassword": "SuperSecret344$$"}
                                 """))
                 .andExpect(status().isOk())
@@ -217,6 +232,8 @@ class GuestIntegrationTest {
 
         mvc.perform(MockMvcRequestBuilders.delete("/api/guests/954ujfew90ru30rfi033")).andExpect(status().isNotFound());
     }
+
+
 }
 
 

@@ -30,7 +30,6 @@ public class GuestService {
 
     public Guest updateGuestById(String id, Guest guest) {
         List<Guest> guests = guestRepo.getGuestList();
-        // when(mockRepo.getGuestList()).thenReturn(guests)
         for (Guest person : guests) {
             if (person.id().equals(id)) {
                 guestRepo.setGuest(guests.indexOf(person), guest);
