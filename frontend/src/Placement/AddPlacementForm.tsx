@@ -2,23 +2,23 @@ import React, {ChangeEvent, FormEvent, useState} from 'react';
 import axios from 'axios';
 import PlacementModel from "./PlacementModel";
 
-type AddPlacementFormProps={
-    fetchAll:()=>void;
+type AddPlacementFormProps = {
+    fetchAll: () => void;
 }
 
-function AddPlacementForm(props:AddPlacementFormProps) {
+function AddPlacementForm(props: AddPlacementFormProps) {
     const [tableNumber, setTableNumber] = useState<string>('')
     const [totalSeats, setTotalSeats] = useState<string>('')
 
 
     const postNewPlacement = (newPlacement: Omit<PlacementModel, 'id'>) => {
         axios.post("api/placements", newPlacement)
-            .then(()=>{
+            .then(() => {
                 props.fetchAll();
                 setTableNumber("")
                 setTotalSeats("")
             })
-            .catch((error)=>{
+            .catch((error) => {
                 console.log(error)
             })
 
@@ -33,10 +33,11 @@ function AddPlacementForm(props:AddPlacementFormProps) {
     }
 
     const handleTableNumberChange = (evt: ChangeEvent<HTMLInputElement>) => {
-        setTableNumber(evt.target.value)
+        if (evt.target.value)
+            setTableNumber(evt.target.value)
     }
     const handleTotalSeatsChange = (evt: ChangeEvent<HTMLInputElement>) => {
-        setTotalSeats(evt.target.value)
+        if (evt.target.value) setTotalSeats(evt.target.value)
     }
 
     return (
