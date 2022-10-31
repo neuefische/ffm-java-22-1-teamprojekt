@@ -20,4 +20,16 @@ public class GuestRepo {
     public void setGuest(int index,Guest guest) {
         guests.set(index, guest);
     }
+
+    public void deleteGuestById(String id) {
+
+        Optional<Guest>  guestToFind = guests.stream().filter(guest -> guest.id().equals(id)).findFirst();
+
+        if (guestToFind.isEmpty()) {
+            throw new NoSuchElementException("Element with this Id not found");
+        }
+
+        guests.remove(guestToFind.get());
+     
+    }
 }

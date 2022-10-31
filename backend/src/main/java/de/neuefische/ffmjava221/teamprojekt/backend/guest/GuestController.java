@@ -38,4 +38,14 @@ public class GuestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("{id}")
+    void deleteGuestById(@PathVariable String id) {
+        try {
+            guestService.deleteGuestById(id);
+        } catch (NoSuchElementException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+
+    }
 }
