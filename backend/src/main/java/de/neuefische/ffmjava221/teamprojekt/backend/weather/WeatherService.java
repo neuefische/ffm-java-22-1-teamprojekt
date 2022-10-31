@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import java.util.Objects;
+
 
 @Service
 public class WeatherService {
@@ -19,13 +21,13 @@ public class WeatherService {
         if (hour < 0 || hour > 24) {
             throw new IllegalArgumentException("Hour must be between 0 and 24");
         }
-        WeatherForecastResponse weatherResponse = webClient
-                .get()
-                .uri("?wmo_station_id=10637&date="+date)
-                .retrieve()
-                .toEntity(WeatherForecastResponse.class)
-                .block()//Optional().orElseThrow(() -> new NullPointerException("Fetch failed while waiting for Response"))
-                .getBody();
+        WeatherForecastResponse weatherResponse = Objects.requireNonNull(webClient
+                        .get()
+                        .uri("?wmo_station_id=10637&date=" + date)
+                        .retrieve()
+                        .toEntity(WeatherForecastResponse.class)
+                        .block())//Optional().orElseThrow(() -> new NullPointerException("Fetch failed while waiting for Response"))
+                        .getBody();
 
         if (weatherResponse != null) {
             return weatherResponse.weather().get(hour);
