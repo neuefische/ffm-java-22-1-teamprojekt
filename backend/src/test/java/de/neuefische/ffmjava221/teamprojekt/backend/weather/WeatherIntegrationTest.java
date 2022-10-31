@@ -32,4 +32,20 @@ class WeatherIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.condition").isNotEmpty())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.condition", Matchers.isA(String.class)));
     }
+
+    @Test
+    void fetchWeatherForecastSuccessful() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/2022-10-31?hour=1"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.temperature", Matchers.isA(Double.class)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.temperature").isNotEmpty())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.condition").isNotEmpty())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.condition", Matchers.isA(String.class)));
+    }
+
+    @Test
+    void fetchWeatherWrongDateReturnsError() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/abc?hour=1"))
+                .andExpect(status().isBadRequest());
+    }
 }
