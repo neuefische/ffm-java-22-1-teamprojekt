@@ -5,6 +5,7 @@ import axios from "axios";
 type ModalProps = {
     closeModal : () => void
     guest: GuestModel
+    fetchAllTasks: () => void
 }
 
 export default function GuestModal(props: ModalProps){
@@ -23,13 +24,14 @@ export default function GuestModal(props: ModalProps){
     }
 
     function updateGuest() {
-        axios.put("/api/guest/" + props.guest.id, {
+        axios.put("/api/guests/" + props.guest.id, {
             id:props.guest.id,
             firstName,
             lastName,
             email
         })
             .then(response => {
+                props.fetchAllTasks()
                 props.closeModal()
                 return response.data
             })

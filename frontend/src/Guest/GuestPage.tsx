@@ -4,6 +4,7 @@ import {GuestModel} from "./GuestModel/GuestModel"
 import React from 'react';
 import GuestProfile from "./GuestProfile";
 
+
 export default function GuestPage() {
     const [guestList,setGuestList] = useState<GuestModel[]>([])
 
@@ -22,7 +23,9 @@ export default function GuestPage() {
             })
     }
     return (
-        <GuestProfile guestList={guestList} fetchAllGuests={fetchAllGuests}/>
+       <>
+        <GuestProfile  guestList={guestList} fetchAllGuests={fetchAllGuests}/>
+       </>
     );
 }
 
