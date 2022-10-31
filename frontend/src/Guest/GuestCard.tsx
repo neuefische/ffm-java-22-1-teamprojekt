@@ -51,7 +51,7 @@ export default function GuestCard(props: GuestCardProps) {
                     <button onClick={handleEdit}>Edit Guest</button>
                     <button onClick={deleteGuest}>delete</button>
 
-        </div>
+                </div>
             </section>
         </>
     );

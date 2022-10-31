@@ -188,7 +188,7 @@ class GuestIntegrationTest {
                                 {"firstName": "test",
                                  "lastName": "test",
                                  "email": "test@gmail.com",
-                                 "password": "test",
+                                "password": "test",
                                  "confirmPassword": "test"}
                                 """))
                 .andExpect(status().isOk())
@@ -202,7 +202,7 @@ class GuestIntegrationTest {
     @Test
     @DirtiesContext
     void deleteGuestByIdNotFound() throws Exception {
-        
+
         mvc.perform(MockMvcRequestBuilders.delete("/api/guests/954ujfew90ru30rfi033")).andExpect(status().isNotFound());
     }
 }
