@@ -37,4 +37,8 @@ public class GuestService {
         }
         throw new NoSuchElementException("No guest was found with this id");
     }
+
+    public void deleteGuestById(String id) {
+        guestRepo.deleteGuestById(id);
+    }
 }
