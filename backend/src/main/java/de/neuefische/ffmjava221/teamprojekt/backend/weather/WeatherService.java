@@ -31,7 +31,7 @@ public class WeatherService {
         if(weatherResponse != null) {
             return weatherResponse.weather().get(hour);
         } else {
-            throw new NullPointerException("Weather Response is null");
+            throw new WeatherResponseIsNullException("Weather Response is null");
         }
     }
 }
