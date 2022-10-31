@@ -2,6 +2,7 @@ package de.neuefische.ffmjava221.teamprojekt.backend.guest;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 public record Guest(
         @NotBlank
@@ -10,6 +11,7 @@ public record Guest(
         String lastName,
         @Email
         String email,
+        @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$",message = "Password must have minimum eight characters, at least one letter and one number!")
         String password,
         String confirmPassword,
         String id

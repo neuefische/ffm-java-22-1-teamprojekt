@@ -19,7 +19,10 @@ public class GuestController {
 
     @PostMapping
     Guest addGuest(@RequestBody @Valid NewGuest guest) {
-        return guestService.addGuestData(guest);
+        if(guestService.checkConfirmPassword(guest)){
+            return guestService.addGuestData(guest);
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Confirm password does not match password");
     }
 
     @GetMapping
