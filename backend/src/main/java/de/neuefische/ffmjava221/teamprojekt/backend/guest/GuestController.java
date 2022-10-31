@@ -42,8 +42,8 @@ public class GuestController {
     @DeleteMapping("{id}")
     public Guest deleteGuestById(@PathVariable String id) {
         try {
-            Guest guest = guestService.deleteGuestById(id);
-            return guest;
+            return guestService.deleteGuestById(id);
+
         } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
