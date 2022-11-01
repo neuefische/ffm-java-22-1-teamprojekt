@@ -2,6 +2,7 @@ package de.neuefische.ffmjava221.teamprojekt.backend.employee;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -43,7 +44,7 @@ class EmployeeServiceTest {
         Employee testEmployee = new Employee(testToDeleteString, "Hasi");
         //when
         when(employeeRepo.deleteEmployee(testToDeleteString)).thenReturn(testEmployee);
-        Employee actual = employeeService.deleteEmployee(testToDeleteString);
+        Optional<Employee> actual = employeeService.deleteEmployee(testToDeleteString);
         //then
         assertEquals(testEmployee, actual);
     }
