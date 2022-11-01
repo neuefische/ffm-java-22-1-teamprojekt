@@ -4,7 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -28,7 +30,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("{id}")
-    public Employee deleteEmployee(@PathVariable String id){
+    public Optional<Employee> deleteEmployee(@PathVariable @Valid String id) {
         return employeeService.deleteEmployee(id);
     }
 
