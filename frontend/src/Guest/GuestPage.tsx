@@ -1,7 +1,6 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {GuestModel} from "./GuestModel/GuestModel"
-import React from 'react';
 import GuestProfile from "./GuestProfile";
 
 
