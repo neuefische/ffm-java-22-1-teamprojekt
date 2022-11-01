@@ -30,8 +30,8 @@ class MealServiceTest {
     void addMealWithoutIdAndReturnMealWithId() {
         // GIVEN
         String id = "123";
-        Meal newMeal = new Meal(null,"Wurst");
-        Meal newMealWithId = new Meal(id,"Wurst");
+        Meal newMeal = new Meal(null, "Wurst");
+        Meal newMealWithId = new Meal(id, "Wurst");
 
         when(mealRepository.save(newMeal)).thenReturn(newMealWithId);
 
@@ -42,4 +42,31 @@ class MealServiceTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    void deleteMealWithExistingId() {
+        // given
+        Meal meal = new Meal("123", "Wurst");
+
+        // when
+        when(mealRepository.existsById(meal._id())).thenReturn(true);
+        doNothing().when(mealRepository).deleteById(meal._id());
+
+        // then
+        mealService.deleteMeal((meal._id()));
+        verify(mealRepository).deleteById((meal._id()));
+    }
+
+    @Test
+    void deleteMealWithDoesNotExistingId() {
+        // given
+        Meal meal = new Meal("123", "Wurst");
+
+        // when
+        when(mealRepository.existsById(meal._id())).thenReturn(false);
+        doNothing().when(mealRepository).deleteById(meal._id());
+
+        // then
+        verify(mealRepository, times(0)).deleteById(meal._id());
+
+    }
 }
