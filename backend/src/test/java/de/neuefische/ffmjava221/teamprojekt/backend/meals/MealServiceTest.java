@@ -10,8 +10,7 @@ import static org.mockito.Mockito.*;
 
 class MealServiceTest {
     private final MealRepository mealRepository = mock(MealRepository.class);
-    private final ServiceUtils serviceUtils = mock(ServiceUtils.class);
-    private final MealService mealService = new MealService(mealRepository,serviceUtils);
+    private final MealService mealService = new MealService(mealRepository);
 
     @Test
     void getAllMealsAndExpectEmptyList() {
@@ -19,7 +18,7 @@ class MealServiceTest {
         List<Meal> meals = new ArrayList<>();
 
         // WHEN
-        when(mealRepository.getAllMeals()).thenReturn(meals);
+        when(mealRepository.findAll()).thenReturn(meals);
         List<Meal> actual = mealService.getAllMeals();
         List<Meal> expected = meals;
 
@@ -34,79 +33,13 @@ class MealServiceTest {
         NewMeal newMeal = new NewMeal("Wurst");
         Meal newMealWithId = new Meal(uuid,"Wurst");
 
-        when(serviceUtils.generateUUID()).thenReturn(uuid);
-
-        when(mealRepository.addMeal(newMealWithId)).thenReturn(newMealWithId);
+        when(mealRepository.save(newMeal)).thenReturn(newMealWithId);
 
         // WHEN
         Meal actual = mealService.addMeal(newMeal);
         Meal expected = newMealWithId;
-        verify(serviceUtils).generateUUID();
         // THEN
         assertEquals(expected, actual);
     }
 
-    @Test
-    void updateMealWithIndexMinus1ReturnsNewMeal() {
-        // GIVEN
-        Meal newMeal = new Meal("1","Wurst");
-        when(mealRepository.addMeal(newMeal)).thenReturn(newMeal);
-
-        // WHEN
-        Meal actual = mealService.updateMeal(-1, newMeal);
-
-        // THEN
-        assertEquals(newMeal, actual);
-    }
-
-    @Test
-    void updateMealWithIndex0ReturnsNewMeal() {
-        // GIVEN
-        Meal newMeal = new Meal("1","Wurst");
-        when(mealRepository.updateMeal(0,newMeal)).thenReturn(newMeal);
-
-        // WHEN
-        Meal actual = mealService.updateMeal(0, newMeal);
-
-        // THEN
-        assertEquals(newMeal, actual);
-    }
-
-    @Test
-    void getIndexOfIdReturnsMinus1() {
-        // GIVEN
-        List<Meal> meals = new ArrayList<>();
-        String id = "123";
-        when(mealRepository.getAllMeals()).thenReturn(meals);
-        // WHEN
-        int actual = mealService.getIndexOfId(id);
-        int expected = -1;
-        // THEN
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void getIndexOfIdReturns0() {
-        // GIVEN
-        List<Meal> meals = new ArrayList<>(List.of(new Meal("1","Wurst")));
-        String id = "1";
-        when(mealRepository.getAllMeals()).thenReturn(meals);
-        // WHEN
-        int actual = mealService.getIndexOfId(id);
-        int expected = 0;
-        // THEN
-        assertEquals(expected, actual);
-    }
-    @Test
-    void deleteMeal() {
-        // GIVEN
-        Meal mealtoDelete = new Meal("1","Wurst");
-
-        when(mealRepository.deleteMeal(0)).thenReturn(mealtoDelete);
-        // WHEN
-        Meal actual = mealService.deleteMeal(0);
-        Meal expected = mealtoDelete;
-        // THEN
-        assertEquals(expected, actual);
-    }
 }

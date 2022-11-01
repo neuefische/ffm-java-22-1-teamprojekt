@@ -22,29 +22,22 @@ public class MealController {
         return mealService.getAllMeals();
     }
 
-    @PostMapping
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public Meal addMeal(@Valid @RequestBody NewMeal newMeal) {
-        return mealService.addMeal(newMeal);
-    }
+//    @PostMapping
+//    @ResponseStatus(code = HttpStatus.CREATED)
+//    public Meal addMeal(@Valid @RequestBody Meal newMeal) {
+//        return mealService.saveMeal(newMeal);
+//    }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Meal> updateMeal(@PathVariable String id, @Valid @RequestBody Meal meal) {
-        if (meal.id().equals(id)) {
-            int index = mealService.getIndexOfId(id);
-            Meal newMeal = mealService.updateMeal(index, meal);
-            boolean mealExists = (index >= 0);
-            return mealExists ? new ResponseEntity<>(newMeal, HttpStatus.OK) : new ResponseEntity<>(newMeal, HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    @PutMapping()
+    public ResponseEntity<Meal> updateMeal(@Valid @RequestBody Meal newMeal) {
+        Meal createdMeal = mealService.saveMeal(newMeal);
+        return createdMeal._id().equals(newMeal._id()) ?
+                new ResponseEntity<>(createdMeal, HttpStatus.OK) :
+                new ResponseEntity<>(createdMeal, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Meal> deleteMeal(@PathVariable String id) {
-        int index = mealService.getIndexOfId(id);
-        if (index >= 0) {
-            return new ResponseEntity<>(mealService.deleteMeal(index), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public void deleteMeal(@PathVariable String id) {
+       mealService.deleteMeal(id);
     }
 }

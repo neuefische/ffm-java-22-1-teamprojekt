@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-
 @Service
 public class MealService {
 
@@ -17,35 +16,30 @@ public class MealService {
         this.serviceUtils = serviceUtils;
     }
 
-    public List<Meal> getAllMeals(){
-        return mealRepository.getAllMeals();
+    public List<Meal> getAllMeals() {
+        return mealRepository.findAll();
     }
 
 
-    public Meal addMeal(NewMeal newMeal) {
-        String id = serviceUtils.generateUUID();
-        return mealRepository.addMeal(new Meal(id, newMeal.name()));
+    public Meal saveMeal(Meal meal) {
+        return mealRepository.save(meal);
     }
 
-    public Meal updateMeal(int index, Meal newMeal) {
-        if(index < 0) {
-            return mealRepository.addMeal(newMeal);
-        } else {
-            return mealRepository.updateMeal(index, newMeal);
-        }
-    }
+//    public Meal updateMeal(int index, Meal newMeal) {
+//        return mealRepository.sa(index, newMeal);
+//    }
 
-    public int getIndexOfId(String id) {
-        List<Meal> meals = mealRepository.getAllMeals();
-        for(Meal meal: meals) {
-            if(meal.id().equals(id)){
-                return meals.indexOf(meal);
-            }
-        }
-        return -1;
-    }
+//    public int getIndexOfId(String id) {
+//        List<Meal> meals = mealRepository.getAllMeals();
+//        for (Meal meal : meals) {
+//            if (meal.id().equals(id)) {
+//                return meals.indexOf(meal);
+//            }
+//        }
+//        return -1;
+//    }
 
-    public Meal deleteMeal(int index){
-        return mealRepository.deleteMeal(index);
+    public void deleteMeal(String id) {
+         mealRepository.deleteById(id);
     }
 }
