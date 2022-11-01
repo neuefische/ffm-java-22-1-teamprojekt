@@ -1,6 +1,5 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.employee;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,15 +7,11 @@ import java.util.Optional;
 
 @Service
 public class EmployeeService {
-
-    private final EmployeeRepo employeeRepo;
     private final EmployeeUtils employeeUtils;
     private final EmployeeInterface employeeInterface;
 
-    public EmployeeService(EmployeeRepo employeeRepo,
-                           EmployeeUtils employeeUtils,
+    public EmployeeService(EmployeeUtils employeeUtils,
                             EmployeeInterface employeeInterface) {
-        this.employeeRepo = employeeRepo;
         this.employeeUtils = employeeUtils;
         this.employeeInterface = employeeInterface;
     }
@@ -38,6 +33,6 @@ public class EmployeeService {
     }
 
     public Employee updateEmployee(Employee employee) {
-       return employeeRepo.updateEmployee(employee);
+       return employeeInterface.save(employee);
     }
 }
