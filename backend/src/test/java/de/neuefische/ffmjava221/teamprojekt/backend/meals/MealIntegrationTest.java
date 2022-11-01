@@ -52,7 +52,7 @@ class MealIntegrationTest {
                             "id": "<id>",
                             "name": "Wurst"
                         }]
-                        """.replace("<id>", meal.id())));
+                        """.replace("<id>", meal._id())));
     }
 
     @Test
@@ -70,21 +70,21 @@ class MealIntegrationTest {
 
         Meal meal = objectMapper.readValue(body, Meal.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/meals/" + meal.id())
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/meals/" + meal._id())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
                                     "id": "<id>",
                                     "name": "Banane"
                                 }
-                                """.replace("<id>", meal.id())))
+                                """.replace("<id>", meal._id())))
                 .andExpect(status().is(200))
                 .andExpect(content().json("""
                         {
                             "id": "<id>",
                             "name": "Banane"
                         }
-                        """.replace("<id>", meal.id())));
+                        """.replace("<id>", meal._id())));
     }
 
     @Test
@@ -135,14 +135,14 @@ class MealIntegrationTest {
 
         Meal meal = objectMapper.readValue(body, Meal.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/meals/"+meal.id()))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/meals/"+meal._id()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                     {
                         "id": "<id>",
                         "name": "Wurst"
                     }
-                    """.replace("<id>",meal.id())));
+                    """.replace("<id>",meal._id())));
     }
 
     @Test

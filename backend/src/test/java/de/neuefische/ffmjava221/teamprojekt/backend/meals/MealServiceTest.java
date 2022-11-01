@@ -29,14 +29,14 @@ class MealServiceTest {
     @Test
     void addMealWithoutIdAndReturnMealWithId() {
         // GIVEN
-        String uuid = "123";
-        NewMeal newMeal = new NewMeal("Wurst");
-        Meal newMealWithId = new Meal(uuid,"Wurst");
+        String id = "123";
+        Meal newMeal = new Meal(null,"Wurst");
+        Meal newMealWithId = new Meal(id,"Wurst");
 
         when(mealRepository.save(newMeal)).thenReturn(newMealWithId);
 
         // WHEN
-        Meal actual = mealService.addMeal(newMeal);
+        Meal actual = mealService.saveMeal(newMeal);
         Meal expected = newMealWithId;
         // THEN
         assertEquals(expected, actual);

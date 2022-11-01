@@ -11,7 +11,6 @@ import java.util.List;
 public class MealService {
 
     private final MealRepository mealRepository;
-    private final ServiceUtils serviceUtils;
 
 
     public List<Meal> getAllMeals() {
