@@ -1,5 +1,6 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.meals;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,13 +10,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/meals")
+@RequiredArgsConstructor
 public class MealController {
 
     private final MealService mealService;
 
-    public MealController(MealService mealService) {
-        this.mealService = mealService;
-    }
 
     @GetMapping
     public List<Meal> getAllMeals() {
@@ -36,8 +35,14 @@ public class MealController {
                 new ResponseEntity<>(createdMeal, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+/*    @DeleteMapping("/{id}")
     public void deleteMeal(@PathVariable String id) {
        mealService.deleteMeal(id);
+    }*/
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteMeal(@PathVariable String id) {
+        mealService.deleteMeal(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -1,7 +1,9 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.meals;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -36,7 +38,17 @@ public class MealService {
 //        return -1;
 //    }
 
-    public void deleteMeal(String id) {
+/*    public void deleteMeal(String id) {
          mealRepository.deleteById(id);
+    }*/
+
+
+    public void deleteMeal(String id) {
+        boolean isMealExist = mealRepository.existsById(id);
+        if(isMealExist) {
+            mealRepository.deleteById(id);
+        }
+        else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No meal with id: " + id + "was found");
     }
+
 }
