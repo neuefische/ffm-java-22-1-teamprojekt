@@ -9,8 +9,7 @@ function Navigation() {
             </NavLink>
             <NavLink to="/RegisterForm">
                 <button>Registration</button>
-                <button>Login</button>
-                <button>without registration</button>
+
             </NavLink>
         </nav>
     );
