@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import axios from "axios";
+import PasswordChecklist from "react-password-checklist"
 
 export default function RegisterForm() {
 
@@ -21,15 +22,24 @@ export default function RegisterForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [error, setError] = useState("");
 
     const handleFormSubmit = (event: ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if (!isValidEmail(email)) {
+            setError("Email is invalid");
+        } else {
+            setError("");
+        }
         postForm();
         setFirstName("");
         setLastName("");
         setEmail("");
         setPassword("");
         setConfirmPassword("")
+    }
+    const isValidEmail= (email:string) => {
+        return /\S+@\S+\.\S+/.test(email);
     }
 
     return (
@@ -68,6 +78,18 @@ export default function RegisterForm() {
                    value={confirmPassword}
                    onChange={(e) => setConfirmPassword(e.target.value)}
                    placeholder="Bello123"/>
+
+            <PasswordChecklist
+                rules={["minLength","specialChar","number","capital","match"]}
+                minLength={8}
+                value={password}
+                valueAgain={confirmPassword}
+                messages={{
+                    minLength:"Password must have at least 8 characters",
+                }}
+                onChange={(isValid) => {}}
+            />
+            {error && <h2 style={{color: 'red'}}>{error}</h2>}
             <button>Register</button>
         </form>
     );

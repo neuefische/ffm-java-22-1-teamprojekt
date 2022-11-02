@@ -9,10 +9,10 @@ import java.util.NoSuchElementException;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class GuestServiceTest {
+ class GuestServiceTest {
 
     @Test
-    public void getGuestList() {
+     void getGuestList() {
 
         //GIVEN
 
@@ -105,43 +105,43 @@ public class GuestServiceTest {
         }
     }
 
-    @Test
-    void checkConfirmPassword() {
+//    @Test
+//    void checkConfirmPassword() {
+//
+//        //GIVEN
+//
+//        GuestUtils guestId = mock(GuestUtils.class);
+//        GuestRepo guestRepo = mock(GuestRepo.class);
+//        GuestService guestService = new GuestService(guestRepo, guestId);
+//        NewGuest guest1 = new NewGuest("Steven", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "SuperSecret344$$");
+//
+//        //WHEN
+//
+//        boolean actual = guestService.checkConfirmPassword(guest1);
+//
+//        //THEN
+//
+//        assertEquals(true, actual);
+//
+//    }
 
-        //GIVEN
-
-        GuestUtils guestId = mock(GuestUtils.class);
-        GuestRepo guestRepo = mock(GuestRepo.class);
-        GuestService guestService = new GuestService(guestRepo, guestId);
-        NewGuest guest1 = new NewGuest("Steven", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "SuperSecret344$$");
-
-        //WHEN
-
-        boolean actual = guestService.checkConfirmPassword(guest1);
-
-        //THEN
-
-        assertEquals(true, actual);
-
-    }
-
-    @Test
-    void checkConfirmPasswordFalse() {
-
-        //GIVEN
-
-        GuestUtils guestId = mock(GuestUtils.class);
-        GuestRepo guestRepo = mock(GuestRepo.class);
-        GuestService guestService = new GuestService(guestRepo, guestId);
-        NewGuest guest1 = new NewGuest("Steven", "Lang", "fsagfg@gmail.com", "hallo123", "hallo");
-
-        //WHEN
-
-        boolean actual = guestService.checkConfirmPassword(guest1);
-
-        //THEN
-
-        assertEquals(false, actual);
-    }
+//    @Test
+//    void checkConfirmPasswordFalse() {
+//
+//        //GIVEN
+//
+//        GuestUtils guestId = mock(GuestUtils.class);
+//        GuestRepo guestRepo = mock(GuestRepo.class);
+//        GuestService guestService = new GuestService(guestRepo, guestId);
+//        NewGuest guest1 = new NewGuest("Steven", "Lang", "fsagfg@gmail.com", "hallo123", "hallo");
+//
+//        //WHEN
+//
+//        boolean actual = guestService.checkConfirmPassword(guest1);
+//
+//        //THEN
+//
+//        assertEquals(false, actual);
+//    }
 }
 
