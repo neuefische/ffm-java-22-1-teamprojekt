@@ -29,10 +29,12 @@ public class MealController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Meal> updateMeal(@PathVariable String id,@Valid @RequestBody Meal meal) {
+        boolean mealExists = mealService.isMealExisting(id);
+
         Meal newMeal = meal.withId(id);
         Meal createdMeal = mealService.saveMeal(newMeal);
 
-        return mealService.isMealExisting(id) ?
+        return mealExists ?
                 new ResponseEntity<>(createdMeal, HttpStatus.OK) :
                 new ResponseEntity<>(createdMeal, HttpStatus.CREATED);
     }
