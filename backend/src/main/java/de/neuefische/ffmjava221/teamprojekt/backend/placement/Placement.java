@@ -13,5 +13,20 @@ public record Placement(
         @Max(15)
         @NotNull
         int totalSeats
+
+        // Status :
+        // Zeit
+
+        // 8
+
+
 ) {
 }
+
+// Resevierung
+
+// id
+// time
+// placement
+// Guest
+// meals

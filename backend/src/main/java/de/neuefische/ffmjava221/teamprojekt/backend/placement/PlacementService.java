@@ -9,35 +9,34 @@ import java.util.Optional;
 @Service
 public class PlacementService {
 
-    private final PlacementRepo placementRepo;
+
+    private final PlacementRepository placementRepository;
 
 
-    public PlacementService(PlacementRepo placementRepo) {
-        this.placementRepo = placementRepo;
+    public PlacementService(PlacementRepository placementRepository) {
+        this.placementRepository = placementRepository;
     }
 
     public List<Placement> getAllPlacements() {
-        return placementRepo.getAllPlacement();
+        return placementRepository.findAll();
     }
 
     public Placement addNewPlacement(NewPlacementData newRequestPlacement) {
 
         String newUuid = PlacementUtil.generateUuid();
+
         int placementNr = newRequestPlacement.placementNr();
         int totalSeats = newRequestPlacement.totalSeats();
 
         Placement newPlacement = new Placement(newUuid, placementNr, totalSeats);
-        placementRepo.addNewPlacement(newPlacement);
+        placementRepository.save(newPlacement);
 
         return newPlacement;
 
     }
 
     public Placement checkIfExist(String placementId) {
-        List<Placement> allPlacement = placementRepo.getAllPlacement();
-        Optional<Placement> placementToFind = allPlacement.stream()
-                .filter(placement -> placement.id().equals(placementId))
-                .findFirst();
+        Optional<Placement> placementToFind = placementRepository.findById(placementId);
 
         if (placementToFind.isEmpty()) {
             throw new IllegalArgumentException("Placement not Exist!");
@@ -49,13 +48,12 @@ public class PlacementService {
         Placement existPlacement = checkIfExist(placementId);
         Placement updatedPlacement = new Placement(existPlacement.id(), existPlacement.placementNr(), newData.totalSeats());
 
-        placementRepo.updatePlacement(existPlacement, updatedPlacement);
+        placementRepository.save(updatedPlacement);
         return updatedPlacement;
     }
 
     public boolean deletePlacement(String placementId) {
-        Placement existPlacement = checkIfExist(placementId);
-        placementRepo.deletePlacement(existPlacement);
+        placementRepository.deleteById(placementId);
         return true;
     }
 }
