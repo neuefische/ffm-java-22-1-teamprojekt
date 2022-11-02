@@ -10,6 +10,7 @@ export default function RegisterForm() {
             lastName,
             email,
             password,
+            confirmPassword,
         })
             .catch((error) => {
                 console.log("Error =>" + error)
@@ -27,8 +28,10 @@ export default function RegisterForm() {
         event.preventDefault();
         if (!isValidEmail(email)) {
             setError("Email is invalid");
+            return;
         } else {
-            setError("");return;
+            setError("");
+
         }
         postForm();
         setFirstName("");
