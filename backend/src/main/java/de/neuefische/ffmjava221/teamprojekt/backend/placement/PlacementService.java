@@ -37,6 +37,7 @@ public class PlacementService {
 
     public Placement checkIfExist(String placementId) {
         Optional<Placement> placementToFind = placementRepository.findById(placementId);
+        //when( placementRepository.findById(placementId)).thenReturn()
 
         if (placementToFind.isEmpty()) {
             throw new IllegalArgumentException("Placement not Exist!");
@@ -44,16 +45,22 @@ public class PlacementService {
         return placementToFind.get();
     }
 
-    public Placement updatePlacement(String placementId, Placement newData) {
-        Placement existPlacement = checkIfExist(placementId);
-        Placement updatedPlacement = new Placement(existPlacement.id(), existPlacement.placementNr(), newData.totalSeats());
 
+    public Placement updatePlacement(String placementId, Placement newData) {
+        Placement existPlacement = checkIfExist(placementId);// exist
+
+        Placement updatedPlacement = new Placement(existPlacement.id(), existPlacement.placementNr(), newData.totalSeats());
         placementRepository.save(updatedPlacement);
         return updatedPlacement;
     }
 
     public boolean deletePlacement(String placementId) {
-        placementRepository.deleteById(placementId);
-        return true;
+        // exist
+        if(placementRepository.existsById(placementId)){
+            placementRepository.deleteById(placementId);
+            return true;
+        }
+
+        throw new IllegalArgumentException("Placement not Exist!");
     }
 }

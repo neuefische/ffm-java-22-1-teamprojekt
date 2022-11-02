@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,12 +13,12 @@ import static org.mockito.Mockito.*;
 
 class PlacementUnitTest {
 
-    private final PlacementRepo testRepo = mock(PlacementRepo.class);
+    private final PlacementRepository testRepo = mock(PlacementRepository.class);
     private final PlacementService testService = new PlacementService(testRepo);
 
     @Test
     void getAllPlacementsAtBeginning() {
-        when(testRepo.getAllPlacement()).thenReturn(new ArrayList<>());
+        when(testRepo.findAll()).thenReturn(new ArrayList<>());
 
         List<Placement> result = testService.getAllPlacements();
 
@@ -34,7 +35,7 @@ class PlacementUnitTest {
                 new Placement(UUID.randomUUID().toString(), 5, 2)
         ));
 
-        when(testRepo.getAllPlacement()).thenReturn(placements);
+        when(testRepo.findAll()).thenReturn(placements);
 
         List<Placement> result = testService.getAllPlacements();
 
@@ -74,17 +75,22 @@ class PlacementUnitTest {
     @Test
     void updatingNewPlacementServiceWithExist() {
         //GIVEN
-        List<Placement> allPlacements = new ArrayList<>(List.of(
+        List<Placement> allPlacements =  List.of(
                 new Placement("123", 4, 2),
                 new Placement("435435", 8, 5),
                 new Placement("gf5646546", 2, 4),
                 new Placement("gjfas43566", 1, 5),
                 new Placement("123gsgs5435", 3, 2)
-        ));
+        );
 
-        when(testRepo.getAllPlacement()).thenReturn(allPlacements);
+        when(testRepo.findAll()).thenReturn(allPlacements);
+
 
         Placement updatedData = new Placement("123", 4, 8);
+
+        when(testRepo.save(updatedData)).thenReturn(updatedData);
+
+        when(testRepo.findById("123")).thenReturn(Optional.ofNullable(allPlacements.get(0)));
         //WHEN
         Placement placementAfterUpdate = testService.updatePlacement("123", updatedData);
         // THEN
@@ -114,7 +120,7 @@ class PlacementUnitTest {
                 new Placement("123gsgs5435", 3, 2)
         ));
 
-        when(testRepo.getAllPlacement()).thenReturn(allPlacements);
+        when(testRepo.findAll()).thenReturn(allPlacements);
 
         boolean deleteResult = testService.deletePlacement("gjfas43566");
 
