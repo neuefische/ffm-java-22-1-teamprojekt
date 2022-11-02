@@ -55,7 +55,5 @@ public class GuestService {
         return guest;
     }
 
-    public boolean checkConfirmPassword(NewGuest guest){
-        return  guest.confirmPassword().equals(guest.password());
-    }
+
 }

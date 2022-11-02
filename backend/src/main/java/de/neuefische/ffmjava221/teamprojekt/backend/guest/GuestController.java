@@ -3,6 +3,7 @@ package de.neuefische.ffmjava221.teamprojekt.backend.guest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -19,10 +20,7 @@ public class GuestController {
 
     @PostMapping
     Guest addGuest(@RequestBody @Valid NewGuest guest) {
-        if(guestService.checkConfirmPassword(guest)){
-            return guestService.addGuestData(guest);
-        }
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Confirm password does not match password");
+        return guestService.addGuestData(guest);
     }
 
     @GetMapping
