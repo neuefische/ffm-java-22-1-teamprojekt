@@ -69,33 +69,35 @@ class WeatherServiceTest {
         );
         //when
         try {
-            weatherService.fetchWeather(null,0);
+            weatherService.fetchWeather(null, 0);
             fail();
-        } catch (WeatherResponseIsNullException e) {
+        } catch (WeatherResponseException e) {
             RecordedRequest recordedRequest = mockWebServer.takeRequest();
             //then
             assertEquals("GET", recordedRequest.getMethod());
             assertEquals("Weather Response is null", e.getMessage());
         }
     }
+
     @Test
     void fetchWeatherHour25ReturnsError() {
         //given
         //when
         try {
-            weatherService.fetchWeather("2022-11-01",25);
+            weatherService.fetchWeather("2022-11-01", 25);
             fail();
         } catch (IllegalArgumentException e) {
             //then
             assertEquals("Hour must be between 0 and 24", e.getMessage());
         }
     }
+
     @Test
     void fetchWeatherHourMinus5ReturnsError() {
         //given
         //when
         try {
-            weatherService.fetchWeather("2022-11-01",-5);
+            weatherService.fetchWeather("2022-11-01", -5);
             fail();
         } catch (IllegalArgumentException e) {
             //then

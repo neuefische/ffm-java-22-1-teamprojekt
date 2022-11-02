@@ -1,11 +1,9 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.weather;
 
 import org.springframework.beans.factory.annotation.Value;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.Objects;
 
 
 @Service
@@ -16,21 +14,28 @@ public class WeatherService {
         this.webClient = WebClient.create(baseUrl);
     }
 
-    public WeatherData fetchWeather(String date, int hour) throws IllegalArgumentException, WeatherResponseIsNullException {
+    public WeatherData fetchWeather(String date, int hour) {
         if (hour < 0 || hour > 24) {
             throw new IllegalArgumentException("Hour must be between 0 and 24");
         }
-        WeatherForecastResponse weatherResponse = Objects.requireNonNull(webClient
-                        .get()
-                        .uri("?wmo_station_id=10637&date=" + date)
-                        .retrieve()
-                        .toEntity(WeatherForecastResponse.class)
-                        .block())
-                        .getBody();
-        if(weatherResponse != null) {
-            return weatherResponse.weather().get(hour);
+        ResponseEntity<WeatherForecastResponse> weatherResponse = webClient
+                .get()
+                .uri("?wmo_station_id=10637&date=" + date)
+                .retrieve()
+                .toEntity(WeatherForecastResponse.class)
+                .block();
+
+        WeatherForecastResponse responseBody;
+
+        if (weatherResponse != null) {
+            responseBody = weatherResponse.getBody();
         } else {
-            throw new WeatherResponseIsNullException("Weather Response is null");
+            throw new WeatherResponseException("Weather response is null");
+        }
+        if (responseBody != null) {
+            return responseBody.weather().get(hour);
+        } else {
+            throw new WeatherResponseException("Response body is null");
         }
     }
 }
