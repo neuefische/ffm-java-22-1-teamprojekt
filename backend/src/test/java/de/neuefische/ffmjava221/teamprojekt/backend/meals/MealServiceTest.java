@@ -43,30 +43,42 @@ class MealServiceTest {
     }
 
     @Test
+    void addMealWithExistingIdAndReturnUpdatedMeal() {
+        // GIVEN
+        Meal meal = new Meal("123", "Wurst");
+
+        when(mealRepository.save(meal)).thenReturn(meal);
+
+        // WHEN
+        Meal actual = mealService.saveMeal(meal);
+        Meal expected = meal;
+        // THEN
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void deleteMealWithExistingId() {
         // given
         Meal meal = new Meal("123", "Wurst");
 
         // when
-        when(mealRepository.existsById(meal._id())).thenReturn(true);
-        doNothing().when(mealRepository).deleteById(meal._id());
+        doNothing().when(mealRepository).deleteById(meal.id());
+        mealService.deleteMeal((meal.id()));
 
         // then
-        mealService.deleteMeal((meal._id()));
-        verify(mealRepository).deleteById((meal._id()));
+        verify(mealRepository).deleteById((meal.id()));
     }
 
     @Test
-    void deleteMealWithDoesNotExistingId() {
+    void isMealExistingReturnsTrue() {
         // given
-        Meal meal = new Meal("123", "Wurst");
+        String id = "123";
 
         // when
-        when(mealRepository.existsById(meal._id())).thenReturn(false);
-        doNothing().when(mealRepository).deleteById(meal._id());
-
+        when(mealRepository.existsById(id)).thenReturn(true);
+        boolean actual = mealService.isMealExisting(id);
         // then
-        verify(mealRepository, times(0)).deleteById(meal._id());
-
+        verify(mealRepository).existsById(id);
+        assertTrue(actual);
     }
 }
