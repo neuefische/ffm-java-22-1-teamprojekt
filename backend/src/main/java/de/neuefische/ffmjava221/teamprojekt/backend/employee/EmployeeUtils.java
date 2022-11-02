@@ -1,7 +1,6 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.employee;
 
 import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
 @Component
