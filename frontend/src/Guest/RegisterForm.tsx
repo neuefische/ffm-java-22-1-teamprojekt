@@ -42,6 +42,9 @@ export default function RegisterForm() {
     const isValidEmail= (email:string) => {
         return /.@./.test(email);
     }
+    const isValidEmail= (email:string) => {
+        return /\S+@\S+\.\S+/.test(email);
+    }
 
     return (
         <form onSubmit={handleFormSubmit}>
