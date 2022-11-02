@@ -23,7 +23,6 @@ class MealIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    // Todo: suboptimal mit Mongo zu testen, weil Array nicht leer ist
     @Test
     void getAllMealsAndExpectEmptyList() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/meals"))
@@ -34,7 +33,7 @@ class MealIntegrationTest {
     @Test
     @DirtiesContext
     void addMealWithoutIdAndReturnMeal() throws Exception {
-        String body = mockMvc.perform(MockMvcRequestBuilders.put("/api/meals")
+        String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/meals")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -50,16 +49,16 @@ class MealIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         [{
-                            "_id": "<id>",
+                            "id": "<id>",
                             "name": "Wurst"
                         }]
-                        """.replace("<id>", meal._id())));
+                        """.replace("<id>", meal.id())));
     }
 
     @Test
     @DirtiesContext
     void updateMealWithExistingIdAndExpect200() throws Exception {
-        String body = mockMvc.perform(MockMvcRequestBuilders.put("/api/meals")
+        String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/meals")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -70,27 +69,28 @@ class MealIntegrationTest {
                 .andReturn().getResponse().getContentAsString();
 
         Meal meal = objectMapper.readValue(body, Meal.class);
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/meals/")
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/meals/"+meal.id())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                    "_id": "<id>",
+                                    "id": "<id>",
                                     "name": "Banane"
                                 }
-                                """.replace("<id>", meal._id())))
+                                """.replace("<id>", meal.id())))
                 .andExpect(status().is(200))
                 .andExpect(content().json("""
                         {
-                            "_id": "<id>",
+                            "id": "<id>",
                             "name": "Banane"
                         }
-                        """.replace("<id>", meal._id())));
+                        """.replace("<id>", meal.id())));
     }
 
-    // Todo: abgedeckt im updateMealWithExistingIdAndExpect200()
-/*    @Test
+
+    @Test
     @DirtiesContext
-    void updateMealWithoutIdAndExpect201() throws Exception {
+    void updateMealWithNewIdAndExpect201() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.put("/api/meals/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -106,25 +106,28 @@ class MealIntegrationTest {
                             "name": "Banane"
                         }
                         """));
-    }*/
+    }
 
-    //  Todo: nicht mehr mit PUT testbar, weil die ID nicht mehr übergeben wird
-/*    @Test
+    @Test
     @DirtiesContext
-    void updateMealWithNotMatchingIdAndExpect400() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/meals/2")
+    void updateMealWithNewIdAndDifferentBodyAndExpect201() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/meals/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                    "id": "1",
+                                    "id": "123",
                                     "name": "Banane"
                                 }
                                 """))
-                .andExpect(status().is(400));
-    }*/
+                .andExpect(status().is(201))
+                .andExpect(content().json("""
+                        {
+                            "id": "1",
+                            "name": "Banane"
+                        }
+                        """));
+    }
 
-    // Todo: aktuell nicht testbar - deleteMeal() gibt void zurück
-/*
     @Test
     @DirtiesContext
     void deleteMealSuccesfullAndReturnMealToDelete() throws Exception {
@@ -140,45 +143,14 @@ class MealIntegrationTest {
 
         Meal meal = objectMapper.readValue(body, Meal.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/meals/" + meal._id()))
-                .andExpect(status().isOk())
-                .andExpect(content().json("""
-                        {
-                            "id": "<id>",
-                            "name": "Wurst"
-                        }
-                        """.replace("<id>", meal._id())));
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/meals/" + meal.id()))
+                .andExpect(status().isNoContent());
     }
-*/
 
     @Test
     @DirtiesContext
-    void deleteMealSuccesfull() throws Exception {
-        String body = mockMvc.perform(MockMvcRequestBuilders.put("/api/meals")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                {
-                                    "name": "Wurst"
-                                }
-                                """))
-                .andExpect(status().is(201))
-                .andReturn().getResponse().getContentAsString();
-
-        Meal meal = objectMapper.readValue(body, Meal.class);
-
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/meals/" + meal._id()))
-                .andExpect(status().isOk());
-
+    void deleteMealWithNotExistingIDAndReturn404() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/meals/1"))
+                .andExpect(status().isNotFound());
     }
-
-
-// Todo: nicht testbar,
-
-/*    @Test
-    @DirtiesContext
-    void deleteMealWithWrongIdReturns400() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/meals/123"))
-                .andExpect(status().is(400));
-    }*/
-
 }
