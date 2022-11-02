@@ -13,3 +13,4 @@ public record NewPlacementData(
         @Max(value=15, message = "Seats must be between 2 and 15")
         int totalSeats) {
 }
+
