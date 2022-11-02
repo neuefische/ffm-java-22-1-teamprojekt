@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -15,34 +16,32 @@ public class MealController {
 
     private final MealService mealService;
 
-
     @GetMapping
     public List<Meal> getAllMeals() {
         return mealService.getAllMeals();
     }
 
-//    @PostMapping
-//    @ResponseStatus(code = HttpStatus.CREATED)
-//    public Meal addMeal(@Valid @RequestBody Meal newMeal) {
-//        return mealService.saveMeal(newMeal);
-//    }
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Meal addMeal(@Valid @RequestBody Meal newMeal) {
+        return mealService.saveMeal(newMeal);
+    }
 
-    @PutMapping()
-    public ResponseEntity<Meal> updateMeal(@Valid @RequestBody Meal newMeal) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Meal> updateMeal(@PathVariable String id,@Valid @RequestBody Meal meal) {
+        Meal newMeal = meal.withId(id);
         Meal createdMeal = mealService.saveMeal(newMeal);
-        return createdMeal._id().equals(newMeal._id()) ?
+
+        return mealService.isMealExisting(id) ?
                 new ResponseEntity<>(createdMeal, HttpStatus.OK) :
                 new ResponseEntity<>(createdMeal, HttpStatus.CREATED);
     }
 
-/*    @DeleteMapping("/{id}")
-    public void deleteMeal(@PathVariable String id) {
-       mealService.deleteMeal(id);
-    }*/
-
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteMeal(@PathVariable String id) {
-        mealService.deleteMeal(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deleteMeal(@PathVariable String id) {
+        if (mealService.isMealExisting(id)) {
+            mealService.deleteMeal(id);
+        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No Meal with ID:"+id+" found");
     }
 }
