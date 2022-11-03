@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.Instant;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,8 +44,7 @@ class WeatherServiceTest {
     @Test
     void fetchWeatherReturnsWeatherData() throws Exception {
         //given
-        String date = "2022-10-31";
-        int hour = 0;
+        Instant date = Instant.now();
         // mocked response from Mockserver has to be WeatherResponseElement, because the API-server initially returns this type
         WeatherForecastResponse mockWeather = new WeatherForecastResponse(List.of(new WeatherData("dry", 21.7, 10, 2.2, 50)));
         mockWebServer.enqueue(new MockResponse()
@@ -52,7 +53,7 @@ class WeatherServiceTest {
         );
 
         //when
-        WeatherData actual = weatherService.fetchWeather(date, hour);
+        WeatherData actual = weatherService.fetchWeather(date);
         WeatherData expected = mockWeather.weather().get(0);
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
         //then
@@ -61,7 +62,7 @@ class WeatherServiceTest {
     }
 
     @Test
-    void fetchWeatherDateNullReturnsError() throws Exception {
+    void fetchWeatherDateNullReturnsError() {
         //given
         // mocked response from Mockserver has to be WeatherResponseElement, because the API-server initially returns this type
         mockWebServer.enqueue(new MockResponse()
@@ -69,39 +70,11 @@ class WeatherServiceTest {
         );
         //when
         try {
-            weatherService.fetchWeather(null, 0);
+            weatherService.fetchWeather(null);
             fail();
-        } catch (WeatherResponseException e) {
-            RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        } catch (DateTimeException e) {
             //then
-            assertEquals("GET", recordedRequest.getMethod());
-            assertEquals("Weather Response is null", e.getMessage());
-        }
-    }
-
-    @Test
-    void fetchWeatherHour25ReturnsError() {
-        //given
-        //when
-        try {
-            weatherService.fetchWeather("2022-11-01", 25);
-            fail();
-        } catch (IllegalArgumentException e) {
-            //then
-            assertEquals("Hour must be between 0 and 24", e.getMessage());
-        }
-    }
-
-    @Test
-    void fetchWeatherHourMinus5ReturnsError() {
-        //given
-        //when
-        try {
-            weatherService.fetchWeather("2022-11-01", -5);
-            fail();
-        } catch (IllegalArgumentException e) {
-            //then
-            assertEquals("Hour must be between 0 and 24", e.getMessage());
+            assertEquals("Malformed date", e.getMessage());
         }
     }
 }

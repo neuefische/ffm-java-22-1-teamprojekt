@@ -9,6 +9,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.time.Instant;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -21,7 +23,7 @@ class WeatherIntegrationTest {
 
     @Test
     void fetchWeatherForecastSuccessful() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/2022-10-31?hour=1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/?date=" + Instant.now()))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.temperature", Matchers.isA(Double.class)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.temperature").isNotEmpty())
@@ -31,12 +33,7 @@ class WeatherIntegrationTest {
 
     @Test
     void fetchWeatherWrongDateReturnsError() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/abc?hour=1"))
-                .andExpect(status().isBadRequest());
-    }
-    @Test
-    void fetchWeatherWrongHourReturnsError() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/2022-10-31?hour=25"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/?date=abc"))
                 .andExpect(status().isBadRequest());
     }
 }
