@@ -15,7 +15,7 @@ import java.time.ZoneId;
 public class WeatherService {
     private final WebClient webClient;
 
-    public WeatherService(@Value("${baseUrl}") String baseUrl) {
+    public WeatherService(@Value("${weather.api.baseUrl}") String baseUrl) {
         this.webClient = WebClient.create(baseUrl);
     }
 
@@ -23,20 +23,20 @@ public class WeatherService {
         if (date == null) {
             throw new DateTimeException("Malformed date");
         } else {
-            ResponseEntity<WeatherForecastResponse> weatherResponse = webClient
+            ResponseEntity<DailyWeather> weatherResponse = webClient
                     .get()
                     .uri("?wmo_station_id=10637&date=" + OffsetDateTime.ofInstant(date, ZoneId.of("Europe/Berlin")))
                     .retrieve()
-                    .toEntity(WeatherForecastResponse.class)
+                    .toEntity(DailyWeather.class)
                     .block();
-            WeatherForecastResponse responseBody;
+            DailyWeather responseBody;
             if (weatherResponse != null) {
                 responseBody = weatherResponse.getBody();
             } else {
                 throw new WeatherResponseException("Weather response is null");
             }
             if (responseBody != null) {
-                return responseBody.weather().get(0);
+                return responseBody.hourlyWeather().get(0);
             } else {
                 throw new WeatherResponseException("Response body is null");
             }

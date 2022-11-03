@@ -46,7 +46,7 @@ class WeatherServiceTest {
         //given
         Instant date = Instant.now();
         // mocked response from Mockserver has to be WeatherResponseElement, because the API-server initially returns this type
-        WeatherForecastResponse mockWeather = new WeatherForecastResponse(List.of(new WeatherData("dry", 21.7, 10, 2.2, 50)));
+        DailyWeather mockWeather = new DailyWeather(List.of(new WeatherData("dry", 21.7, 10, 2.2, 50)));
         mockWebServer.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(mockWeather))
                 .addHeader("Content-Type", "application/json")
@@ -54,7 +54,7 @@ class WeatherServiceTest {
 
         //when
         WeatherData actual = weatherService.fetchWeather(date);
-        WeatherData expected = mockWeather.weather().get(0);
+        WeatherData expected = mockWeather.hourlyWeather().get(0);
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
         //then
         assertEquals(expected, actual);
