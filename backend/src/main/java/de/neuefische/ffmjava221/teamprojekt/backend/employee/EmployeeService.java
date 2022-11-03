@@ -35,11 +35,11 @@ public class EmployeeService {
         return deleteEmployee;
     }
 
-    public Employee updateEmployee(Employee employee) {
+    public Employee updateEmployee(EmployeeDTO employee) {
         Employee employeeToUpdate = employeeDB.findById(employee.id()).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
 
-        Employee updateEmployee = UpdateEmployee.toUpdateTimeStamp(
+        Employee updateEmployee = EmployeeDTO.toUpdateTimeStamp(
                 employeeToUpdate.id(),
                 employee.name(),
                 employeeToUpdate.regTimeStamp());

@@ -35,6 +35,9 @@ class EmployeeServiceTest {
         when(employeeDB.save(employeeWithId)).thenReturn(employeeWithId);
         Employee actual = employeeService.addEmployee(employeeWithoutId);
         //then
+        verify(employeeUtils).generateUUID();
+        verify(employeeUtils).generateINSTANT();
+        verify(employeeDB).save(employeeWithId);
         assertEquals(employeeWithId, actual);
     }
 
@@ -47,6 +50,7 @@ class EmployeeServiceTest {
         when(employeeDB.findById(testToDeleteString)).thenReturn(Optional.of(testEmployee));
         Optional <Employee> actual = employeeService.deleteEmployee(testToDeleteString);
         //then
+        verify(employeeDB).findById(testToDeleteString);
         assertEquals(testEmployee, actual.get());
     }
 
@@ -54,13 +58,16 @@ class EmployeeServiceTest {
     void updateEmployeeRabbitToHoppelTest() {
         //given
         String idFromUpdateEmployee = "UUIDFromController";
-        Employee testEmployee = new Employee(idFromUpdateEmployee, "Rabbit", "12.13.2055");
+        EmployeeDTO employeeToUpdate = new EmployeeDTO(idFromUpdateEmployee, "Hoppel");
         Employee updatedEmployee = new Employee(idFromUpdateEmployee, "Hoppel", "12.13.2055");
+        Employee currentEmployee = new Employee(idFromUpdateEmployee, "Rabbit", "12.13.2055");
         //when
-        when(employeeDB.findById(idFromUpdateEmployee)).thenReturn(Optional.of(testEmployee));
-        when(employeeDB.save(testEmployee)).thenReturn(updatedEmployee);
-        Employee actual = employeeService.updateEmployee(testEmployee);
+        when(employeeDB.findById(idFromUpdateEmployee)).thenReturn(Optional.of(currentEmployee));
+        when(employeeDB.save(updatedEmployee)).thenReturn(updatedEmployee);
+        Employee actual = employeeService.updateEmployee(employeeToUpdate);
         //then
+        verify(employeeDB).findById(idFromUpdateEmployee);
+        verify(employeeDB).save(updatedEmployee);
         assertEquals(updatedEmployee, actual);
     }
 }
