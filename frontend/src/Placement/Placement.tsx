@@ -12,8 +12,6 @@ function Placement(props: PlacementProps) {
     const [newValue, setNewValue] = useState<number>(0)
     const [editMode, setEditMode] = useState<boolean>(false)
 
-    
-
 
     const updatePlacement = () => {
         axios
@@ -36,7 +34,7 @@ function Placement(props: PlacementProps) {
 
     useEffect(() => {
         setNewValue(props.singlePlacement.totalSeats)
-    }, [])
+    }, [props.singlePlacement.totalSeats])
 
 
     const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
