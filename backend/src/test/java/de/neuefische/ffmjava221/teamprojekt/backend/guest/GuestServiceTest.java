@@ -1,11 +1,9 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.guest;
 
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -16,15 +14,15 @@ import static org.mockito.Mockito.*;
 
         //GIVEN
 
-        GuestRepo guestRepo = mock(GuestRepo.class);
+        GuestRepository guestRepository = mock(GuestRepository.class);
         List<Guest> guests = new ArrayList<>();
         Guest guest = new Guest("Steven", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "123");
         guests.add(guest);
 
         //WHEN
 
-        when(guestRepo.getGuestList()).thenReturn(guests);
-        List<Guest> actual = guestRepo.getGuestList();
+        when(guestRepository.findAll()).thenReturn(guests);
+        List<Guest> actual = guestRepository.findAll();
 
         //THEN
 
@@ -36,7 +34,7 @@ import static org.mockito.Mockito.*;
 
         //GIVEN
 
-        GuestRepo guestRepo = mock(GuestRepo.class);
+        GuestRepository guestRepo = mock(GuestRepository.class);
         GuestUtils guestUtils = mock(GuestUtils.class);
         GuestService guestService = new GuestService(guestRepo, guestUtils);
 
@@ -44,7 +42,7 @@ import static org.mockito.Mockito.*;
         Guest testGuest = newGuest.withId("2");
 
         Guest expected = testGuest;
-        when(guestRepo.addGuestData(testGuest)).thenReturn(testGuest);
+        when(guestRepo.save(testGuest)).thenReturn(testGuest);
         when(guestUtils.generateUUID()).thenReturn("2");
 
         //WHEN
@@ -63,7 +61,7 @@ import static org.mockito.Mockito.*;
         //GIVEN
 
         GuestUtils guestId = mock(GuestUtils.class);
-        GuestRepo guestRepo = mock(GuestRepo.class);
+        GuestRepository guestRepo = mock(GuestRepository.class);
         GuestService guestService = new GuestService(guestRepo, guestId);
 
         List<Guest> guests = new ArrayList<>();
@@ -73,10 +71,8 @@ import static org.mockito.Mockito.*;
 
         //WHEN
 
-        when(guestRepo.getGuestList()).thenReturn(guests);
+        when(guestRepo.findAll()).thenReturn(guests);
         Guest actual = guestService.updateGuestById("2", updatedGuest);
-
-        //
 
         //THEN
 
@@ -89,7 +85,7 @@ import static org.mockito.Mockito.*;
         //GIVEN
 
         GuestUtils guestId = mock(GuestUtils.class);
-        GuestRepo guestRepo = mock(GuestRepo.class);
+        GuestRepository guestRepo = mock(GuestRepository.class);
         GuestService guestService = new GuestService(guestRepo, guestId);
         List<Guest> guests = new ArrayList<>();
         Guest guest1 = new Guest("Steven", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "2");
@@ -104,6 +100,5 @@ import static org.mockito.Mockito.*;
             System.out.println(e.getMessage());
         }
     }
-
 }
 
