@@ -12,7 +12,6 @@ class EmployeeServiceTest {
     EmployeeInterface employeeInterface = mock(EmployeeInterface.class);
     EmployeeService employeeService = new EmployeeService(employeeUtils, employeeInterface);
 
-
     @Test
     void getAllEmployeesTest() {
         //given
@@ -54,9 +53,11 @@ class EmployeeServiceTest {
     @Test
     void updateEmployeeRabbitToHoppelTest() {
         //given
-        Employee testEmployee = new Employee("123", "Rabbit", "12.03.1944");
-        Employee updatedEmployee = new Employee("123", "Hoppel", "12.03.1944");
+        String idFromUpdateEmployee = "UUIDFromController";
+        Employee testEmployee = new Employee(idFromUpdateEmployee, "Rabbit", "12.13.2055");
+        Employee updatedEmployee = new Employee(idFromUpdateEmployee, "Hoppel", "12.13.2055");
         //when
+        when(employeeInterface.findById(idFromUpdateEmployee)).thenReturn(Optional.of(testEmployee));
         when(employeeInterface.save(testEmployee)).thenReturn(updatedEmployee);
         Employee actual = employeeService.updateEmployee(testEmployee);
         //then
