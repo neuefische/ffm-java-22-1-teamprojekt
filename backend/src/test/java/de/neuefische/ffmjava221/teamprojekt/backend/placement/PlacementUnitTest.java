@@ -102,6 +102,8 @@ class PlacementUnitTest {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             testService.deletePlacement("123");
         });
+
+        when(testRepo.existsById("123")).thenReturn(true);
         String expectedMessage = "Placement not Exist!";
         //When
         String actualMessage = exception.getMessage();
@@ -122,6 +124,7 @@ class PlacementUnitTest {
 
         when(testRepo.findAll()).thenReturn(allPlacements);
 
+        when(testRepo.existsById("gjfas43566")).thenReturn(true);
         boolean deleteResult = testService.deletePlacement("gjfas43566");
 
         assertTrue(deleteResult);
