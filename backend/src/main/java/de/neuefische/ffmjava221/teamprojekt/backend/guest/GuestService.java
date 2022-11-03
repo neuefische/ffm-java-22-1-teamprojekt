@@ -8,7 +8,7 @@ import java.util.Optional;
 @Service
 public class GuestService {
 
-    private final GuestRepo guestRepo;
+    private final GuestRepository guestRepository;
     private GuestUtils guestUtils;
 
     public GuestService(GuestRepo guestRepo, GuestUtils guestUtils) {
