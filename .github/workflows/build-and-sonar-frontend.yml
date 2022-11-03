@@ -1,4 +1,4 @@
-name: Sonar-Frontend
+name: Build and analyze frontend
 on:
   push:
     branches:
