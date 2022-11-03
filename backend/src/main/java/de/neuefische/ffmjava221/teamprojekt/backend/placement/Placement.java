@@ -14,19 +14,5 @@ public record Placement(
         @NotNull
         int totalSeats
 
-        // Status :
-        // Zeit
-
-        // 8
-
-
 ) {
 }
-
-// Resevierung
-
-// id
-// time
-// placement
-// Guest
-// meals
