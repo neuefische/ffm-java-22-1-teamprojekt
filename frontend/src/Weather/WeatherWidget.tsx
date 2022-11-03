@@ -32,7 +32,7 @@ export default function WeatherWidget() {
 
     return (
         <div>
-            {weather !== undefined ?
+            {weather ?
                 <>
                     <h3>Wetter:</h3>
                     <p>Temperatur: {weather.temperature}°C, Niederschlag: {weather.condition}</p>
