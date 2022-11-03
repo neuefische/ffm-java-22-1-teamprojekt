@@ -22,9 +22,9 @@ public class WeatherController {
     }
 
     @GetMapping("/")
-    public WeatherData getWeather(@RequestParam String date) {
+    public WeatherData getWeather(@RequestParam Instant date) {
         try {
-            return weatherService.fetchWeather(Instant.parse(date));
+            return weatherService.fetchWeather(date);
         } catch (WeatherResponseException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (WebClientResponseException e) {
