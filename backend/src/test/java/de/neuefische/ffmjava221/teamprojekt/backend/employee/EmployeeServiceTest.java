@@ -26,7 +26,7 @@ class EmployeeServiceTest {
     void addEmployeeTest() {
         //given
         String id = "123";
-        String date = "12.03.1944";
+        String date = "12.03.19444";
         Employee employeeWithId = new Employee(id, "Hasi",date);
         NewEmployee employeeWithoutId = new NewEmployee("Hasi");
         //when
