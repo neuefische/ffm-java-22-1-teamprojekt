@@ -78,7 +78,7 @@
                 <configuration>
                     <excludes>
                         <exclude>
-                            <groupId>org.project lombok</groupId>
+                            <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
@@ -106,5 +106,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

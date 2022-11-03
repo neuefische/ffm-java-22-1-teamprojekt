@@ -34,8 +34,7 @@ class GuestIntegrationTest {
                                 {"firstName": "test",
                                  "lastName": "test",
                                  "email": "test@gmail.com",
-                                 "password": "SuperSecret344$$",
-                                 "confirmPassword": "SuperSecret344$$"}
+                                 "password": "SuperSecret344$$"}
                                 """))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -55,7 +54,6 @@ class GuestIntegrationTest {
                                  "lastName": "test",
                                  "email": "test@gmail.com",
                                  "password": "SuperSecret344$$",
-                                 "confirmPassword": "SuperSecret344$$",
                                  "id" : "<id>"}]
                                 """.replace("<id>", guest.id())));
     }
@@ -69,26 +67,11 @@ class GuestIntegrationTest {
                                 {"firstName": "test",
                                  "lastName": "test",
                                  "email": "test@gmail.com",
-                                 "password": "password",
-                                 "confirmPassword": "password"}
+                                 "password": "password"}
                                 """))
                 .andExpect(status().isBadRequest());
     }
 
-//    @Test
-//    @DirtiesContext
-//    void addGuestNotEqualPasswords() throws Exception {
-//        mvc.perform(MockMvcRequestBuilders.post("/api/guests")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content("""
-//                                {"firstName": "test",
-//                                 "lastName": "test",
-//                                 "email": "test@gmail.com",
-//                                 "password": "SuperSecret344$$",
-//                                 "confirmPassword": "SuperSecret344$$"}
-//                                """))
-//                .andExpect(status().isBadRequest());
-//    }
 
     @DirtiesContext
     @Test
@@ -110,7 +93,6 @@ class GuestIntegrationTest {
                                 "lastName": "test",
                                 "email": "test@gmail.com",
                                 "password": "SuperSecret344$$",
-                                "confirmPassword": "SuperSecret344$$",
                                 "id" :  "<id>"}
                                                                
                                     """))
@@ -127,13 +109,11 @@ class GuestIntegrationTest {
                                  "lastName": "test",
                                  "email": "test@gmail.com",
                                  "password": "SuperSecret344$$",
-                                 "confirmPassword": "SuperSecret344$$",
                                  "id" :  "<id>"},
                                  {"firstName": "Armin",
                                  "lastName": "test",
                                  "email": "test@gmail.com",
                                  "password": "SuperSecret344$$",
-                                 "confirmPassword": "SuperSecret344$$",
                                  "id" :  "id"}
                                 """.replace("<id>", guest.id()))))
                 // THEN
@@ -143,13 +123,13 @@ class GuestIntegrationTest {
                                          "lastName": "test",
                                          "email": "test@gmail.com",
                                          "password": "SuperSecret344$$",
-                                         "confirmPassword": "SuperSecret344$$",
+                                         
                                          "id" :  "<id>"},
                                          {"firstName": "Armin",
                                          "lastName": "test",
                                          "email": "test@gmail.com",
                                          "password": "SuperSecret344$$",
-                                         "confirmPassword": "SuperSecret344$$",
+                                         
                                          "id" :  "id"}
                         """.replace("<id>", guest.id())));
     }
@@ -164,7 +144,6 @@ class GuestIntegrationTest {
                                 "lastName": "test",
                                 "email": "test@gmail.com",
                                 "password": "SuperSecret344$$",
-                                "confirmPassword": "SuperSecret344$$",
                                 "id" :  "<id>"}
                                     """))
                 .andExpect(status().isBadRequest());
@@ -180,7 +159,6 @@ class GuestIntegrationTest {
                                 "lastName": "test",
                                 "email": "test@gmail.com",
                                 "password": "SuperSecret344$$",
-                                "confirmPassword": "SuperSecret344$$",
                                 "id" :  "<id>"}
                                     """))
                 .andExpect(status().isMethodNotAllowed());
@@ -196,8 +174,7 @@ class GuestIntegrationTest {
                                 "lastName": "test",
                                 "email": "test@gmail.com",
                                 "password": "SuperSecret344$$",
-                                "confirmPassword": "SuperSecret344$$",
-                                "id" :  "1337"}
+                                 "id" :  "1337"}
                                     """))
                 .andExpect(status().isNotFound());
     }
@@ -212,8 +189,8 @@ class GuestIntegrationTest {
                                 {"firstName": "test",
                                  "lastName": "test",
                                  "email": "test@gmail.com",
-                                 "password": "SuperSecret344$$",
-                                 "confirmPassword": "SuperSecret344$$"}
+                                 "password": "SuperSecret344$$"
+                                 }
                                 """))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();

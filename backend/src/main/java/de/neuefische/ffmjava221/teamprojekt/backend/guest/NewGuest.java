@@ -12,12 +12,12 @@ public record NewGuest(
         @Email
         String email,
         @Pattern(regexp = "^(?=[^A-Z]*+[A-Z])(?=[^a-z]*+[a-z])(?=\\D*+\\d)(?=[^#?!@$ %^&*-]*+[#?!@$ %^&*-]).{8,}$",message = "Password must have minimum eight characters, at least one letter and one number!")
-        String password,
-        String confirmPassword
+        String password
+
 
 ) {
     public Guest withId(String id) {
-        Guest guest = new Guest(firstName(), lastName(), email(), password(), confirmPassword(), id);
+        Guest guest = new Guest(firstName(), lastName(), email(), password(), id);
         return guest;
     }
 }
