@@ -9,8 +9,8 @@ import static org.mockito.Mockito.*;
 class EmployeeServiceTest {
 
     EmployeeUtils employeeUtils = mock(EmployeeUtils.class);
-    EmployeeInterface employeeInterface = mock(EmployeeInterface.class);
-    EmployeeService employeeService = new EmployeeService(employeeUtils, employeeInterface);
+    EmployeeDB employeeDB = mock(EmployeeDB.class);
+    EmployeeService employeeService = new EmployeeService(employeeUtils, employeeDB);
 
     @Test
     void getAllEmployeesTest() {
@@ -32,7 +32,7 @@ class EmployeeServiceTest {
         //when
         when(employeeUtils.generateUUID()).thenReturn(id);
         when(employeeUtils.generateINSTANT()).thenReturn(date);
-        when(employeeInterface.save(employeeWithId)).thenReturn(employeeWithId);
+        when(employeeDB.save(employeeWithId)).thenReturn(employeeWithId);
         Employee actual = employeeService.addEmployee(employeeWithoutId);
         //then
         assertEquals(employeeWithId, actual);
@@ -44,7 +44,7 @@ class EmployeeServiceTest {
         String testToDeleteString = "UUIDFromController";
         Employee testEmployee = new Employee(testToDeleteString, "Hasi", "12.13.2055");
         //when
-        when(employeeInterface.findById(testToDeleteString)).thenReturn(Optional.of(testEmployee));
+        when(employeeDB.findById(testToDeleteString)).thenReturn(Optional.of(testEmployee));
         Optional <Employee> actual = employeeService.deleteEmployee(testToDeleteString);
         //then
         assertEquals(testEmployee, actual.get());
@@ -57,8 +57,8 @@ class EmployeeServiceTest {
         Employee testEmployee = new Employee(idFromUpdateEmployee, "Rabbit", "12.13.2055");
         Employee updatedEmployee = new Employee(idFromUpdateEmployee, "Hoppel", "12.13.2055");
         //when
-        when(employeeInterface.findById(idFromUpdateEmployee)).thenReturn(Optional.of(testEmployee));
-        when(employeeInterface.save(testEmployee)).thenReturn(updatedEmployee);
+        when(employeeDB.findById(idFromUpdateEmployee)).thenReturn(Optional.of(testEmployee));
+        when(employeeDB.save(testEmployee)).thenReturn(updatedEmployee);
         Employee actual = employeeService.updateEmployee(testEmployee);
         //then
         assertEquals(updatedEmployee, actual);
