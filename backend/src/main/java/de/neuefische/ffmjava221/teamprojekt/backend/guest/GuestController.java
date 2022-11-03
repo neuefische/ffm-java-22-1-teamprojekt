@@ -1,5 +1,6 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.guest;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -10,6 +11,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/guests")
+
 public class GuestController {
 
     private final GuestService guestService;
