@@ -17,7 +17,7 @@ public record NewGuest(
 
 ) {
     public Guest withId(String id) {
-        Guest guest = new Guest(firstName(), lastName(), email(), password(), confirmPassword(), id);
+        Guest guest = new Guest(firstName(), lastName(), email(), password(), id);
         return guest;
     }
 }

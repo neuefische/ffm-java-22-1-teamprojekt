@@ -31,13 +31,13 @@ export default function RegisterForm() {
             return;
         } else {
             setError("");
-
         }
         postForm();
         setFirstName("");
         setLastName("");
         setEmail("");
-        setPassword("");setConfirmPassword("")
+        setPassword("");
+        setConfirmPassword("")
     }
     const isValidEmail= (email:string) => {
         return /.@./.test(email);

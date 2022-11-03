@@ -18,7 +18,7 @@ public class GuestService {
 
     public Guest addGuestData(NewGuest newGuest) {
         String uuid = this.guestUtils.generateUUID();
-        Guest guest = new Guest(newGuest.firstName(), newGuest.lastName(), newGuest.email(), newGuest.password(), newGuest.confirmPassword(), uuid);
+        Guest guest = new Guest(newGuest.firstName(), newGuest.lastName(), newGuest.email(), newGuest.password(), uuid);
         return this.guestRepository.save(guest);
     }
 
@@ -50,6 +50,4 @@ public class GuestService {
         guestRepository.deleteById(id);
         return guest;
     }
-
-
 }
