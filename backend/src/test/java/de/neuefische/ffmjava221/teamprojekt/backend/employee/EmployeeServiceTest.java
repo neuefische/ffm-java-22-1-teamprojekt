@@ -27,10 +27,12 @@ class EmployeeServiceTest {
     void addEmployeeTest() {
         //given
         String id = "123";
-        Employee employeeWithId = new Employee(id, "Hasi");
+        String date = "12.03.1944";
+        Employee employeeWithId = new Employee(id, "Hasi",date);
         NewEmployee employeeWithoutId = new NewEmployee("Hasi");
         //when
         when(employeeUtils.generateUUID()).thenReturn(id);
+        when(employeeUtils.generateINSTANT()).thenReturn(date);
         when(employeeInterface.save(employeeWithId)).thenReturn(employeeWithId);
         Employee actual = employeeService.addEmployee(employeeWithoutId);
         //then
@@ -41,7 +43,7 @@ class EmployeeServiceTest {
     void deleteEmployeeTest() {
         //given
         String testToDeleteString = "UUIDFromController";
-        Employee testEmployee = new Employee(testToDeleteString, "Hasi");
+        Employee testEmployee = new Employee(testToDeleteString, "Hasi", "12.13.2055");
         //when
         when(employeeInterface.findById(testToDeleteString)).thenReturn(Optional.of(testEmployee));
         Optional <Employee> actual = employeeService.deleteEmployee(testToDeleteString);
@@ -52,8 +54,8 @@ class EmployeeServiceTest {
     @Test
     void updateEmployeeRabbitToHoppelTest() {
         //given
-        Employee testEmployee = new Employee("123", "Rabbit");
-        Employee updatedEmployee = new Employee("123", "Hoppel");
+        Employee testEmployee = new Employee("123", "Rabbit", "12.03.1944");
+        Employee updatedEmployee = new Employee("123", "Hoppel", "12.03.1944");
         //when
         when(employeeInterface.save(testEmployee)).thenReturn(updatedEmployee);
         Employee actual = employeeService.updateEmployee(testEmployee);
