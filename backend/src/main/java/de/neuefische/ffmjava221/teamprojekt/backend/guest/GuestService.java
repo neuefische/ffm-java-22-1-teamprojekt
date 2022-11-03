@@ -1,8 +1,6 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.guest;
 
 import org.springframework.stereotype.Service;
-
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -20,7 +18,7 @@ public class GuestService {
 
     public Guest addGuestData(NewGuest newGuest) {
         String uuid = this.guestUtils.generateUUID();
-        Guest guest = new Guest(newGuest.firstName(), newGuest.lastName(), newGuest.email(), newGuest.password(), newGuest.confirmPassword(), uuid);
+        Guest guest = new Guest(newGuest.firstName(), newGuest.lastName(), newGuest.email(), newGuest.password(), uuid);
         return this.guestRepo.addGuestData(guest);
     }
 
@@ -54,6 +52,4 @@ public class GuestService {
         guestRepo.deleteGuestById(guest);
         return guest;
     }
-
-
 }

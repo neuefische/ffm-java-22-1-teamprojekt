@@ -10,7 +10,6 @@ export default function RegisterForm() {
             lastName,
             email,
             password,
-            confirmPassword,
         })
             .catch((error) => {
                 console.log("Error =>" + error)
@@ -29,14 +28,13 @@ export default function RegisterForm() {
         if (!isValidEmail(email)) {
             setError("Email is invalid");
         } else {
-            setError("");
+            setError("");return;
         }
         postForm();
         setFirstName("");
         setLastName("");
         setEmail("");
-        setPassword("");
-        setConfirmPassword("")
+        setPassword("");setConfirmPassword("")
     }
     const isValidEmail= (email:string) => {
         return /.@./.test(email);
@@ -89,7 +87,7 @@ export default function RegisterForm() {
                 }}
                 onChange={(isValid) => {}}
             />
-            {error && <h2 style={{color: 'red'}}>{error}</h2>}
+            {error && <h2>{error}</h2>}
             <button>Register</button>
         </form>
     );
