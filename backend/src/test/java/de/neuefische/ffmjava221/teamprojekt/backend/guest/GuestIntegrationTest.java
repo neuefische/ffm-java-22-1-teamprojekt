@@ -94,8 +94,7 @@ class GuestIntegrationTest {
                                 "email": "test@gmail.com",
                                 "password": "SuperSecret344$$",
                                 "id" :  "<id>"}
-                                                               
-                                    """))
+                                """))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
