@@ -1,6 +1,8 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.employee;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,11 +36,13 @@ public class EmployeeService {
     }
 
     public Employee updateEmployee(Employee employee) {
-        Optional<Employee> employeeToUpdate = employeeDB.findById(employee.id());
+        Employee employeeToUpdate = employeeDB.findById(employee.id()).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+
         Employee updateEmployee = UpdateEmployee.toUpdateTimeStamp(
-                employeeToUpdate.get().id(),
+                employeeToUpdate.id(),
                 employee.name(),
-                employeeToUpdate.get().regTimeStamp());
+                employeeToUpdate.regTimeStamp());
 
         return employeeDB.save(updateEmployee);
     }
