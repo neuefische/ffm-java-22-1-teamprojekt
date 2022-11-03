@@ -11,26 +11,26 @@ public class GuestService {
     private final GuestRepository guestRepository;
     private GuestUtils guestUtils;
 
-    public GuestService(GuestRepo guestRepo, GuestUtils guestUtils) {
-        this.guestRepo = guestRepo;
+    public GuestService(GuestRepository guestRepository, GuestUtils guestUtils) {
+        this.guestRepository = guestRepository;
         this.guestUtils = guestUtils;
     }
 
     public Guest addGuestData(NewGuest newGuest) {
         String uuid = this.guestUtils.generateUUID();
-        Guest guest = new Guest(newGuest.firstName(), newGuest.lastName(), newGuest.email(), newGuest.password(), uuid);
-        return this.guestRepo.addGuestData(guest);
+        Guest guest = new Guest(newGuest.firstName(), newGuest.lastName(), newGuest.email(), newGuest.password(), newGuest.confirmPassword(), uuid);
+        return this.guestRepository.save(guest);
     }
 
     public List<Guest> getGuestList() {
-        return this.guestRepo.getGuestList();
+        return this.guestRepository.findAll();
     }
 
     public Guest updateGuestById(String id, Guest guest) {
-        List<Guest> guests = guestRepo.getGuestList();
+        List<Guest> guests = guestRepository.findAll();
         for (Guest person : guests) {
             if (person.id().equals(id)) {
-                guestRepo.setGuest(guests.indexOf(person), guest);
+                guestRepository.save(person);
                 return guest;
             }
         }
@@ -38,18 +38,16 @@ public class GuestService {
     }
 
     public Guest deleteGuestById(String id) {
-        Optional<Guest> guestToFind = guestRepo
-                .getGuestList()
+        Optional<Guest> guestToFind = guestRepository
+                .findAll()
                 .stream()
                 .filter(guest -> guest.id().equals(id))
                 .findFirst();
-
         if (guestToFind.isEmpty()) {
             throw new NoSuchElementException("Element with this Id not found");
         }
-
         Guest guest = guestToFind.get();
-        guestRepo.deleteGuestById(guest);
+        guestRepository.deleteById(id);
         return guest;
     }
 }
