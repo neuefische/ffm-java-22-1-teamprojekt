@@ -39,7 +39,7 @@ export default function RegisterForm() {
         setConfirmPassword("")
     }
     const isValidEmail= (email:string) => {
-        return /\S+@\S+\.\S+/.test(email);
+        return /.@./.test(email);
     }
 
     return (
