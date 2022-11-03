@@ -1,6 +1,7 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.employee;
 
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,8 @@ public class EmployeeService {
 
     public Employee addEmployee(NewEmployee newEmployee) {
         String id = employeeUtils.generateUUID();
-        Employee saveEmployee = newEmployee.withId(id);
+        String regTimeStamp = employeeUtils.generateINSTANT();
+        Employee saveEmployee = newEmployee.withIdAndTimeStamp(id, regTimeStamp);
         return employeeInterface.save(saveEmployee);
     }
 
@@ -32,6 +34,11 @@ public class EmployeeService {
     }
 
     public Employee updateEmployee(Employee employee) {
-       return employeeInterface.save(employee);
+       Optional<Employee> employeeToUpdate = employeeInterface.findById(employee.id());
+     Employee updateEmployee = UpdateEmployee.toUpdateTimeStamp(
+             employeeToUpdate.get().id(),
+             employee.name(),
+             employeeToUpdate.get().regTimeStamp());
+       return employeeInterface.save(updateEmployee);
     }
 }

@@ -7,6 +7,7 @@ public record Employee(
         @Id
         String id,
         @NotBlank
-        String name
+        String name,
+        String regTimeStamp
 ) {
 }

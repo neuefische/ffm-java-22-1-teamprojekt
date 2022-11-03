@@ -5,8 +5,9 @@ import javax.validation.constraints.NotBlank;
 public record NewEmployee(
         @NotBlank
         String name
+
 ) {
-    public Employee withId(String id) {
-        return new Employee(id, name);
+    public Employee withIdAndTimeStamp(String id, String regTimeStamp) {
+        return new Employee(id, name, regTimeStamp);
     }
 }
