@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RequestMapping("/api/placements")
 @RestController
@@ -34,16 +36,25 @@ public class PlacementController {
             Placement updatedPlacement = placementService.updatePlacement(placementId, newData);
             return ResponseEntity.status(HttpStatus.OK)
                     .body(updatedPlacement);
-        } catch (IllegalArgumentException e) {
+        } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID is not found!");
         }
     }
 
-    @DeleteMapping("{placementId}")
+    @PutMapping("reservation/placementId")
+    public  void reserveNewPlacement (@PathVariable String placementId,@RequestBody LocalDateTime reserveTime){
+    // reserve New Placement
+    }
+
+    //
+
+    @DeleteMapping(value = "{placementId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePlacement(@PathVariable String placementId) {
         try {
             placementService.deletePlacement(placementId);
-        } catch (IllegalArgumentException e) {
+
+        } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID is not found!");
         }
     }

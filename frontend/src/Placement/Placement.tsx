@@ -60,7 +60,7 @@ function Placement(props: PlacementProps) {
             <button onClick={() => setEditMode(!editMode)}>update Seats Number</button>
             <button onClick={handleDelete}>Delete</button>
             {editMode && <form onSubmit={handleSubmit}>
-                <input min={2} max={15} type='number' onChange={handleUpdateTotalSeats} value={newValue}/>
+                <input placeholder="Enter number between 2 and 15" min={2} max={15} type='number' onChange={handleUpdateTotalSeats} value={newValue}/>
                 <button type='submit'>Edit</button>
             </form>}
 

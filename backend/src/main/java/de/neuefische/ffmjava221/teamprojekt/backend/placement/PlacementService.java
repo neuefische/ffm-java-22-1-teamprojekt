@@ -4,6 +4,7 @@ package de.neuefische.ffmjava221.teamprojekt.backend.placement;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -39,14 +40,14 @@ public class PlacementService {
         Optional<Placement> placementToFind = placementRepository.findById(placementId);
 
         if (placementToFind.isEmpty()) {
-            throw new IllegalArgumentException("Placement not Exist!");
+            throw new NoSuchElementException("Placement not Exist!");
         }
         return placementToFind.get();
     }
 
 
     public Placement updatePlacement(String placementId, Placement newData) {
-        Placement existPlacement = checkIfExist(placementId);// exist
+        Placement existPlacement = checkIfExist(placementId);
 
         Placement updatedPlacement = new Placement(existPlacement.id(), existPlacement.placementNr(), newData.totalSeats());
         placementRepository.save(updatedPlacement);
@@ -59,6 +60,6 @@ public class PlacementService {
             return true;
         }
 
-        throw new IllegalArgumentException("Placement not Exist!");
+        throw new NoSuchElementException("Placement not Exist!");
     }
 }
