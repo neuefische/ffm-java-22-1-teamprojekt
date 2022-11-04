@@ -58,7 +58,7 @@ class EmployeeServiceTest {
     void updateEmployeeRabbitToHoppelTest() {
         //given
         String idFromUpdateEmployee = "UUIDFromController";
-        EmployeeDTO employeeToUpdate = new EmployeeDTO(idFromUpdateEmployee, "Hoppel");
+        EmployeeToUpdateDTO employeeToUpdate = new EmployeeToUpdateDTO(idFromUpdateEmployee, "Hoppel");
         Employee updatedEmployee = new Employee(idFromUpdateEmployee, "Hoppel", "12.13.2055");
         Employee currentEmployee = new Employee(idFromUpdateEmployee, "Rabbit", "12.13.2055");
         //when
