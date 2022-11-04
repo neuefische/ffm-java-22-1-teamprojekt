@@ -4,6 +4,7 @@ package de.neuefische.ffmjava221.teamprojekt.backend.placement;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -60,5 +61,20 @@ public class PlacementService {
         } else {
             throw new NoSuchElementException("Placement not Exist!");
         }
+    }
+
+    public void reserveNewPlacement(String placementId, ReserveTimeRequest reserveData){
+        // tisch mit id finden
+         Optional<Placement> placementToFind= placementRepository.findById(placementId);
+         if(placementToFind.isEmpty()){
+             // Nein => Fehler meldung
+             throw new NoSuchElementException();
+         } else {
+             // ja => reserveData in tisch startReserveTimes eigenschaft speichern
+             Placement  placement= placementToFind.get();
+            Map<String,String> reservationsMap = placement.startTimesReservation();
+            reservationsMap.put(reserveData.reserveTime(),reserveData.guestId());
+            placementRepository.save(placement);
+         }
     }
 }
