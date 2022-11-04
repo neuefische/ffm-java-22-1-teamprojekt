@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -72,7 +71,6 @@ class GuestIntegrationTest {
                 .andExpect(status().isBadRequest());
     }
 
-
     @DirtiesContext
     @Test
     void getAllGuestsAndExpectEmptyList() throws Exception {
@@ -80,7 +78,6 @@ class GuestIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
     }
-
 
     @Test
     @DirtiesContext
@@ -208,9 +205,4 @@ class GuestIntegrationTest {
 
         mvc.perform(MockMvcRequestBuilders.delete("/api/guests/954ujfew90ru30rfi033")).andExpect(status().isNotFound());
     }
-
-
 }
-
-
-

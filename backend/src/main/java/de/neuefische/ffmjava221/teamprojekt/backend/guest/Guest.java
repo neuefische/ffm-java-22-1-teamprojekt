@@ -16,5 +16,3 @@ public record Guest(
         String id
 ) {
 }
-
-

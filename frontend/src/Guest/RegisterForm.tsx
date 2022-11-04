@@ -37,15 +37,16 @@ export default function RegisterForm() {
         setLastName("");
         setEmail("");
         setPassword("");
-        setConfirmPassword("")
+        setConfirmPassword("");
     }
+
     const isValidEmail= (email:string) => {
         return /.@./.test(email);
     }
-    const isValidEmail= (email:string) => {
-        return /\S+@\S+\.\S+/.test(email);
-    }
 
+    function handleBackHome() {
+        window.location.href = '/#/GuestProfile'
+    }
     return (
         <form onSubmit={handleFormSubmit}>
             <label htmlFor="firstName">First name:</label>
@@ -94,8 +95,7 @@ export default function RegisterForm() {
                 onChange={(isValid) => {}}
             />
             {error && <h2>{error}</h2>}
-            <button>Register</button>
+            <button onClick={handleBackHome}>Register</button>
         </form>
     );
 }
-

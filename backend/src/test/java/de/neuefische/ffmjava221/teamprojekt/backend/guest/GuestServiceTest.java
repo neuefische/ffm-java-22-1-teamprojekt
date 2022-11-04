@@ -100,6 +100,4 @@ import static org.mockito.Mockito.*;
             System.out.println(e.getMessage());
         }
     }
-
 }
-
