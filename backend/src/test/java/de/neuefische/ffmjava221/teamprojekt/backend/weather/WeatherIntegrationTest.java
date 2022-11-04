@@ -16,6 +16,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -91,5 +94,31 @@ class WeatherIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/?date=abc"))
                 .andExpect(status().isBadRequest())
                 .andExpect(status().reason("Date malformed"));
+    }
+
+    @Test
+    void fetchWeatherBodyIsNullReturnsError() throws Exception {
+        mockWebServer.enqueue(new MockResponse()
+                .addHeader("Content-Type", "application/json")
+        );
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/?date="+ Instant.now()))
+                .andExpect(status().isNotFound())
+                .andExpect(status().reason("Response body is null"));
+    }
+
+    @Test
+    void fetchWeatherWebserverIsUnreacheableReturnsError() throws Exception {
+        mockWebServer.enqueue(new MockResponse()
+                .setBody("<?xml version=\"1.0\" encoding=\"UTF-8\"?><error><title>404 Not Found</title><description>No sources match your criteria</description></error>")
+                .setStatus("HTTP/1.1 404")
+                .addHeader("Content-Type", "application/xml")
+        );
+        Instant testDate = Instant.now().plus(30, ChronoUnit.DAYS);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/?date="+ testDate))
+                .andExpect(status().isNotFound())
+                .andExpect(status().reason("404 Not Found from GET "
+                        +mockWebServer.url("/")
+                        +"?wmo_station_id=10637&date="
+                        +OffsetDateTime.ofInstant(testDate, ZoneId.of("Europe/Berlin"))));
     }
 }
