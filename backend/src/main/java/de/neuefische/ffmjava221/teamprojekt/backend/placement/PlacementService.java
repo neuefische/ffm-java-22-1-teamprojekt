@@ -62,19 +62,22 @@ public class PlacementService {
             throw new NoSuchElementException("Placement not Exist!");
         }
     }
-
-    public void reserveNewPlacement(String placementId, ReserveTimeRequest reserveData){
+// testService.reserveNewPlacement("tgtj54pitg5reg",reserveData)
+    public void reserveNewPlacement  (String placementId, ReserveTimeRequest reserveData){
         // tisch mit id finden
          Optional<Placement> placementToFind= placementRepository.findById(placementId);
          if(placementToFind.isEmpty()){
              // Nein => Fehler meldung
-             throw new NoSuchElementException();
+             throw new NoSuchElementException("No Placement with this id!!");
          } else {
              // ja => reserveData in tisch startReserveTimes eigenschaft speichern
              Placement  placement= placementToFind.get();
+
             Map<String,String> reservationsMap = placement.startTimesReservation();
             reservationsMap.put(reserveData.reserveTime(),reserveData.guestId());
             placementRepository.save(placement);
          }
     }
 }
+
+//

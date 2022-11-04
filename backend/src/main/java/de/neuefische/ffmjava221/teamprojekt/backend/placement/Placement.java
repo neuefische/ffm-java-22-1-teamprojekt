@@ -31,6 +31,7 @@ public record Placement(
         this.startTimesReservation=startTimesReservation;
     }
 
+
 }
 
 
