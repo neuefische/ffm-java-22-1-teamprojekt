@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.DateTimeException;
 import java.time.Instant;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/weather")
@@ -22,15 +22,15 @@ public class WeatherController {
     }
 
     @GetMapping("/")
-    public WeatherData getWeather(@RequestParam Instant date) {
+    public WeatherData getWeather(@RequestParam Optional<Instant> date) {
         try {
-            return weatherService.fetchWeather(date);
+
+            return weatherService.fetchWeather(date.orElseThrow(() ->
+                    new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed date")));
         } catch (WeatherResponseException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (WebClientResponseException e) {
             throw new ResponseStatusException(e.getStatusCode(), e.getMessage());
-        } catch (DateTimeException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 }
