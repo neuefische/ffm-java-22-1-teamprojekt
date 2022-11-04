@@ -10,12 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.time.DateTimeException;
+
 import java.time.Instant;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+
 
 class WeatherServiceTest {
 
@@ -61,20 +61,4 @@ class WeatherServiceTest {
         assertEquals("GET", recordedRequest.getMethod());
     }
 
-    @Test
-    void fetchWeatherDateNullReturnsError() {
-        //given
-        // mocked response from Mockserver has to be WeatherResponseElement, because the API-server initially returns this type
-        mockWebServer.enqueue(new MockResponse()
-                .addHeader("Content-Type", "application/json")
-        );
-        //when
-        try {
-            weatherService.fetchWeather(null);
-            fail();
-        } catch (DateTimeException e) {
-            //then
-            assertEquals("Malformed date", e.getMessage());
-        }
-    }
 }

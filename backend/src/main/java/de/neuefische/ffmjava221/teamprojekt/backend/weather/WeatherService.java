@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -20,27 +19,24 @@ public class WeatherService {
     }
 
     public WeatherData fetchWeather(Instant date) {
-        if (date == null) {
-            throw new DateTimeException("Malformed date");
+        ResponseEntity<DailyWeather> weatherResponse = webClient
+                .get()
+                .uri("?wmo_station_id=10637&date=" + OffsetDateTime.ofInstant(date, ZoneId.of("Europe/Berlin")))
+                .retrieve()
+                .toEntity(DailyWeather.class)
+                .block();
+        DailyWeather responseBody;
+        if (weatherResponse != null) {
+            responseBody = weatherResponse.getBody();
         } else {
-            ResponseEntity<DailyWeather> weatherResponse = webClient
-                    .get()
-                    .uri("?wmo_station_id=10637&date=" + OffsetDateTime.ofInstant(date, ZoneId.of("Europe/Berlin")))
-                    .retrieve()
-                    .toEntity(DailyWeather.class)
-                    .block();
-            DailyWeather responseBody;
-            if (weatherResponse != null) {
-                responseBody = weatherResponse.getBody();
-            } else {
-                throw new WeatherResponseException("Weather response is null");
-            }
-            if (responseBody != null) {
-                return responseBody.hourlyWeather().get(0);
-            } else {
-                throw new WeatherResponseException("Response body is null");
-            }
+            throw new WeatherResponseException("Weather response is null");
         }
+        if (responseBody != null) {
+            return responseBody.hourlyWeather().get(0);
+        } else {
+            throw new WeatherResponseException("Response body is null");
+        }
+
     }
 }
 
