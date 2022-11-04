@@ -59,7 +59,8 @@ class WeatherIntegrationTest {
         //when
         mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/?date=" + null))
                 //then
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(status().reason("Date malformed"));
     }
 
     @Test
@@ -88,6 +89,7 @@ class WeatherIntegrationTest {
                 .addHeader("Content-Type", "application/json")
         );
         mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/?date=abc"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(status().reason("Date malformed"));
     }
 }
