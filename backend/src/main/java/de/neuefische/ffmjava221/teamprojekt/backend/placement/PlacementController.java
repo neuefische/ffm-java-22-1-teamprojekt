@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -41,9 +40,10 @@ public class PlacementController {
         }
     }
 
-    @PutMapping("reservation/placementId")
-    public  void reserveNewPlacement (@PathVariable String placementId,@RequestBody LocalDateTime reserveTime){
-    // reserve New Placement
+    @PutMapping("reservation/{placementId}")
+    public  void reserveNewPlacement (@PathVariable String placementId,@RequestBody ReserveTimeRequest reserveData ){
+        placementService.reserveNewPlacement(placementId, reserveData);
+
     }
 
     //
