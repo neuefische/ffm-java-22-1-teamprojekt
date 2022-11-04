@@ -20,4 +20,3 @@ public record NewGuest(
         return guest;
     }
 }
-

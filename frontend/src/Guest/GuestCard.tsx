@@ -20,7 +20,6 @@ export default function GuestCard(props: GuestCardProps) {
         setEditModal(false)
     }
 
-
     const deleteGuest = () => {
         axios.delete("/api/guests/" + props.guest.id)
             .then((response) => response.status)
@@ -34,8 +33,6 @@ export default function GuestCard(props: GuestCardProps) {
             })
             .then(() => setTimeout(() => props.fetchAllGuests(), 2000))
     }
-
-    // GuestCard
 
     return (
         <>
@@ -56,4 +53,3 @@ export default function GuestCard(props: GuestCardProps) {
         </>
     );
 }
-
