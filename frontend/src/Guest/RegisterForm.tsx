@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import axios from "axios";
 import PasswordChecklist from "react-password-checklist"
+import {useNavigate} from "react-router-dom";
 
 export default function RegisterForm() {
 
@@ -23,9 +24,10 @@ export default function RegisterForm() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
-    function handleBackHome() {
-        window.location.href = '/'
+    const setBackHome = () => {
+        navigate("/")
     }
 
     const handleFormSubmit = (event: ChangeEvent<HTMLFormElement>) => {
@@ -42,7 +44,7 @@ export default function RegisterForm() {
         setEmail("");
         setPassword("");
         setConfirmPassword("");
-        handleBackHome();
+        setBackHome();
     }
 
     const isValidEmail= (email:string) => {
