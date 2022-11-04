@@ -54,12 +54,11 @@ public class PlacementService {
         return updatedPlacement;
     }
 
-    public boolean deletePlacement(String placementId) {
-        if(placementRepository.existsById(placementId)){
+    public void deletePlacement(String placementId) {
+        if (placementRepository.existsById(placementId)) {
             placementRepository.deleteById(placementId);
-            return true;
+        } else {
+            throw new NoSuchElementException("Placement not Exist!");
         }
-
-        throw new NoSuchElementException("Placement not Exist!");
     }
 }

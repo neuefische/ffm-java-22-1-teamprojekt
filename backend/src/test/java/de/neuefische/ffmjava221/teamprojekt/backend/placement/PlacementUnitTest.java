@@ -90,18 +90,18 @@ class PlacementUnitTest {
 
     @Test
     void deletePlacementWithNotExistId() {
+        //Give
+        when(testRepo.existsById("123")).thenReturn(false);
+        //when
         Exception exception = assertThrows(NoSuchElementException.class, () -> {
             testService.deletePlacement("123");
         });
-
-        when(testRepo.existsById("123")).thenReturn(true);
         String expectedMessage = "Placement not Exist!";
-        //When
         String actualMessage = exception.getMessage();
         //Then
         assertTrue(actualMessage.contains(expectedMessage));
 
-        //Give
+
     }
 
     @Test
@@ -111,9 +111,9 @@ class PlacementUnitTest {
 
         when(testRepo.existsById(testRecord.id())).thenReturn(true);
 
-        boolean deleteResult = testService.deletePlacement(testRecord.id());
+        testService.deletePlacement(testRecord.id());
 
-        assertTrue(deleteResult);
+        verify(testRepo).deleteById("53lk2h532kh5");
     }
 }
 
