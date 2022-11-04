@@ -6,11 +6,15 @@ import styled from "styled-components";
 export default function Navigation() {
     return (
         <StyledNav>
+            <NavLink to="/Login">
+                <button>Login</button>
+            </NavLink>
             <NavLink to="/GuestProfile">
                 <StyledButton>
                     <Icon icon="mdi:user"/> GuestList
                 </StyledButton>
             </NavLink>
+
             <NavLink to="/RegisterForm">
                 <StyledButton>
                     <Icon icon="mdi:register"/> Registration
@@ -31,6 +35,7 @@ export default function Navigation() {
                     <Icon icon="clarity:employee-group-solid"/> Employees
                 </StyledButton>
             </NavLink>
+
         </StyledNav>
     );
 }
