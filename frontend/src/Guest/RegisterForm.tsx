@@ -47,6 +47,7 @@ export default function RegisterForm() {
     function handleBackHome() {
         window.location.href = '/#/GuestProfile'
     }
+
     return (
         <form onSubmit={handleFormSubmit}>
             <label htmlFor="firstName">First name:</label>
