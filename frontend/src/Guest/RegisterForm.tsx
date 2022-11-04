@@ -24,6 +24,10 @@ export default function RegisterForm() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
 
+    function handleBackHome() {
+        window.location.href = '/'
+    }
+
     const handleFormSubmit = (event: ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (!isValidEmail(email)) {
@@ -38,14 +42,11 @@ export default function RegisterForm() {
         setEmail("");
         setPassword("");
         setConfirmPassword("");
+        handleBackHome();
     }
 
     const isValidEmail= (email:string) => {
         return /.@./.test(email);
-    }
-
-    function handleBackHome() {
-        window.location.href = '/#/GuestProfile'
     }
 
     return (
@@ -96,7 +97,7 @@ export default function RegisterForm() {
                 onChange={(isValid) => {}}
             />
             {error && <h2>{error}</h2>}
-            <button onClick={handleBackHome}>Register</button>
+            <button>Register</button>
         </form>
     );
 }
