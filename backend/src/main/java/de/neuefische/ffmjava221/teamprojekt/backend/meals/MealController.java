@@ -31,12 +31,12 @@ public class MealController {
     public ResponseEntity<Meal> updateMeal(@PathVariable String id,@Valid @RequestBody Meal meal) {
         boolean mealExists = mealService.isMealExisting(id);
 
-        Meal newMeal = meal.withId(id);
-        Meal createdMeal = mealService.saveMeal(newMeal);
+        Meal mealToUpdate = meal.withId(id);
+        Meal updatedMeal = mealService.saveMeal(mealToUpdate);
 
         return mealExists ?
-                new ResponseEntity<>(createdMeal, HttpStatus.OK) :
-                new ResponseEntity<>(createdMeal, HttpStatus.CREATED);
+                new ResponseEntity<>(updatedMeal, HttpStatus.OK) :
+                new ResponseEntity<>(updatedMeal, HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id}")
