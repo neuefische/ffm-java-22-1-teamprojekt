@@ -2,10 +2,7 @@ package de.neuefische.ffmjava221.teamprojekt.backend.placement;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -57,7 +54,7 @@ class PlacementUnitTest {
         // Given
         Placement placementToTest = new Placement("123", 4, 5);
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        Exception exception = assertThrows(NoSuchElementException.class, () -> {
             testService.updatePlacement("123", placementToTest);
         });
         String expectedMessage = "Placement not Exist!";
@@ -70,36 +67,30 @@ class PlacementUnitTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
 
+
     }
 
     @Test
-    void updatingNewPlacementServiceWithExist() {
+    void updatingNewPlacementServiceWithExistId() {
         //GIVEN
-        List<Placement> allPlacements =  List.of(
-                new Placement("123", 4, 2),
-                new Placement("435435", 8, 5),
-                new Placement("gf5646546", 2, 4),
-                new Placement("gjfas43566", 1, 5),
-                new Placement("123gsgs5435", 3, 2)
-        );
-
-        when(testRepo.findAll()).thenReturn(allPlacements);
+        Placement testRecord = new Placement("123", 4, 2);
 
 
         Placement updatedData = new Placement("123", 4, 8);
 
         when(testRepo.save(updatedData)).thenReturn(updatedData);
 
-        when(testRepo.findById("123")).thenReturn(Optional.ofNullable(allPlacements.get(0)));
+        when(testRepo.findById("123")).thenReturn(Optional.of(testRecord));
         //WHEN
         Placement placementAfterUpdate = testService.updatePlacement("123", updatedData);
         // THEN
         assertEquals(8, placementAfterUpdate.totalSeats());
+        assertEquals(4, placementAfterUpdate.placementNr());
     }
 
     @Test
     void deletePlacementWithNotExistId() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        Exception exception = assertThrows(NoSuchElementException.class, () -> {
             testService.deletePlacement("123");
         });
 
@@ -109,26 +100,20 @@ class PlacementUnitTest {
         String actualMessage = exception.getMessage();
         //Then
         assertTrue(actualMessage.contains(expectedMessage));
+
         //Give
     }
 
     @Test
     void deletePlacementWithExistId() {
-        List<Placement> allPlacements = new ArrayList<>(List.of(
-                new Placement("123", 4, 2),
-                new Placement("435435", 8, 5),
-                new Placement("gf5646546", 2, 4),
-                new Placement("gjfas43566", 1, 5),
-                new Placement("123gsgs5435", 3, 2)
-        ));
 
-        when(testRepo.findAll()).thenReturn(allPlacements);
+        Placement testRecord = new Placement("53lk2h532kh5", 4, 2);
 
-        when(testRepo.existsById("gjfas43566")).thenReturn(true);
-        boolean deleteResult = testService.deletePlacement("gjfas43566");
+        when(testRepo.existsById(testRecord.id())).thenReturn(true);
+
+        boolean deleteResult = testService.deletePlacement(testRecord.id());
 
         assertTrue(deleteResult);
-
     }
 }
 

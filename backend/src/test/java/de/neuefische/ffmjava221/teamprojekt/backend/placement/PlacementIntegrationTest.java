@@ -122,7 +122,7 @@ class PlacementIntegrationTest {
         String id = savedPlacement.id();
 
         mvc.perform(MockMvcRequestBuilders.delete("/api/placements/" + id))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 
 

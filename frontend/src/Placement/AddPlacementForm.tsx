@@ -44,11 +44,11 @@ function AddPlacementForm(props: AddPlacementFormProps) {
         <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor='placement-Nr'>Table Nr.: </label>
-                <input type='text' id='placement-Nr' onChange={handleTableNumberChange} value={tableNumber}/>
+                <input placeholder="Enter Table number"  type='number' id='placement-Nr' onChange={handleTableNumberChange} value={tableNumber}/>
             </div>
             <div>
                 <label htmlFor='total-seats'>Total Seats: </label>
-                <input type='text' id='total-seats' onChange={handleTotalSeatsChange} value={totalSeats}/>
+                <input placeholder="Enter number between 2 and 15" min={2} max={15} type='number' id='total-seats' onChange={handleTotalSeatsChange} value={totalSeats}/>
             </div>
             <button>Add</button>
         </form>
