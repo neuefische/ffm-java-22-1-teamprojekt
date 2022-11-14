@@ -52,6 +52,8 @@ export default function RegisterForm() {
     }
 
     return (
+        <>
+        <h2>Registration</h2>
         <form onSubmit={handleFormSubmit}>
             <label htmlFor="firstName">First name:</label>
             <input type='text'
@@ -96,10 +98,10 @@ export default function RegisterForm() {
                 messages={{
                     minLength:"Password must have at least 8 characters",
                 }}
-                onChange={(isValid) => {}}
             />
             {error && <h2>{error}</h2>}
             <button>Register</button>
         </form>
+          </>
     );
 }

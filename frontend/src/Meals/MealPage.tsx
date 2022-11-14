@@ -29,13 +29,13 @@ function MealPage(props: MealPageProps) {
             .catch(error => console.log("DELETE Error: "+error))
             .then(() => alert("Eintrag "+mealToDisplay.name+ " gelöscht!"))
             .then(props.fetchAllMeals)
-        navigate("/")
+        navigate("/Meals/")
     }
 
     return (
         <section>
             <div>
-                <NavLink onClick={props.fetchAllMeals} to={"/"}>Back</NavLink>
+                <NavLink onClick={props.fetchAllMeals} to={"/Meals/"}>Back</NavLink>
                 <h3>{mealToDisplay.name}</h3>
                 <p>ID: {id}</p>
             </div>

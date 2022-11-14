@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {MealModel} from "./MealModel";
 import axios from "axios";
-import {HashRouter, Routes, Route} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import MealPage from "./MealPage";
 import MealBoard from "./MealBoard";
-
-
-
 
 export default function Meals() {
 
@@ -24,12 +21,14 @@ export default function Meals() {
     return (
         <section>
             <h1>Meals</h1>
-            <HashRouter>
-                <Routes>
-                    <Route path={"/"} element={<MealBoard fetchAllMeals={fetchAllMeals} meals={meals}/>}/>
-                    <Route path={"/:id"} element={<MealPage fetchAllMeals={fetchAllMeals} meals={meals}/>}/>
+            <MealBoard fetchAllMeals={fetchAllMeals} meals={meals}/>
+            <Routes>
+                    <Route path={"/:id"} element={
+                        <>
+                            <MealPage fetchAllMeals={fetchAllMeals} meals={meals}/>
+                        </>
+                    }/>
                 </Routes>
-            </HashRouter>
         </section>
     );
 }
