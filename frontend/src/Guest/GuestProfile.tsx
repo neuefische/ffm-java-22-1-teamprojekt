@@ -1,7 +1,6 @@
 import React from "react";
 import {GuestModel} from "./GuestModel/GuestModel";
 import GuestCard from "./GuestCard";
-import {NavLink} from "react-router-dom";
 
 type GuestProfileProps = {
     guestList: GuestModel[];
@@ -16,9 +15,6 @@ export default function GuestProfile(props: GuestProfileProps) {
 
     return (
         <div>
-            <NavLink to="/">
-                <button>Home</button>
-            </NavLink>
             <h3>Guest list:</h3>
             <div>
                 {guestListOnBoard}
