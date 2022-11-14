@@ -5,7 +5,7 @@ import GuestProfile from "./GuestProfile";
 
 
 export default function GuestPage() {
-    const [guestList,setGuestList] = useState<GuestModel[]>([])
+    const [guestList, setGuestList] = useState<GuestModel[]>([])
 
     useEffect(() => {
         fetchAllGuests()
@@ -22,9 +22,9 @@ export default function GuestPage() {
             })
     }
     return (
-       <>
-           <h2>Guests List:</h2>
-        <GuestProfile guestList={guestList} fetchAllGuests={fetchAllGuests}/>
-       </>
+        <>
+            <h2>Guests List:</h2>
+            <GuestProfile guestList={guestList} fetchAllGuests={fetchAllGuests}/>
+        </>
     );
 }

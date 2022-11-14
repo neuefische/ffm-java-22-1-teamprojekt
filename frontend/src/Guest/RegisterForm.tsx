@@ -47,61 +47,61 @@ export default function RegisterForm() {
         setBackHome();
     }
 
-    const isValidEmail= (email:string) => {
+    const isValidEmail = (email: string) => {
         return /.@./.test(email);
     }
 
     return (
         <>
-        <h2>Registration</h2>
-        <form onSubmit={handleFormSubmit}>
-            <label htmlFor="firstName">First name:</label>
-            <input type='text'
-                   id="firstName"
-                   value={firstName}
-                   onChange={(e) => setFirstName(e.target.value)}
-                   placeholder={"John"}/>
+            <h2>Registration</h2>
+            <form onSubmit={handleFormSubmit}>
+                <label htmlFor="firstName">First name:</label>
+                <input type='text'
+                       id="firstName"
+                       value={firstName}
+                       onChange={(e) => setFirstName(e.target.value)}
+                       placeholder={"John"}/>
 
-            <label htmlFor={"lastName"}>Last name:</label>
-            <input type='text'
-                   id="lastName"
-                   value={lastName}
-                   onChange={(e) => setLastName(e.target.value)}
-                   placeholder="Doe"/>
+                <label htmlFor={"lastName"}>Last name:</label>
+                <input type='text'
+                       id="lastName"
+                       value={lastName}
+                       onChange={(e) => setLastName(e.target.value)}
+                       placeholder="Doe"/>
 
-            <label htmlFor={"email"}>E-Mail:</label>
-            <input type='text'
-                   id="email"
-                   value={email}
-                   onChange={(e) => setEmail(e.target.value)}
-                   placeholder="abc@gmail.com"/>
+                <label htmlFor={"email"}>E-Mail:</label>
+                <input type='text'
+                       id="email"
+                       value={email}
+                       onChange={(e) => setEmail(e.target.value)}
+                       placeholder="abc@gmail.com"/>
 
-            <label htmlFor={"password"}>Password:</label>
-            <input type='text'
-                   id="password"
-                   value={password}
-                   onChange={(e) => setPassword(e.target.value)}
-                   placeholder="Bello123"/>
+                <label htmlFor={"password"}>Password:</label>
+                <input type='text'
+                       id="password"
+                       value={password}
+                       onChange={(e) => setPassword(e.target.value)}
+                       placeholder="Bello123"/>
 
-            <label htmlFor={"confirmPassword"}>ConfirmPassword:</label>
-            <input type='text'
-                   id="confirmPassword"
-                   value={confirmPassword}
-                   onChange={(e) => setConfirmPassword(e.target.value)}
-                   placeholder="Bello123"/>
+                <label htmlFor={"confirmPassword"}>ConfirmPassword:</label>
+                <input type='text'
+                       id="confirmPassword"
+                       value={confirmPassword}
+                       onChange={(e) => setConfirmPassword(e.target.value)}
+                       placeholder="Bello123"/>
 
-            <PasswordChecklist
-                rules={["minLength","specialChar","number","capital","match"]}
-                minLength={8}
-                value={password}
-                valueAgain={confirmPassword}
-                messages={{
-                    minLength:"Password must have at least 8 characters",
-                }}
-            />
-            {error && <h2>{error}</h2>}
-            <button>Register</button>
-        </form>
-          </>
+                <PasswordChecklist
+                    rules={["minLength", "specialChar", "number", "capital", "match"]}
+                    minLength={8}
+                    value={password}
+                    valueAgain={confirmPassword}
+                    messages={{
+                        minLength: "Password must have at least 8 characters",
+                    }}
+                />
+                {error && <h2>{error}</h2>}
+                <button>Register</button>
+            </form>
+        </>
     );
 }

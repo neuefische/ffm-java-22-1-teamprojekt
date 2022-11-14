@@ -28,7 +28,7 @@ export default function GuestCard(props: GuestCardProps) {
             })
             .then((status) => {
                 if (status === 200) {
-                    setMessageStatus('Guest ' + props.guest.firstName+" "+props.guest.lastName + ' successfully deleted.');
+                    setMessageStatus('Guest ' + props.guest.firstName + " " + props.guest.lastName + ' successfully deleted.');
                 }
             })
             .then(() => setTimeout(() => props.fetchAllGuests(), 2000))
