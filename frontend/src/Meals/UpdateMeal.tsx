@@ -22,7 +22,7 @@ function UpdateMeal(props: UpdateMealProps) {
             .catch((error) => console.log("PUT Error: " + error))
             .then(props.fetchAllMeals)
         setNewMealName("")
-        navigate("/")
+        navigate("/Meals/")
     }
 
     const handleNewMealName = (event: ChangeEvent<HTMLInputElement>) => {

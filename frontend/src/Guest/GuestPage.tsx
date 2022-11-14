@@ -23,7 +23,8 @@ export default function GuestPage() {
     }
     return (
        <>
-        <GuestProfile  guestList={guestList} fetchAllGuests={fetchAllGuests}/>
+           <h2>Guests List:</h2>
+        <GuestProfile guestList={guestList} fetchAllGuests={fetchAllGuests}/>
        </>
     );
 }

@@ -32,7 +32,7 @@ export default function MealBoard(props: MealBoardProps) {
                     props.meals.map(meal => {
                         return (
                             <li key={meal.id}>
-                                <Link to={"/" + meal.id}>{meal.name}</Link>
+                                <Link to={"/Meals/" + meal.id}>{meal.name}</Link>
                             </li>
                         )
                     })
