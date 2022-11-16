@@ -44,13 +44,13 @@ export default function AddPlacementForm(props: AddPlacementFormProps) {
         <StyledForm onSubmit={handleSubmit}>
             <StyledDiv>
                 <StyledLabel htmlFor='placement-Nr'>Table Nr.: </StyledLabel>
-                <StyledInput placeholder="Enter Table number" type='number' id='placement-Nr'
+                <StyledInput placeholder="Table number" type='number' id='placement-Nr'
                              onChange={handleTableNumberChange} value={tableNumber}/>
                 <StyledLabel htmlFor='total-seats'>Total Seats: </StyledLabel>
-                <StyledInput placeholder="Enter number between 2 and 15" min={2} max={15} type='number' id='total-seats'
+                <StyledInput placeholder="Number from 2 to 15" min={2} max={15} type='number' id='total-seats'
                              onChange={handleTotalSeatsChange} value={totalSeats}/>
             </StyledDiv>
-            <StyledButton><Icon icon="material-symbols:add" height="14" /> Add Placement</StyledButton>
+            <StyledButton><Icon icon="material-symbols:add" height="14"/> Add Placement</StyledButton>
         </StyledForm>
     );
 }

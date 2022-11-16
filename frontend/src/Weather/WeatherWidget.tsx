@@ -32,44 +32,44 @@ export default function WeatherWidget() {
     }
 
     return <>
-            {weather ?
-                <>
-                    <StyledWeather>
-                        <StyledDiv>
-                            <StyledText>
-                                <Icon icon="tabler:temperature-minus" width={20}/>&nbsp;&nbsp;{weather.temperature}°C
-                            </StyledText>
-                        </StyledDiv>
-                        <StyledDiv>
-                            <StyledText>
-                                <Icon icon="mdi:weather-heavy-rain" width={18}/>&ensp;{weather.condition}
-                            </StyledText>
-                        </StyledDiv>
-                        <StyledDiv>
-                            <StyledText>
-                                <Icon icon="ph:sun-dim-light" width={20}/>&nbsp;&nbsp;{weather.sunshine}%
-                            </StyledText>
-                        </StyledDiv>
-                        <StyledDiv>
-                            <StyledText>
-                                <Icon icon="ic:round-cloud-queue" width={18}/>&nbsp;&nbsp;{weather.cloud_cover}%
-                            </StyledText>
-                        </StyledDiv>
-                        <StyledDiv>
-                            <StyledText>
-                                <Icon icon="tabler:wind" width={20}/>&nbsp;&nbsp;{weather.wind_speed}m/s
-                            </StyledText>
-                        </StyledDiv>
-                    </StyledWeather>
-                </> :
-                <>
-                    <StyledText>No weather information retrieved</StyledText>
-                </>}
-            <StyledDate>
-                <DatePicker selected={date} onChange={handleChangeDate} showTimeSelect dateFormat="Pp"
-                            onCalendarClose={handleDateSelect}/>
-            </StyledDate>
-        </>;
+        {weather ?
+            <>
+                <StyledWeather>
+                    <StyledDiv>
+                        <StyledText>
+                            <Icon icon="tabler:temperature-minus" width={20}/>&nbsp;&nbsp;{weather.temperature}°C
+                        </StyledText>
+                    </StyledDiv>
+                    <StyledDiv>
+                        <StyledText>
+                            <Icon icon="mdi:weather-heavy-rain" width={18}/>&ensp;{weather.condition}
+                        </StyledText>
+                    </StyledDiv>
+                    <StyledDiv>
+                        <StyledText>
+                            <Icon icon="ph:sun-dim-light" width={20}/>&nbsp;&nbsp;{weather.sunshine}%
+                        </StyledText>
+                    </StyledDiv>
+                    <StyledDiv>
+                        <StyledText>
+                            <Icon icon="ic:round-cloud-queue" width={18}/>&nbsp;&nbsp;{weather.cloud_cover}%
+                        </StyledText>
+                    </StyledDiv>
+                    <StyledDiv>
+                        <StyledText>
+                            <Icon icon="tabler:wind" width={20}/>&nbsp;&nbsp;{weather.wind_speed}m/s
+                        </StyledText>
+                    </StyledDiv>
+                </StyledWeather>
+            </> :
+            <>
+                <StyledText>No weather information retrieved</StyledText>
+            </>}
+        <StyledDate>
+            <DatePicker selected={date} onChange={handleChangeDate} showTimeSelect dateFormat="Pp"
+                        onCalendarClose={handleDateSelect}/>
+        </StyledDate>
+    </>;
 }
 
 const StyledWeather = styled.div`

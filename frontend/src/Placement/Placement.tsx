@@ -58,13 +58,13 @@ export default function Placement(props: PlacementProps) {
         <StyledLi>
             <StyledTable>Table-Nr: {props.singlePlacement.placementNr}</StyledTable>
             <StyledSeats>Total Seats: {props.singlePlacement.totalSeats}</StyledSeats>
-            <StyledButton onClick={() => setEditMode(!editMode)}>update Seats Number</StyledButton>
+            <StyledButton onClick={() => setEditMode(!editMode)}>Edit</StyledButton>
             <StyledButton onClick={handleDelete}>Delete</StyledButton>
             <StyledModal>
                 {editMode && <form onSubmit={handleSubmit}>
                     <StyledInput placeholder="number from 2 to 15" min={2} max={15} type='number'
                                  onChange={handleUpdateTotalSeats} value={newValue}/>
-                    <StyledButton type='submit'>Edit</StyledButton>
+                    <StyledButton type='submit'>Update</StyledButton>
                 </form>}
             </StyledModal>
         </StyledLi>
@@ -88,7 +88,7 @@ const StyledSeats = styled.p`
 
 const StyledLi = styled.li`
   margin: 10px;
-  padding: 0 15px 15px 15px;
+  padding: 0 15px 0 15px;
   border: 1px solid rgba(10 10 10 0.3);
   border-radius: 1pc;
   box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .4), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .04);
@@ -102,10 +102,10 @@ const StyledInput = styled.input`
 `;
 
 const StyledButton = styled.button`
+  margin: 5px;
   padding: 8px 10px;
   font-size: 0.8rem;
   cursor: pointer;
-  margin: 3px;
   transition-duration: 0.4s;
   background-color: var(--color-button-background);
   color: var(--color-text);
