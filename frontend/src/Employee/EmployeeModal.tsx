@@ -84,6 +84,7 @@ const StyledButton = styled.button`
   font-size: 0.8rem;
   cursor: pointer;
   margin: 3px;
+  transition-duration: 0.4s;
   background-color: var(--color-button-background);
   color: var(--color-text);
   border: none;

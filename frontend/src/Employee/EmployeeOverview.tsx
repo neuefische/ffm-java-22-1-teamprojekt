@@ -92,10 +92,11 @@ const StyledSection = styled.section`
   padding: 8px 20px 25px 20px;
   border: 1px solid rgba(10 10 10 0.3);
   border-radius: 1pc;
-  box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .04), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .04);
+  box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .4), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .4);
 `
 
 const StyledUl = styled.ul`
+  padding: 0;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;

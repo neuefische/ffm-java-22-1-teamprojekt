@@ -1,7 +1,8 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import axios from "axios";
 import PasswordChecklist from "react-password-checklist"
 import {useNavigate} from "react-router-dom";
+import styled from "styled-components";
 
 export default function RegisterForm() {
 
@@ -13,11 +14,19 @@ export default function RegisterForm() {
             password,
             confirmPassword,
         })
+            .then((response) => response.status)
             .catch((error) => {
                 console.log("Error =>" + error)
             })
+            .then((status) => {
+                if (status === 200) {
+                    setMessageStatus(firstName + " " + lastName + ' successfully created.');
+                }
+            })
+            .then(() => setTimeout(() => setBackHome(), 2000))
     }
 
+    const [messageStatus, setMessageStatus] = useState('')
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -30,7 +39,11 @@ export default function RegisterForm() {
         navigate("/")
     }
 
-    const handleFormSubmit = (event: ChangeEvent<HTMLFormElement>) => {
+    const isValidEmail = (email: string) => {
+        return /.@./.test(email);
+    }
+
+    const handleFormSubmit = (event: any) => {
         event.preventDefault();
         if (!isValidEmail(email)) {
             setError("Email is invalid");
@@ -44,64 +57,131 @@ export default function RegisterForm() {
         setEmail("");
         setPassword("");
         setConfirmPassword("");
-        setBackHome();
     }
 
-    const isValidEmail = (email: string) => {
-        return /.@./.test(email);
-    }
-
-    return (
-        <>
+    return <>
+        <StyledSection>
             <h2>Registration</h2>
-            <form onSubmit={handleFormSubmit}>
-                <label htmlFor="firstName">First name:</label>
-                <input type='text'
-                       id="firstName"
-                       value={firstName}
-                       onChange={(e) => setFirstName(e.target.value)}
-                       placeholder={"John"}/>
+            <StyledForm onSubmit={handleFormSubmit}>
+                <StyledDiv1>
+                    <label htmlFor="firstName">First name:</label>
+                    <StyledInput type='text'
+                                 id="firstName"
+                                 value={firstName}
+                                 onChange={(e) => setFirstName(e.target.value)}
+                                 placeholder={"John"}/>
+                    <label htmlFor={"lastName"}>Last name:</label>
 
-                <label htmlFor={"lastName"}>Last name:</label>
-                <input type='text'
-                       id="lastName"
-                       value={lastName}
-                       onChange={(e) => setLastName(e.target.value)}
-                       placeholder="Doe"/>
+                    <StyledInput type='text'
+                                 id="lastName"
+                                 value={lastName}
+                                 onChange={(e) => setLastName(e.target.value)}
+                                 placeholder="Doe"/>
+                    <label htmlFor={"email"}>E-Mail:</label>
 
-                <label htmlFor={"email"}>E-Mail:</label>
-                <input type='text'
-                       id="email"
-                       value={email}
-                       onChange={(e) => setEmail(e.target.value)}
-                       placeholder="abc@gmail.com"/>
+                    <StyledInput type='text'
+                                 id="email"
+                                 value={email}
+                                 onChange={(e) => setEmail(e.target.value)}
+                                 placeholder="abc@gmail.com"/>
+                    <label htmlFor={"password"}>Password:</label>
 
-                <label htmlFor={"password"}>Password:</label>
-                <input type='text'
-                       id="password"
-                       value={password}
-                       onChange={(e) => setPassword(e.target.value)}
-                       placeholder="Bello123"/>
+                    <StyledInput type='text'
+                                 id="password"
+                                 value={password}
+                                 onChange={(e) => setPassword(e.target.value)}
+                                 placeholder="Bello123!"/>
+                    <label htmlFor={"confirmPassword"}>ConfirmPassword:</label>
 
-                <label htmlFor={"confirmPassword"}>ConfirmPassword:</label>
-                <input type='text'
-                       id="confirmPassword"
-                       value={confirmPassword}
-                       onChange={(e) => setConfirmPassword(e.target.value)}
-                       placeholder="Bello123"/>
+                    <StyledInput type='text'
+                                 id="confirmPassword"
+                                 value={confirmPassword}
+                                 onChange={(e) => setConfirmPassword(e.target.value)}
+                                 placeholder="Bello123!"/>
 
-                <PasswordChecklist
-                    rules={["minLength", "specialChar", "number", "capital", "match"]}
-                    minLength={8}
-                    value={password}
-                    valueAgain={confirmPassword}
-                    messages={{
-                        minLength: "Password must have at least 8 characters",
-                    }}
-                />
-                {error && <h2>{error}</h2>}
-                <button>Register</button>
-            </form>
-        </>
-    );
+                    {error && <StyledMessage>{error}</StyledMessage>}
+                    {messageStatus && <StyledMessage>{messageStatus}</StyledMessage>}
+                </StyledDiv1>
+                <StyledDiv2>
+                    <PasswordChecklist
+                        rules={["minLength", "specialChar", "number", "capital", "match"]}
+                        minLength={8}
+                        value={password}
+                        valueAgain={confirmPassword}
+                        messages={{
+                            minLength: "Password must have at least 8 characters",
+                        }}
+                    />
+                </StyledDiv2>
+
+            </StyledForm>
+            <StyledDiv2>
+                <StyledButton onClick={handleFormSubmit}>Register now</StyledButton>
+            </StyledDiv2>
+        </StyledSection>
+    </>;
 }
+
+const StyledSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 8px 20px 25px 20px;
+  border: 1px solid rgba(10 10 10 0.3);
+  border-radius: 1pc;
+  box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .4), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .4);
+`
+
+const StyledButton = styled.button`
+  margin: 3px;
+  padding: 5px;
+  width: 100px;
+  transition-duration: 0.4s;
+  background-color: var(--color-button-background);
+  color: var(--color-text);
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: var(--color-button-hover);
+  }
+
+  &:active {
+    background-color: var(--color-button-active);
+  }
+`;
+
+const StyledMessage = styled.p`
+  margin: 10px;
+  padding: 8px;
+  font-size: 0.8rem;
+`
+
+const StyledInput = styled.input`
+  margin: 3px;
+  padding: 3px;
+  border-radius: 5px;
+  box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .04), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .04);
+`;
+
+const StyledDiv1 = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  padding: 10px;
+`;
+
+const StyledDiv2 = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+`;
+
+const StyledForm = styled.form`
+  display: flex;
+  align-self: center;
+  align-items: center;
+`;
