@@ -8,6 +8,7 @@ import javax.validation.constraints.*;
 public record AppUser(
         String id,
         String username,
+        @Pattern(regexp = "^(?=[^A-Z]*+[A-Z])(?=[^a-z]*+[a-z])(?=\\D*+\\d)(?=[^#?!@$ %^&*-]*+[#?!@$ %^&*-]).{8,}$",message = "Password must have minimum eight characters, at least one letter and one number!")
         String password,
         String regTimeStamp,
         @NotBlank
@@ -15,6 +16,7 @@ public record AppUser(
         @NotBlank
         String lastName,
         @Email
-        String email
+        String email,
+        AppUserRole role
 ) {
 }

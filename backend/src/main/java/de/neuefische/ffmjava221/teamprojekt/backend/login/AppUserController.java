@@ -1,11 +1,10 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.login;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import javax.servlet.http.HttpSession;
 
-import javax.validation.Valid;
 
 @RestController
 @AllArgsConstructor
@@ -16,7 +15,40 @@ public class AppUserController {
 
     @GetMapping("/login")
     public void login() {
+    }
 
+    @GetMapping("/me")
+    public String me() {
+        return SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+    }
+
+    @GetMapping("/role")
+    public String getRole() {
+        return SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getAuthorities()
+                .toString();
+    }
+
+    @PostMapping("/guest")
+    public AppUser addGuest(@RequestBody AppUser appUser) {
+        AppUser newAppUser = appUser.withRole(AppUserRole.GUEST);
+        return appUserService.addUser(newAppUser);
+    }
+
+    @PostMapping("/employee")
+    public AppUser addEmployee(@RequestBody AppUser appUser) {
+        AppUser newAppUser = appUser.withRole(AppUserRole.EMPLOYEE);
+        return appUserService.addUser(newAppUser);
+    }
+
+    @GetMapping("/logout")
+    public void logout(HttpSession httpSession) {
+        httpSession.invalidate();
     }
 }
 

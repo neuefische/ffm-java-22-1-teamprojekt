@@ -31,8 +31,13 @@ public class SecurityConfig {
                 .csrf().disable()
                 .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/users/login")
-                .authenticated()
+                .antMatchers(HttpMethod.POST, "/api/users/guest").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/users/employee").hasRole("EMPLOYEE")
+                .antMatchers(HttpMethod.GET,
+                        "/api/users/login"
+                    ,"/api/users/me"
+                    ,"/api/users/role"
+                    ,"/api/users/logout").authenticated()
                 .anyRequest().denyAll()
                 .and().build();
     }
@@ -51,7 +56,7 @@ public class SecurityConfig {
                    return User.builder()
                             .username(username)
                            .password(appUserFromDB.password())
-                           .roles("BASIC")
+                           .roles(appUserFromDB.role().toString())
                            .build();
 
             }
