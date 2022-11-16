@@ -41,12 +41,9 @@ public class PlacementController {
     }
 
     @PutMapping("reservation/{placementId}")
-    public  void reserveNewPlacement (@PathVariable String placementId,@RequestBody ReserveTimeRequest reserveData ){
+    public void reserveNewPlacement(@PathVariable String placementId, @RequestBody ReserveTimeRequest reserveData) {
         placementService.reserveNewPlacement(placementId, reserveData);
-
     }
-
-    //
 
     @DeleteMapping(value = "{placementId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
