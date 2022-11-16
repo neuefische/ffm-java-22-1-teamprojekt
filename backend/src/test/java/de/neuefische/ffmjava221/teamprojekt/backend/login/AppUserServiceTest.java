@@ -8,12 +8,13 @@ import org.mockito.Mockito;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 
 class AppUserServiceTest {
-    /*
+
     private final AppUserRepository appUserRepository = mock(AppUserRepository.class);
     private final AppUserService appUserService = new AppUserService(appUserRepository);
 //    private final PasswordEncoder mockEncoder = mock(PasswordEncoder.class);
@@ -55,11 +56,21 @@ class AppUserServiceTest {
                 null
         );
 
-        when(securityConfig.encoder()).thenReturn(mockEncoder);
-        AppUser encodedAppUser = newAppUser.withPassword(mockEncoder.encode(newAppUser.password()));
+        try (MockedStatic<SecurityConfig> securityConfig = Mockito.mockStatic(SecurityConfig.class)){
+            AppUser encodedAppUser = newAppUser.withPassword("encodedPassword");
+            securityConfig.when(() -> SecurityConfig.passwordEncoder.encode("rawPassword")).thenReturn("encodedPassword");
+            AppUser actual = appUserService.addUser(newAppUser);
+            AppUser expected = encodedAppUser;
+            //then
+            assertEquals(expected, actual);
+            //assertThat(SecurityConfig.passwordEncoder.encode("rawPassword")).containsExactly("encodedPassword");
+        }
+
+
+/*        when(securityConfig.encoder()).thenReturn(mockEncoder);
         when(mockEncoder.encode((newAppUser.password()))).thenReturn("encodedByBCrypt");
         when(appUserRepository.save(newAppUser.withPassword("encodedByBCrypt"))).thenReturn(encodedAppUser);
-        when(appUserRepository.findByUsername(newAppUser.username())).thenReturn(null);
+        when(appUserRepository.findByUsername(newAppUser.username())).thenReturn(null);*/
         //when
 
 
@@ -90,5 +101,5 @@ class AppUserServiceTest {
             assertEquals("User with this name already exists", e.getMessage());
         }
     }
-     */
+
 }
