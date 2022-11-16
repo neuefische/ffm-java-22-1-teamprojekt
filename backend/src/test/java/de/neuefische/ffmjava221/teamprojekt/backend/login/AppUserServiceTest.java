@@ -1,63 +1,43 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.login;
 
-import de.neuefische.ffmjava221.teamprojekt.backend.guest.Guest;
-import de.neuefische.ffmjava221.teamprojekt.backend.guest.GuestRepository;
-import org.junit.jupiter.api.Assertions;
+import de.neuefische.ffmjava221.teamprojekt.backend.SecurityConfig;
+
 import org.junit.jupiter.api.Test;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
+
 
 class AppUserServiceTest {
-    private final GuestRepository guestRepository = mock(GuestRepository.class);
-    private final AppUserService appUserService = new AppUserService(guestRepository);
+    private final AppUserRepository appUserRepository = mock(AppUserRepository.class);
+    private final SecurityConfig securityConfig = mock(SecurityConfig.class);
+    private final AppUserService appUserService = new AppUserService(appUserRepository, securityConfig);
+
+
 
     @Test
-    void checkLoginDataWithCorrectLoginDataReturnsGuest() {
+    void addUserAndReturnAppUser() {
         //given
-        Guest guest = new Guest("Steven", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "2");
-        AppUser appUser = new AppUser("fsagfg@gmail.com","SuperSecret344$$");
-        when(guestRepository.findByEmail(appUser.email())).thenReturn(guest);
+        AppUser newAppUser = new AppUser("1",
+                "Bob",
+                "Password25#",
+                null,
+                null,
+                null,
+                null,
+                null
+                );
+
+        AppUser encodedAppUser = newAppUser.withPassword("encoded");
+        when(securityConfig.passwordEncoder.encode(newAppUser.password())).thenReturn("encoded");
+        when(appUserRepository.save(encodedAppUser)).thenReturn(newAppUser);
         //when
-        Guest actual = appUserService.checkLoginData(appUser);
+        AppUser actual = appUserService.addUser(newAppUser);
+        AppUser expected = newAppUser;
         //then
-        verify(guestRepository).findByEmail(appUser.email());
-        assertEquals(guest,actual);
+        assertEquals(expected,actual);
     }
 
-    @Test
-    void checkLoginDataWithWrongPasswordReturnsException(){
-        //given
-        Guest guest = new Guest("Steven", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "2");
-        AppUser appUser = new AppUser("fsagfg@gmail.com","SuperSecret344");
-        when(guestRepository.findByEmail(appUser.email())).thenReturn(guest);
-        //when
-        try{
-            appUserService.checkLoginData(appUser);
-            Assertions.fail();
-        } catch(WrongLoginDataException e) {
-            //then
-            verify(guestRepository).findByEmail(appUser.email());
-            String expected = "Wrong Email or Password";
-            assertEquals(expected,e.getMessage());
-        }
-    }
 
-    @Test
-    void checkLoginDataWithWrongEmailReturnsException(){
-        //given
-        AppUser appUser = new AppUser("falsch@gmail.com","SuperSecret344$$");
-        when(guestRepository.findByEmail(appUser.email())).thenReturn(null);
-        //when
-        try{
-            appUserService.checkLoginData(appUser);
-            Assertions.fail();
-        } catch(WrongLoginDataException e) {
-            //then
-            verify(guestRepository).findByEmail(appUser.email());
-            String expected = "Wrong Email or Password";
-            assertEquals(expected,e.getMessage());
-        }
-    }
 }

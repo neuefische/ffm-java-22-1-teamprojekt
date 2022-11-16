@@ -1,6 +1,8 @@
-package de.neuefische.ffmjava221.teamprojekt.backend.login;
+package de.neuefische.ffmjava221.teamprojekt.backend;
 
-import lombok.AllArgsConstructor;
+import de.neuefische.ffmjava221.teamprojekt.backend.login.AppUser;
+import de.neuefische.ffmjava221.teamprojekt.backend.login.AppUserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,12 +15,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
     public final AppUserService appUserService;
 
-    public static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    public final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Bean
     public PasswordEncoder encoder() {
