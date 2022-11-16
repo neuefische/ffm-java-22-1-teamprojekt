@@ -62,7 +62,7 @@ export default function EmployeeOverview() {
 
     return <>
         <StyledSection>
-            <h2>Employees</h2>
+            <h2>Employees:</h2>
             <StyledUl>{employeeList}</StyledUl>
             <StyledForm onSubmit={postNewEmployee}>
                 <StyledInput type="text" value={newEmployee} onChange={handleStateEmployee}/>

@@ -47,9 +47,9 @@ export default function GuestCard(props: GuestCardProps) {
                     E-Mail: {props.guest.email}
                 </StyledMail>
                 <StyledDiv>
-                <StyledButton onClick={handleEdit}>Edit Guest</StyledButton>
-                <StyledButton onClick={deleteGuest}>delete</StyledButton>
-                    </StyledDiv>
+                    <StyledButton onClick={handleEdit}>Edit Guest</StyledButton>
+                    <StyledButton onClick={deleteGuest}>delete</StyledButton>
+                </StyledDiv>
                 {editModal &&
                     <GuestModal closeModal={closeModal}
                                 guest={props.guest}

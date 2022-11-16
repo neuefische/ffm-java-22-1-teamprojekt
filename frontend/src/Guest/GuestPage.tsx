@@ -28,11 +28,11 @@ export default function GuestPage() {
 
 
     return <>
-            <StyledSection>
+        <StyledSection>
             <h2>Guests List:</h2>
-                <StyledUl>{guestListOnBoard}</StyledUl>
-            </StyledSection>
-       </>;
+            <StyledUl>{guestListOnBoard}</StyledUl>
+        </StyledSection>
+    </>;
 }
 
 const StyledSection = styled.section`

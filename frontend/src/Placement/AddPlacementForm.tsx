@@ -1,15 +1,15 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import axios from 'axios';
 import PlacementModel from "./PlacementModel";
+import styled from "styled-components";
 
 type AddPlacementFormProps = {
     fetchAll: () => void;
 }
 
-function AddPlacementForm(props: AddPlacementFormProps) {
+export default function AddPlacementForm(props: AddPlacementFormProps) {
     const [tableNumber, setTableNumber] = useState<string>('')
     const [totalSeats, setTotalSeats] = useState<string>('')
-
 
     const postNewPlacement = (newPlacement: Omit<PlacementModel, 'id'>) => {
         axios.post("api/placements", newPlacement)
@@ -23,7 +23,6 @@ function AddPlacementForm(props: AddPlacementFormProps) {
             })
 
     }
-
 
     const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
@@ -41,19 +40,68 @@ function AddPlacementForm(props: AddPlacementFormProps) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor='placement-Nr'>Table Nr.: </label>
-                <input placeholder="Enter Table number"  type='number' id='placement-Nr' onChange={handleTableNumberChange} value={tableNumber}/>
-            </div>
-            <div>
-                <label htmlFor='total-seats'>Total Seats: </label>
-                <input placeholder="Enter number between 2 and 15" min={2} max={15} type='number' id='total-seats' onChange={handleTotalSeatsChange} value={totalSeats}/>
-            </div>
-            <button>Add</button>
-        </form>
-
+        <StyledForm onSubmit={handleSubmit}>
+            <StyledDiv>
+                <StyledLabel htmlFor='placement-Nr'>Table Nr.: </StyledLabel>
+                <StyledInput placeholder="Enter Table number" type='number' id='placement-Nr'
+                             onChange={handleTableNumberChange} value={tableNumber}/>
+                <StyledLabel htmlFor='total-seats'>Total Seats: </StyledLabel>
+                <StyledInput placeholder="Enter number between 2 and 15" min={2} max={15} type='number' id='total-seats'
+                             onChange={handleTotalSeatsChange} value={totalSeats}/>
+            </StyledDiv>
+            <StyledButton>Add Placement</StyledButton>
+        </StyledForm>
     );
 }
 
-export default AddPlacementForm;
+const StyledInput = styled.input`
+  margin: 3px;
+  padding: 3px;
+  border-radius: 5px;
+  box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .04), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .04);
+`;
+
+const StyledLabel = styled.label`
+  font-size: 0.8rem;
+`
+
+const StyledForm = styled.form`
+  display: flex;
+  align-items: center;
+  margin: 20px;
+`;
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px 10px 0 0;
+  padding: 10px;
+`;
+
+const StyledButton = styled.button`
+  position: relative;
+  top: 15px;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin: 3px;
+  width: 120px;
+  height: 40px;
+  transition-duration: 0.4s;
+  background-color: var(--color-button-background);
+  color: var(--color-text);
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: var(--color-button-hover);
+  }
+
+  &:active {
+    background-color: var(--color-button-active);
+  }
+`;
+

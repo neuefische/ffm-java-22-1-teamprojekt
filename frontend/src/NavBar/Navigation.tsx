@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import { Icon } from '@iconify/react';
+import {Icon} from '@iconify/react';
 import styled from "styled-components";
 
 export default function Navigation() {
@@ -8,27 +8,27 @@ export default function Navigation() {
         <nav>
             <NavLink to="/GuestProfile">
                 <StyledButton>
-                    <Icon icon="mdi:user" /> GuestList
+                    <Icon icon="mdi:user"/> GuestList
                 </StyledButton>
             </NavLink>
             <NavLink to="/RegisterForm">
                 <StyledButton>
-                    <Icon icon="mdi:register" /> Registration
+                    <Icon icon="mdi:register"/> Registration
                 </StyledButton>
             </NavLink>
             <NavLink to="/Meals">
                 <StyledButton>
-                    <Icon icon="healthicons:hot-meal" /> Meals
+                    <Icon icon="healthicons:hot-meal"/> Meals
                 </StyledButton>
             </NavLink>
             <NavLink to="/Placements">
                 <StyledButton>
-                    <Icon icon="material-symbols:table-bar" /> Placements
+                    <Icon icon="material-symbols:table-bar"/> Placements
                 </StyledButton>
             </NavLink>
             <NavLink to="/Employees">
                 <StyledButton>
-                    <Icon icon="clarity:employee-group-solid" /> Employees
+                    <Icon icon="clarity:employee-group-solid"/> Employees
                 </StyledButton>
             </NavLink>
         </nav>

@@ -3,9 +3,10 @@ import axios from "axios";
 import PlacementModel from "./PlacementModel";
 import Placement from "./Placement";
 import AddPlacementForm from "./AddPlacementForm";
+import styled from "styled-components";
 
 
-function PlacementPage() {
+export default function PlacementPage() {
     const [placementsData, setPlacementsData] = useState<PlacementModel[]>()
 
     const fetchPlacementData = () => {
@@ -25,17 +26,41 @@ function PlacementPage() {
 
 
     return (
-        <div>
-            <h1>Tables:</h1>
-            <AddPlacementForm fetchAll={fetchPlacementData}/>
-            <ul>
+        <StyledSection>
+            <h2>Tables:</h2>
+
+            <StyledUl>
                 {placementsData
                     ?.sort((a, b) => a.placementNr > b.placementNr ? 1 : -1)
                     .map((singlePlacement =>
-                        <Placement key={singlePlacement.id} fetchAll={fetchPlacementData} singlePlacement={singlePlacement}/>))}
-            </ul>
-        </div>
+                        <Placement key={singlePlacement.id} fetchAll={fetchPlacementData}
+                                   singlePlacement={singlePlacement}/>))}
+            </StyledUl>
+            <StyledAdd>
+                <AddPlacementForm fetchAll={fetchPlacementData}/>
+            </StyledAdd>
+        </StyledSection>
     );
 }
 
-export default PlacementPage;
+const StyledAdd = styled.div`
+  display: flex;
+  justify-content: right;
+`
+
+const StyledUl = styled.ul`
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+`
+
+const StyledSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 8px 20px 25px 20px;
+  border: 1px solid rgba(10 10 10 0.3);
+  border-radius: 1pc;
+  box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .4), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .4);
+`
