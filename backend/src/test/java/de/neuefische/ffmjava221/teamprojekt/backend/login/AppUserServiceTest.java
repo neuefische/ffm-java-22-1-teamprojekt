@@ -2,11 +2,9 @@ package de.neuefische.ffmjava221.teamprojekt.backend.login;
 
 import de.neuefische.ffmjava221.teamprojekt.backend.SecurityConfig;
 
-import net.bytebuddy.description.type.TypeList;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
@@ -17,9 +15,8 @@ import static org.mockito.Mockito.*;
 class AppUserServiceTest {
     /*
     private final AppUserRepository appUserRepository = mock(AppUserRepository.class);
-    private final SecurityConfig securityConfig = mock(SecurityConfig.class);
-    private final AppUserService appUserService = new AppUserService(appUserRepository, securityConfig);
-    private final PasswordEncoder mockEncoder = mock(PasswordEncoder.class);
+    private final AppUserService appUserService = new AppUserService(appUserRepository);
+//    private final PasswordEncoder mockEncoder = mock(PasswordEncoder.class);
 
     @Test
     void findByUsernameAndReturnUsername() {
@@ -50,7 +47,7 @@ class AppUserServiceTest {
         //given
         AppUser newAppUser = new AppUser("1",
                 "Bob",
-                "rawpassword",
+                "rawPassword",
                 null,
                 null,
                 null,
@@ -64,10 +61,10 @@ class AppUserServiceTest {
         when(appUserRepository.save(newAppUser.withPassword("encodedByBCrypt"))).thenReturn(encodedAppUser);
         when(appUserRepository.findByUsername(newAppUser.username())).thenReturn(null);
         //when
-        AppUser actual = appUserService.addUser(newAppUser);
-        AppUser expected = encodedAppUser;
-        //then
-        assertEquals(expected, actual);
+
+
+
+
     }
 
     @Test
