@@ -1,8 +1,11 @@
 package de.neuefische.ffmjava221.teamprojekt.backend.login;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import javax.servlet.http.HttpSession;
 
 
@@ -35,15 +38,25 @@ public class AppUserController {
     }
 
     @PostMapping("/guest")
+    @ResponseStatus(code = HttpStatus.CREATED)
     public AppUser addGuest(@RequestBody AppUser appUser) {
         AppUser newAppUser = appUser.withRole(AppUserRole.GUEST);
-        return appUserService.addUser(newAppUser);
+        return addAppUser(newAppUser);
     }
 
     @PostMapping("/employee")
+    @ResponseStatus(code = HttpStatus.CREATED)
     public AppUser addEmployee(@RequestBody AppUser appUser) {
         AppUser newAppUser = appUser.withRole(AppUserRole.EMPLOYEE);
-        return appUserService.addUser(newAppUser);
+        return addAppUser(newAppUser);
+    }
+
+    private AppUser addAppUser(AppUser newAppUser){
+        try {
+            return appUserService.addUser(newAppUser);
+        } catch (UserAlreadyExistsException e){
+            throw new ResponseStatusException(HttpStatus.CONFLICT,e.getMessage());
+        }
     }
 
     @GetMapping("/logout")
