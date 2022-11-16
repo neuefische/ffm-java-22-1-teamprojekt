@@ -3,6 +3,7 @@ import {MealModel} from "./MealModel";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import {Icon} from "@iconify/react";
 
 type MealBoardProps = {
     fetchAllMeals: () => void,
@@ -40,7 +41,7 @@ export default function MealBoard(props: MealBoardProps) {
         </StyledUl>
         <StyledForm onSubmit={handleAddMealSubmit}>
             <StyledInput required value={mealName} onChange={handleNewMealName}/>
-            <StyledButton type={"submit"}>Add Meal</StyledButton>
+            <StyledButton type={"submit"}><Icon icon="material-symbols:add" height="14" /> Add Meal</StyledButton>
         </StyledForm>
     </>;
 }

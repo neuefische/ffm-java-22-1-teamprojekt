@@ -3,6 +3,7 @@ import axios from "axios";
 import PasswordChecklist from "react-password-checklist"
 import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
+import { Icon } from '@iconify/react';
 
 export default function RegisterForm() {
 
@@ -116,7 +117,7 @@ export default function RegisterForm() {
 
             </StyledForm>
             <StyledDiv2>
-                <StyledButton onClick={handleFormSubmit}>Register now</StyledButton>
+                <StyledButton onClick={handleFormSubmit}><Icon icon="mdi:register" width="14" /> Register now</StyledButton>
             </StyledDiv2>
         </StyledSection>
     </>;
@@ -139,7 +140,7 @@ const StyledLabel = styled.label`
 const StyledButton = styled.button`
   margin: 3px;
   padding: 5px;
-  width: 100px;
+  width: 110px;
   transition-duration: 0.4s;
   background-color: var(--color-button-background);
   color: var(--color-text);
