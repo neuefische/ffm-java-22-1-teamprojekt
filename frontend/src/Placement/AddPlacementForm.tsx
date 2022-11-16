@@ -2,6 +2,7 @@ import React, {ChangeEvent, FormEvent, useState} from 'react';
 import axios from 'axios';
 import PlacementModel from "./PlacementModel";
 import styled from "styled-components";
+import {Icon} from "@iconify/react";
 
 type AddPlacementFormProps = {
     fetchAll: () => void;
@@ -49,7 +50,7 @@ export default function AddPlacementForm(props: AddPlacementFormProps) {
                 <StyledInput placeholder="Enter number between 2 and 15" min={2} max={15} type='number' id='total-seats'
                              onChange={handleTotalSeatsChange} value={totalSeats}/>
             </StyledDiv>
-            <StyledButton>Add Placement</StyledButton>
+            <StyledButton><Icon icon="material-symbols:add" height="14" /> Add Placement</StyledButton>
         </StyledForm>
     );
 }
@@ -85,7 +86,7 @@ const StyledButton = styled.button`
   font-size: 0.8rem;
   cursor: pointer;
   margin: 3px;
-  width: 120px;
+  width: 125px;
   height: 40px;
   transition-duration: 0.4s;
   background-color: var(--color-button-background);

@@ -4,6 +4,7 @@ import {EmployeeModel} from "./EmployeeModel";
 import EmployeeCard from "./EmployeeCard";
 import EmployeeModal from "./EmployeeModal";
 import styled from "styled-components";
+import { Icon } from '@iconify/react';
 
 export default function EmployeeOverview() {
 
@@ -66,7 +67,7 @@ export default function EmployeeOverview() {
             <StyledUl>{employeeList}</StyledUl>
             <StyledForm onSubmit={postNewEmployee}>
                 <StyledInput type="text" value={newEmployee} onChange={handleStateEmployee}/>
-                <StyledButton type="submit">Add Employee</StyledButton>
+                <StyledButton type="submit"><Icon icon="material-symbols:add" height="14" /> Add Employee</StyledButton>
             </StyledForm>
             <StyledModal>
                 {isOpenModal && <EmployeeModal

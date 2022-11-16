@@ -62,7 +62,7 @@ export default function Placement(props: PlacementProps) {
             <StyledButton onClick={handleDelete}>Delete</StyledButton>
             <StyledModal>
                 {editMode && <form onSubmit={handleSubmit}>
-                    <StyledInput placeholder="Enter number between 2 and 15" min={2} max={15} type='number'
+                    <StyledInput placeholder="number from 2 to 15" min={2} max={15} type='number'
                                  onChange={handleUpdateTotalSeats} value={newValue}/>
                     <StyledButton type='submit'>Edit</StyledButton>
                 </form>}
