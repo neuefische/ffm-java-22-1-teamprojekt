@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 export default function Navigation() {
     return (
-        <nav>
+        <StyledNav>
             <NavLink to="/GuestProfile">
                 <StyledButton>
                     <Icon icon="mdi:user"/> GuestList
@@ -31,9 +31,20 @@ export default function Navigation() {
                     <Icon icon="clarity:employee-group-solid"/> Employees
                 </StyledButton>
             </NavLink>
-        </nav>
+        </StyledNav>
     );
 }
+
+const StyledNav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid rgba(10 10 10 0.3);
+  border-radius: 1pc;
+  box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .2), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .2);
+`
+
 const StyledButton = styled.button`
   padding: 8px 10px;
   font-size: 1rem;
