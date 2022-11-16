@@ -13,12 +13,15 @@ export default function App() {
 
     return <>
         <StyledHeader>
-            <StyledDiv>
-                <h1>Willkommen bei HackDonald's - Ich liebe es!</h1>
+            <StyledH1AndNav>
+                <StyledDiv>
+                    <img src={process.env.PUBLIC_URL + '/logo.png'} alt="Logo von Hackdonalds" width="50"/>
+                    <h1>Willkommen bei HackDonald's - Ich liebe es!</h1>
+                </StyledDiv>
                 <StyledNav>
                     <Navigation/>
                 </StyledNav>
-            </StyledDiv>
+            </StyledH1AndNav>
             <StyledAside>
                 <StyledSection>
                     <WeatherWidget/>
@@ -60,6 +63,16 @@ const StyledAside = styled.aside`
   padding: 5px;
 `
 
+const StyledH1AndNav = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const StyledDiv = styled.div`
+  display: flex;
+  align-items: center;
+`
+
 const StyledMain = styled.main`
   margin: 50px;
   min-height: 200px;
@@ -76,11 +89,6 @@ const StyledSection = styled.section`
   border: 1px solid rgba(10 10 10 0.3);
   border-radius: 1pc;
   box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .2), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .2);
-`
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: column;
 `
 
 const StyledFooter = styled.footer`
