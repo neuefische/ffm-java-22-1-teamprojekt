@@ -62,6 +62,7 @@ const StyledAside = styled.aside`
 
 const StyledMain = styled.main`
   margin: 50px;
+  min-height: 200px;
 `
 
 const StyledNav = styled.nav`
@@ -87,4 +88,5 @@ const StyledFooter = styled.footer`
   justify-content: center;
   margin: 10px;
   padding: 10px;
+  font-size: 1rem;
 `
