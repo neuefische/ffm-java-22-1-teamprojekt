@@ -3,6 +3,7 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import {WeatherModel} from "./WeatherModel";
 import "react-datepicker/dist/react-datepicker.css";
+import styled from "styled-components";
 
 
 export default function WeatherWidget() {
@@ -22,7 +23,6 @@ export default function WeatherWidget() {
         // eslint-disable-next-line
     }, [])
 
-
     const handleChangeDate = (date: Date) => {
         setDate(date)
     }
@@ -35,16 +35,24 @@ export default function WeatherWidget() {
         <div>
             {weather ?
                 <>
-                    <h3>Wetter:</h3>
-                    <p>Temperatur: {weather.temperature}°C, Niederschlag: {weather.condition}</p>
-                    <p>Sonnenschein: {weather.sunshine}%, Wolken: {weather.cloud_cover}%,
-                        Windgeschwindigkeit: {weather.wind_speed}m/s</p>
+                    <h3>Weather:</h3>
+                    <StyledText>Temperature: {weather.temperature}°C</StyledText>
+                        <StyledText>Rainfall: {weather.condition}</StyledText>
+                    <StyledText>Sunshine: {weather.sunshine}%</StyledText>
+                        <StyledText>Clouds: {weather.cloud_cover}%</StyledText>
+                    <StyledText>Wind: {weather.wind_speed}m/s</StyledText>
                 </> :
                 <>
-                    <p>keine Wetterdaten verfügbar</p>
+                    <StyledText>No weather information retrieved</StyledText>
                 </>}
             <DatePicker selected={date} onChange={handleChangeDate} showTimeSelect dateFormat="Pp"
                         onCalendarClose={handleDateSelect}/>
         </div>
     );
 }
+
+const StyledText = styled.p`
+  margin: 0;
+  padding: 2px;
+  font-size: 0.9rem;
+`
