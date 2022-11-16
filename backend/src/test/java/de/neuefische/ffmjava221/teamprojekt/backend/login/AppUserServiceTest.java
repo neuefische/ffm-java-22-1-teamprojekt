@@ -9,20 +9,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
 
-class LoginServiceTest {
+class AppUserServiceTest {
     private final GuestRepository guestRepository = mock(GuestRepository.class);
-    private final LoginService loginService = new LoginService(guestRepository);
+    private final AppUserService appUserService = new AppUserService(guestRepository);
 
     @Test
     void checkLoginDataWithCorrectLoginDataReturnsGuest() {
         //given
         Guest guest = new Guest("Steven", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "2");
-        LoginData loginData = new LoginData("fsagfg@gmail.com","SuperSecret344$$");
-        when(guestRepository.findByEmail(loginData.email())).thenReturn(guest);
+        AppUser appUser = new AppUser("fsagfg@gmail.com","SuperSecret344$$");
+        when(guestRepository.findByEmail(appUser.email())).thenReturn(guest);
         //when
-        Guest actual = loginService.checkLoginData(loginData);
+        Guest actual = appUserService.checkLoginData(appUser);
         //then
-        verify(guestRepository).findByEmail(loginData.email());
+        verify(guestRepository).findByEmail(appUser.email());
         assertEquals(guest,actual);
     }
 
@@ -30,15 +30,15 @@ class LoginServiceTest {
     void checkLoginDataWithWrongPasswordReturnsException(){
         //given
         Guest guest = new Guest("Steven", "Lang", "fsagfg@gmail.com", "SuperSecret344$$", "2");
-        LoginData loginData = new LoginData("fsagfg@gmail.com","SuperSecret344");
-        when(guestRepository.findByEmail(loginData.email())).thenReturn(guest);
+        AppUser appUser = new AppUser("fsagfg@gmail.com","SuperSecret344");
+        when(guestRepository.findByEmail(appUser.email())).thenReturn(guest);
         //when
         try{
-            loginService.checkLoginData(loginData);
+            appUserService.checkLoginData(appUser);
             Assertions.fail();
         } catch(WrongLoginDataException e) {
             //then
-            verify(guestRepository).findByEmail(loginData.email());
+            verify(guestRepository).findByEmail(appUser.email());
             String expected = "Wrong Email or Password";
             assertEquals(expected,e.getMessage());
         }
@@ -47,15 +47,15 @@ class LoginServiceTest {
     @Test
     void checkLoginDataWithWrongEmailReturnsException(){
         //given
-        LoginData loginData = new LoginData("falsch@gmail.com","SuperSecret344$$");
-        when(guestRepository.findByEmail(loginData.email())).thenReturn(null);
+        AppUser appUser = new AppUser("falsch@gmail.com","SuperSecret344$$");
+        when(guestRepository.findByEmail(appUser.email())).thenReturn(null);
         //when
         try{
-            loginService.checkLoginData(loginData);
+            appUserService.checkLoginData(appUser);
             Assertions.fail();
         } catch(WrongLoginDataException e) {
             //then
-            verify(guestRepository).findByEmail(loginData.email());
+            verify(guestRepository).findByEmail(appUser.email());
             String expected = "Wrong Email or Password";
             assertEquals(expected,e.getMessage());
         }
