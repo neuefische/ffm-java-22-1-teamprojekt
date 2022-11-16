@@ -1,6 +1,7 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import PlacementModel from "./PlacementModel";
 import axios from "axios";
+import styled from "styled-components";
 
 
 type PlacementProps = {
@@ -8,7 +9,7 @@ type PlacementProps = {
     fetchAll: () => void
 }
 
-function Placement(props: PlacementProps) {
+export default function Placement(props: PlacementProps) {
     const [newValue, setNewValue] = useState<number>(0)
     const [editMode, setEditMode] = useState<boolean>(false)
 
@@ -54,18 +55,71 @@ function Placement(props: PlacementProps) {
     }
 
     return (
-        <li>
-            <h3>Table-Nr: {props.singlePlacement.placementNr}</h3>
-            <p>Total Seats: {props.singlePlacement.totalSeats}</p>
-            <button onClick={() => setEditMode(!editMode)}>update Seats Number</button>
-            <button onClick={handleDelete}>Delete</button>
-            {editMode && <form onSubmit={handleSubmit}>
-                <input placeholder="Enter number between 2 and 15" min={2} max={15} type='number' onChange={handleUpdateTotalSeats} value={newValue}/>
-                <button type='submit'>Edit</button>
-            </form>}
-
-        </li>
+        <StyledLi>
+            <StyledTable>Table-Nr: {props.singlePlacement.placementNr}</StyledTable>
+            <StyledSeats>Total Seats: {props.singlePlacement.totalSeats}</StyledSeats>
+            <StyledButton onClick={() => setEditMode(!editMode)}>update Seats Number</StyledButton>
+            <StyledButton onClick={handleDelete}>Delete</StyledButton>
+            <StyledModal>
+                {editMode && <form onSubmit={handleSubmit}>
+                    <StyledInput placeholder="Enter number between 2 and 15" min={2} max={15} type='number'
+                                 onChange={handleUpdateTotalSeats} value={newValue}/>
+                    <StyledButton type='submit'>Edit</StyledButton>
+                </form>}
+            </StyledModal>
+        </StyledLi>
     );
 }
 
-export default Placement;
+const StyledTable = styled.p`
+  margin-bottom: 5px;
+  padding: 4px;
+  font-size: 1.1rem;
+`
+
+const StyledModal = styled.section`
+  margin: 10px;
+`
+
+const StyledSeats = styled.p`
+  padding: 4px 0 0 4px;
+  font-size: 0.85rem;
+`
+
+const StyledLi = styled.li`
+  margin: 10px;
+  padding: 0 15px 15px 15px;
+  border: 1px solid rgba(10 10 10 0.3);
+  border-radius: 1pc;
+  box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .4), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .04);
+`
+
+const StyledInput = styled.input`
+  margin: 3px;
+  padding: 3px;
+  border-radius: 5px;
+  box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .04), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .04);
+`;
+
+const StyledButton = styled.button`
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin: 3px;
+  transition-duration: 0.4s;
+  background-color: var(--color-button-background);
+  color: var(--color-text);
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: var(--color-button-hover);
+  }
+
+  &:active {
+    background-color: var(--color-button-active);
+  }
+`;

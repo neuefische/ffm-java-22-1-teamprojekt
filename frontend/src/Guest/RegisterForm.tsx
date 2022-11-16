@@ -61,38 +61,38 @@ export default function RegisterForm() {
 
     return <>
         <StyledSection>
-            <h2>Registration</h2>
+            <h2>Registration:</h2>
             <StyledForm onSubmit={handleFormSubmit}>
                 <StyledDiv1>
-                    <label htmlFor="firstName">First name:</label>
+                    <StyledLabel htmlFor="firstName">First name:</StyledLabel>
                     <StyledInput type='text'
                                  id="firstName"
                                  value={firstName}
                                  onChange={(e) => setFirstName(e.target.value)}
                                  placeholder={"John"}/>
-                    <label htmlFor={"lastName"}>Last name:</label>
 
+                    <StyledLabel htmlFor={"lastName"}>Last name:</StyledLabel>
                     <StyledInput type='text'
                                  id="lastName"
                                  value={lastName}
                                  onChange={(e) => setLastName(e.target.value)}
                                  placeholder="Doe"/>
-                    <label htmlFor={"email"}>E-Mail:</label>
 
+                    <StyledLabel htmlFor={"email"}>E-Mail:</StyledLabel>
                     <StyledInput type='text'
                                  id="email"
                                  value={email}
                                  onChange={(e) => setEmail(e.target.value)}
                                  placeholder="abc@gmail.com"/>
-                    <label htmlFor={"password"}>Password:</label>
 
+                    <StyledLabel htmlFor={"password"}>Password:</StyledLabel>
                     <StyledInput type='text'
                                  id="password"
                                  value={password}
                                  onChange={(e) => setPassword(e.target.value)}
                                  placeholder="Bello123!"/>
-                    <label htmlFor={"confirmPassword"}>ConfirmPassword:</label>
 
+                    <StyledLabel htmlFor={"confirmPassword"}>ConfirmPassword:</StyledLabel>
                     <StyledInput type='text'
                                  id="confirmPassword"
                                  value={confirmPassword}
@@ -130,6 +130,10 @@ const StyledSection = styled.section`
   border: 1px solid rgba(10 10 10 0.3);
   border-radius: 1pc;
   box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .4), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .4);
+`
+
+const StyledLabel = styled.label`
+  font-size: 0.8rem;
 `
 
 const StyledButton = styled.button`
