@@ -43,7 +43,7 @@ const StyledLi = styled.li`
   padding: 2px 10px 10px 5px;
   border: 1px solid rgba(10 10 10 0.3);
   border-radius: 1pc;
-  box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .04), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .04);
+  box-shadow: 0 .0625rem .5rem 0 rgba(0, 0, 0, .4), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .04);
 `
 
 const StyledName = styled.p`
