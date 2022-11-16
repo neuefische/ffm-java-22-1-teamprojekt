@@ -83,7 +83,7 @@ public class SecurityConfig {
 
             @Override
             public boolean userExists(String username) {
-                return false;
+                throw new UnsupportedOperationException("You cannot use the custom UserDetailsManager for this action");
             }
 
         };
