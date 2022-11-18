@@ -8,12 +8,11 @@ import {Icon} from '@iconify/react';
 export default function RegisterForm() {
 
     const postForm = () => {
-        axios.post("/api/guests", {
+        axios.post("/api/users/guest", {
             firstName,
             lastName,
-            email,
+            "username": email,
             password,
-            confirmPassword,
         })
             .then((response) => response.status)
             .catch((error) => {
@@ -87,14 +86,14 @@ export default function RegisterForm() {
                                  placeholder="abc@gmail.com"/>
 
                     <StyledLabel htmlFor={"password"}>Password:</StyledLabel>
-                    <StyledInput type='text'
+                    <StyledInput type='password'
                                  id="password"
                                  value={password}
                                  onChange={(e) => setPassword(e.target.value)}
                                  placeholder="Bello123!"/>
 
                     <StyledLabel htmlFor={"confirmPassword"}>ConfirmPassword:</StyledLabel>
-                    <StyledInput type='text'
+                    <StyledInput type='password'
                                  id="confirmPassword"
                                  value={confirmPassword}
                                  onChange={(e) => setConfirmPassword(e.target.value)}

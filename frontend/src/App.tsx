@@ -7,6 +7,7 @@ import RegisterForm from "./Guest/RegisterForm";
 import Navigation from "./NavBar/Navigation";
 import WeatherWidget from "./Weather/WeatherWidget";
 import GuestPage from "./Guest/GuestPage";
+import LoginPage from "./Login/LoginPage";
 import styled from "styled-components";
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
 
         <StyledMain>
             <Routes>
+                <Route path="/Login" element={<LoginPage/>}/>
                 <Route path="/GuestProfile" element={<GuestPage/>}/>
                 <Route path="/RegisterForm" element={<RegisterForm/>}/>
                 <Route path="/Meals/*" element={<Meals/>}/>

@@ -33,11 +33,22 @@ public class SecurityConfig {
                 .csrf().disable()
                 .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/users/guest").permitAll()
+                .antMatchers(HttpMethod.POST,
+                        "/api/users/guest"
+                        ,"/api/placements"
+                        ,"/api/employees"
+                        ,"/api/guests"
+                        ,"/api/meals").permitAll()
+                .antMatchers(HttpMethod.GET,
+                        "/api/users/me"
+                    ,"/api/weather/**"
+                    ,"/api/placements/**"
+                    ,"/api/employees/**"
+                    ,"/api/guests/**"
+                    ,"/api/meals/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/users/employee").hasRole("EMPLOYEE")
                 .antMatchers(HttpMethod.GET,
                         "/api/users/login"
-                    ,"/api/users/me"
                     ,"/api/users/role"
                     ,"/api/users/logout").authenticated()
                 .anyRequest().denyAll()

@@ -7,7 +7,9 @@ export default function Navigation() {
     return (
         <StyledNav>
             <NavLink to="/Login">
-                <button>Login</button>
+                <StyledButton>
+                    <Icon icon="mdi:user"/> Login
+                </StyledButton>
             </NavLink>
             <NavLink to="/GuestProfile">
                 <StyledButton>
