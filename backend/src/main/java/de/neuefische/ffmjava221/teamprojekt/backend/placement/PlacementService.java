@@ -3,7 +3,11 @@ package de.neuefische.ffmjava221.teamprojekt.backend.placement;
 
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -61,4 +65,27 @@ public class PlacementService {
             throw new NoSuchElementException("Placement not Exist!");
         }
     }
+
+    public void reserveNewPlacement(String placementId, ReserveTimeRequest reserveData) {
+        Optional<Placement> placementToFind = placementRepository.findById(placementId);
+
+        if (placementToFind.isEmpty()) {
+            throw new NoSuchElementException("No Placement with this id!!");
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime startDate = LocalDateTime.parse(reserveData.reserveTime(), formatter);
+        LocalDateTime endDate = startDate.plus(Duration.ofHours(reserveData.duration()));
+
+
+        String newId = PlacementUtil.generateUuid();
+        Reservation newReservation = new Reservation(newId, reserveData.reserveTime(), endDate.toString(), reserveData.guestId());
+
+        Map<String, Reservation> reservationsMap = placementToFind.get().reservations();
+        reservationsMap.put(newReservation.id(), newReservation);
+
+        placementRepository.save(placementToFind.get());
+    }
 }
+
+//

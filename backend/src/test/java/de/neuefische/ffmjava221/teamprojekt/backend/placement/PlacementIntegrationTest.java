@@ -125,5 +125,11 @@ class PlacementIntegrationTest {
                 .andExpect(status().isNoContent());
     }
 
+    @Test
+    @DirtiesContext
+    void reserveNewPlacement() throws Exception {
+
+    }
+
 
 }

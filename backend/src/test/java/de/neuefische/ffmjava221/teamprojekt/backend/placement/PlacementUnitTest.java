@@ -115,5 +115,21 @@ class PlacementUnitTest {
 
         verify(testRepo).deleteById("53lk2h532kh5");
     }
+
+    @Test
+    void reserveNewPlacementWithNotExisId() {
+        //Given
+        ReserveTimeRequest reserveData = new ReserveTimeRequest("1324234", "05/11/22 16:00");
+        String placementId ="654zglrjlg5p";
+        //When
+        when(testRepo.findById(placementId)).thenReturn(Optional.empty());
+
+        Exception exception = assertThrows(NoSuchElementException.class, () -> {
+            testService.reserveNewPlacement(placementId,reserveData);
+        });
+        //Then
+         assertTrue(exception.getMessage().contains("No Placement with this id!!"));
+    }
+
 }
 
